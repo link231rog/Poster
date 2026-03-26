@@ -1,0 +1,28 @@
+---
+import type { Project } from '../types/content';
+
+type Props = {
+	project: Project;
+};
+
+const { project } = Astro.props;
+---
+
+<article class="card project-card">
+	<div class="section">
+		<div class="section-head">
+			<h3>{project.title}</h3>
+			<span class="meta">{project.year}</span>
+		</div>
+		<p>{project.summary}</p>
+	</div>
+	<ul class="tag-list">
+		{project.tags.map((tag) => <li class="tag">#{tag}</li>)}
+	</ul>
+	<div class="cta-row">
+		<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
+		{project.demo && (
+			<a class="button-secondary" href={project.demo} target="_blank" rel="noreferrer">Demo</a>
+		)}
+	</div>
+</article>

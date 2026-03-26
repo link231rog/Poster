@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getAboutPageData, getSiteData } from '../lib/content';
+
+const [site, page] = await Promise.all([getSiteData(), getAboutPageData()]);
+---
+
+<BaseLayout title={`About · ${site.seo.title}`} description={page.summary} navigation={site.navigation.items} pathname="/about">
+	<section class="section">
+		<span class="eyebrow">About</span>
+		<h1 class="page-title">{page.title}</h1>
+		<p class="page-summary">{page.summary}</p>
+		<div class="card prose">
+			<p>{page.body}</p>
+		</div>
+	</section>
+</BaseLayout>

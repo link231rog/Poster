@@ -1,0 +1,58 @@
+---
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import TimelineList from '../components/TimelineList.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getHomePageData, getSiteData } from '../lib/content';
+
+const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
+---
+
+<BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
+	<section class="hero-grid">
+		<article class="card hero-card">
+			<div class="section">
+				<span class="eyebrow">{page.home.hero.eyebrow}</span>
+				<h1 class="hero-title">{page.profile.name}</h1>
+				<p class="hero-subtitle">{page.profile.headline}</p>
+				<p>{page.profile.shortBio}</p>
+			</div>
+			<div class="section">
+				<div class="cta-row">
+					<a class="button" href={page.home.hero.primaryCta.href}>{page.home.hero.primaryCta.label}</a>
+					<a class="button-secondary" href={`mailto:${page.profile.email}`}>Email</a>
+				</div>
+				<ul class="social-list">
+					{page.profile.socials.map((social) => (
+						<li><a class="button-secondary" href={social.url} target="_blank" rel="noreferrer">{social.label}</a></li>
+					))}
+				</ul>
+			</div>
+		</article>
+
+		<article class="card hero-side">
+			<div class="section">
+				<span class="eyebrow">Current status</span>
+				<div class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</div>
+				<p>{page.profile.currentFocus}</p>
+				<ul class="tag-list">
+					{page.profile.skills.map((skill) => <li class="tag">#{skill}</li>)}
+				</ul>
+			</div>
+		</article>
+
+		<section class="feature-card section">
+			<SectionHeader eyebrow="Featured work" title="Selected projects" description="Two projects that quickly explain what I build and how I think." linkHref={`${import.meta.env.BASE_URL}projects`} linkLabel="All projects" />
+			<div class="projects-grid">
+				{page.featuredProjects.map((project) => <ProjectCard project={project} />)}
+			</div>
+		</section>
+
+		<section class="timeline-card section">
+			<SectionHeader eyebrow="Timeline" title="Recent trajectory" description="A compact view of current work, research and milestones." linkHref={`${import.meta.env.BASE_URL}timeline`} linkLabel="Full timeline" />
+			<div class="card">
+				<TimelineList items={page.timelinePreview} />
+			</div>
+		</section>
+	</section>
+</BaseLayout>

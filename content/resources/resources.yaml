@@ -1,0 +1,25 @@
+groups:
+  - category: Tools
+    items:
+      - name: Astro
+        url: https://astro.build/
+        note: Static site framework with strong content ergonomics.
+      - name: Vitest
+        url: https://vitest.dev/
+        note: Fast test runner for content and UI-adjacent logic.
+  - category: Reading
+    items:
+      - name: Designing Data-Intensive Applications
+        url: https://dataintensive.net/
+        note: Durable systems thinking.
+      - name: Resilient Management
+        url: https://resilient-management.com/
+        note: Calm systems and sustainable operations.
+  - category: Writing
+    items:
+      - name: Obsidian
+        url: https://obsidian.md/
+        note: Local-first note system for drafting and structuring ideas.
+      - name: Markdown Guide
+        url: https://www.markdownguide.org/
+        note: Useful when keeping content portable.

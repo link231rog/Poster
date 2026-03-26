@@ -1,0 +1,11 @@
+items:
+  - href: /
+    label: Home
+  - href: /about
+    label: About
+  - href: /projects
+    label: Projects
+  - href: /timeline
+    label: Timeline
+  - href: /resources
+    label: Resources

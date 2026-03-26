@@ -1,0 +1,49 @@
+---
+import type { NavigationItem } from '../types/content';
+import '../styles/global.css';
+
+type Props = {
+	title: string;
+	description: string;
+	navigation: NavigationItem[];
+	pathname?: string;
+};
+
+const { title, description, navigation, pathname = '/' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+		<link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div class="shell">
+			<header class="site-header">
+				<a class="brand" href={`${import.meta.env.BASE_URL}`}>Link</a>
+				<nav>
+					<ul class="nav-list">
+						{navigation.map((item) => (
+							<li>
+								<a class:list={[pathname === item.href && 'is-active']} href={`${import.meta.env.BASE_URL}${item.href === '/' ? '' : item.href.slice(1)}`}>
+									{item.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			</header>
+			<main>
+				<slot />
+			</main>
+			<footer class="site-footer">
+				<p>Built for GitHub Pages · Static by design.</p>
+			</footer>
+		</div>
+	</body>
+</html>

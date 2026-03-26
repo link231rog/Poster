@@ -1,0 +1,30 @@
+items:
+  - id: independent-research
+    start: '2025'
+    end: Present
+    role: Independent Research Engineer
+    organization: Independent Research
+    type: research
+    summary: Building static-first tooling, agent workflows, and public-facing technical artifacts.
+    active: true
+  - id: systems-lab
+    start: '2024'
+    end: '2025'
+    role: Systems Builder
+    organization: Systems Lab
+    type: work
+    summary: Worked on tooling for reproducible research workflows and internal developer platforms.
+  - id: interface-studio
+    start: '2023'
+    end: '2024'
+    role: Design Engineer
+    organization: Interface Studio
+    type: work
+    summary: Built polished product surfaces with strong content hierarchy and maintainable frontend architecture.
+  - id: engineering-school
+    start: '2020'
+    end: '2023'
+    role: Computer Science Student
+    organization: University Program
+    type: education
+    summary: Focused on software systems, human-computer interaction, and research methods.

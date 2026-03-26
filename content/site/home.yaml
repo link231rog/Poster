@@ -1,0 +1,7 @@
+hero:
+  eyebrow: Personal showcase
+  primaryCta:
+    href: /projects
+    label: View projects
+featured_projects_count: 2
+timeline_preview_count: 3

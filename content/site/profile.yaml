@@ -1,0 +1,25 @@
+name: Link
+headline: Research Engineer building agent workflows, tooling, and calm developer systems.
+short_bio: I build small, reliable systems for research and developer experience—shipping clear interfaces, readable architecture, and content-first tools.
+location: Remote
+email: link@example.com
+avatar: /avatar.png
+current_focus: Designing static-first personal infrastructure and agentic workflows with deliberate interfaces.
+skills:
+  - Astro
+  - TypeScript
+  - LLM Systems
+  - UX Engineering
+status:
+  text: Currently shipping a GitHub-native showcase system.
+  type: active
+socials:
+  - platform: GitHub
+    label: GitHub
+    url: https://github.com/link
+  - platform: X
+    label: X
+    url: https://x.com/link
+  - platform: Email
+    label: Email
+    url: mailto:link@example.com
