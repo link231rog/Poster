@@ -7,11 +7,11 @@ const [site, page] = await Promise.all([getSiteData(), getProjectsPageData()]);
 ---
 
 <BaseLayout title={`Projects · ${site.seo.title}`} description="Selected engineering and research projects." navigation={site.navigation.items} pathname="/projects">
-	<section class="section">
+	<section class="section page-flow">
 		<span class="eyebrow">Projects</span>
 		<h1 class="page-title">Work worth opening in a new tab.</h1>
 		<p class="page-summary">A focused list of shipped, explored, and ongoing work. Each item is concise, linked, and easy to scan.</p>
-		<div class="projects-grid">
+		<div class="editorial-list projects-listing">
 			{page.projects.map((project) => <ProjectCard project={project} />)}
 		</div>
 	</section>

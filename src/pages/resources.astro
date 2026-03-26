@@ -6,15 +6,15 @@ const [site, page] = await Promise.all([getSiteData(), getResourcesPageData()]);
 ---
 
 <BaseLayout title={`Resources · ${site.seo.title}`} description="Reading, tools, and references." navigation={site.navigation.items} pathname="/resources">
-	<section class="section">
+	<section class="section page-flow">
 		<span class="eyebrow">Resources</span>
 		<h1 class="page-title">Tools, reading, and systems I keep coming back to.</h1>
-		<div class="card prose">
+		<div class="prose reading-block compact-reading-block">
 			<p>{page.intro}</p>
 		</div>
-		<div class="grid-2">
+		<div class="resource-columns">
 			{page.groups.map((group) => (
-				<section class="card resource-group">
+				<section class="resource-group">
 					<h2>{group.category}</h2>
 					{group.items.map((item) => (
 						<div class="resource-item">
