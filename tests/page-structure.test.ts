@@ -16,4 +16,13 @@ describe('page structure', () => {
 		expect(source).toContain('hero-intro');
 		expect(source).toContain('home-section');
 	});
+
+	it('keeps clear keyboard focus states for primary interactive elements', async () => {
+		const source = await readSource('src/styles/global.css');
+
+		expect(source).toMatch(/\.nav-list a:focus-visible[\s\S]*outline:/);
+		expect(source).toMatch(/\.button:focus-visible[\s\S]*outline:/);
+		expect(source).toMatch(/\.button-secondary:focus-visible[\s\S]*outline:/);
+		expect(source).toMatch(/\.text-links a:focus-visible[\s\S]*outline:/);
+	});
 });

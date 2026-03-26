@@ -115,6 +115,8 @@ p {
 .nav-list a:focus-visible {
 	color: var(--text);
 	border-color: var(--accent);
+	outline: 2px solid var(--accent);
+	outline-offset: 4px;
 }
 
 .section {
@@ -242,6 +244,8 @@ p {
 .button-secondary:focus-visible,
 .text-links a:focus-visible {
 	border-color: var(--accent);
+	outline: 2px solid var(--accent);
+	outline-offset: 4px;
 }
 
 .status-pill,
