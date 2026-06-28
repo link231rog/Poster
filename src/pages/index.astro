@@ -13,7 +13,6 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 <BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
 	<section class="home-flow">
 		<section class="hero-intro section">
-			<div class="hero-glow"></div>
 			<span class="eyebrow" data-animate="fade" data-delay="100">{page.home.hero.eyebrow}</span>
 			<h1 class="hero-title" data-animate="fade" data-delay="200">
 				<Typewriter text={page.profile.name} speed={90} />

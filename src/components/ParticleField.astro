@@ -14,7 +14,7 @@
   const ctx = canvas.getContext('2d')!;
   let w = 0, h = 0;
   const particles: Array<{ x: number; y: number; vx: number; vy: number; r: number; a: number }> = [];
-  const COUNT = 35;
+  const COUNT = 20;
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -48,7 +48,7 @@
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(217, 119, 87, ${p.a})`;
+      ctx.fillStyle = `rgba(255, 255, 255, ${p.a})`;
       ctx.fill();
     }
 
@@ -62,7 +62,7 @@
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(217, 119, 87, ${0.04 * (1 - dist / 180)})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.03 * (1 - dist / 180)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
