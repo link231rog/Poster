@@ -9,24 +9,26 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 <BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
 	<section class="home-flow">
 		<section class="hero-intro section">
-			<h1 class="hero-title" data-animate="fade" data-delay="100">
-				<Typewriter text={page.profile.name} speed={90} />
+			<h1 class="hero-title hero-scramble" data-animate="fade" data-delay="100" data-text={page.profile.name}>
+				{page.profile.name}
 			</h1>
-			<p class="hero-subtitle" data-animate data-delay="300">{page.profile.headline}</p>
+			<p class="hero-subtitle" data-animate data-delay="400">{page.profile.headline}</p>
 
-			<div class="hero-gates" data-animate data-delay="500">
-				<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-work">
+			<div class="hero-gates" data-animate="none">
+				<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-work gate-from-left" data-delay="600">
 					<span class="gate-label">Work</span>
 					<span class="gate-hint">Projects, research, writing</span>
+					<span class="gate-line"></span>
 				</a>
-				<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-life">
+				<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-life gate-from-right" data-delay="600">
 					<span class="gate-label">Life</span>
 					<span class="gate-hint">Travel, photography, blog</span>
+					<span class="gate-line"></span>
 				</a>
 			</div>
 		</section>
 
-		<section class="home-bio section" data-animate data-delay="700">
+		<section class="home-bio section" data-animate data-delay="900">
 			<p class="bio-text">{page.profile.shortBio}</p>
 			<ul class="inline-list quiet-list">
 				<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
@@ -35,3 +37,107 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 		</section>
 	</section>
 </BaseLayout>
+
+<script>
+(() => {
+	// Text scramble effect
+	class TextScramble {
+		el: HTMLElement;
+		chars: string;
+		frame: number;
+		queue: Array<{from: string; to: string; start: number; end: number}>;
+		frameRequest: number;
+		resolve!: () => void;
+
+		constructor(el: HTMLElement) {
+			this.el = el;
+			this.chars = '!<>-_\\/[]{}#$%^&*()=+~`|';
+			this.frame = 0;
+			this.queue = [];
+			this.frameRequest = 0;
+		}
+
+		setText(newText: string): Promise<void> {
+			const oldText = this.el.textContent || '';
+			const length = Math.max(oldText.length, newText.length);
+			return new Promise((resolve) => {
+				this.resolve = resolve;
+				this.queue = [];
+				for (let i = 0; i < length; i++) {
+					const from = oldText[i] || '';
+					const to = newText[i] || '';
+					const start = Math.floor(Math.random() * 20);
+					const end = start + Math.floor(Math.random() * 20);
+					this.queue.push({ from, to, start, end });
+				}
+				cancelAnimationFrame(this.frameRequest);
+				this.frame = 0;
+				this.update();
+			});
+		}
+
+		update() {
+			let output = '';
+			let complete = 0;
+			for (let i = 0; i < this.queue.length; i++) {
+				let { from, to, start, end } = this.queue[i];
+				if (this.frame >= end) {
+					complete++;
+					output += to;
+				} else if (this.frame >= start) {
+					if (!from || Math.random() < 0.28) {
+						from = this.chars[Math.floor(Math.random() * this.chars.length)];
+					}
+					output += `<span class="scramble-char">${from}</span>`;
+				} else {
+					output += from;
+				}
+			}
+			this.el.innerHTML = output;
+			if (complete === this.queue.length) {
+				this.resolve();
+			} else {
+				this.frameRequest = requestAnimationFrame(() => this.update());
+				this.frame++;
+			}
+		}
+	}
+
+	// Trigger scramble after delay
+	const scrambleEl = document.querySelector('.hero-scramble') as HTMLElement;
+	if (scrambleEl) {
+		const text = scrambleEl.dataset.text || scrambleEl.textContent || '';
+		const fx = new TextScramble(scrambleEl);
+		setTimeout(() => fx.setText(text), 300);
+	}
+
+	// Gate entrance animation
+	const gates = document.querySelectorAll('.gate-from-left, .gate-from-right');
+	gates.forEach((gate) => {
+		const el = gate as HTMLElement;
+		const delay = parseInt(el.dataset.delay || '600', 10);
+		setTimeout(() => el.classList.add('gate-visible'), delay);
+	});
+
+	// Magnetic hover on gates
+	document.querySelectorAll<HTMLElement>('.gate').forEach((gate) => {
+		gate.addEventListener('mousemove', (e) => {
+			const rect = gate.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			const cx = rect.width / 2;
+			const cy = rect.height / 2;
+			const dx = (x - cx) / cx;
+			const dy = (y - cy) / cy;
+
+			gate.style.setProperty('--mx', `${x}px`);
+			gate.style.setProperty('--my', `${y}px`);
+			gate.style.transform = `translate(${dx * 4}px, ${dy * 4}px) scale(1.02)`;
+		});
+
+		gate.addEventListener('mouseleave', () => {
+			gate.style.transform = '';
+		});
+	});
+})();
+</script>

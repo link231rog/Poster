@@ -1,7 +1,6 @@
 ---
 /**
- * ParticleField.astro - Subtle floating particles background.
- * Renders a fixed canvas behind all content.
+ * ParticleField.astro - Ambient floating particles with connections.
  */
 ---
 
@@ -13,8 +12,12 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d')!;
   let w = 0, h = 0;
-  const particles: Array<{ x: number; y: number; vx: number; vy: number; r: number; a: number }> = [];
-  const COUNT = 20;
+  let time = 0;
+  const particles: Array<{
+    x: number; y: number; vx: number; vy: number;
+    r: number; a: number; phase: number; speed: number;
+  }> = [];
+  const COUNT = 30;
 
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -28,42 +31,62 @@
       particles.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.8 + 0.4,
-        a: Math.random() * 0.3 + 0.1,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 0.8,
+        a: Math.random() * 0.4 + 0.15,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.008 + 0.003,
       });
     }
   }
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
+    time++;
+
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
-      if (p.x < 0) p.x = w;
-      if (p.x > w) p.x = 0;
-      if (p.y < 0) p.y = h;
-      if (p.y > h) p.y = 0;
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+      if (p.y < -10) p.y = h + 10;
+      if (p.y > h + 10) p.y = -10;
 
+      // Pulse effect
+      const pulse = Math.sin(time * p.speed + p.phase) * 0.3 + 0.7;
+      const alpha = p.a * pulse;
+      const radius = p.r * (0.8 + pulse * 0.4);
+
+      // Draw glow
+      const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 4);
+      gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.3})`);
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.a})`;
+      ctx.arc(p.x, p.y, radius * 4, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      // Draw core
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
       ctx.fill();
     }
 
-    // Draw faint connections
+    // Draw connections
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 180) {
+        if (dist < 200) {
+          const strength = (1 - dist / 200);
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.03 * (1 - dist / 180)})`;
-          ctx.lineWidth = 0.5;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 * strength})`;
+          ctx.lineWidth = 0.6 * strength;
           ctx.stroke();
         }
       }

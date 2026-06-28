@@ -677,13 +677,13 @@ p { color: var(--text-secondary); margin: 0; }
 /* ─── Typewriter ──────────────────────────────────────── */
 .typewriter {
   display: inline;
-  border-right: 2px solid var(--text);
-  padding-right: 2px;
-  animation: blink-caret 0.8s step-end infinite;
+  border-right: 3px solid var(--text);
+  padding-right: 3px;
+  animation: blink-caret 0.7s step-end infinite;
 }
 @keyframes blink-caret {
-  0%, 100% { border-color: var(--text); }
-  50% { border-color: transparent; }
+  0%, 100% { border-color: var(--text); opacity: 1; }
+  50% { border-color: transparent; opacity: 0.5; }
 }
 
 /* ─── Particle Canvas ─────────────────────────────────── */
@@ -695,7 +695,7 @@ p { color: var(--text-secondary); margin: 0; }
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 /* ─── Grain Overlay ───────────────────────────────────── */
@@ -715,12 +715,11 @@ p { color: var(--text-secondary); margin: 0; }
   position: fixed;
   top: 0;
   left: 0;
-  height: 1px;
-  background: var(--text);
+  height: 2px;
+  background: linear-gradient(90deg, var(--text), rgba(255, 255, 255, 0.3));
   z-index: 10000;
   transition: width 0.08s linear;
   width: 0%;
-  opacity: 0.4;
 }
 
 /* ─── Page Transition ─────────────────────────────────── */
@@ -756,23 +755,80 @@ p { color: var(--text-secondary); margin: 0; }
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 32px 24px;
+  padding: 36px 24px;
   background: var(--bg);
-  transition: background 0.2s ease;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease, transform 0.15s ease;
+  will-change: transform;
+}
+/* Entrance animations */
+.gate-from-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.25s ease;
+}
+.gate-from-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.25s ease;
+}
+.gate-from-left.gate-visible,
+.gate-from-right.gate-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+/* Hover glow */
+.gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.06), transparent 60%);
+  pointer-events: none;
 }
 .gate:hover { background: var(--surface); }
+.gate:hover::before { opacity: 1; }
+/* Bottom accent line */
+.gate-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--text);
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.gate:hover .gate-line {
+  width: 100%;
+  left: 0;
+}
 .gate-label {
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text);
+  transition: letter-spacing 0.3s ease;
+}
+.gate:hover .gate-label {
+  letter-spacing: 0.04em;
 }
 .gate-hint {
   font-size: 12px;
   color: var(--text-tertiary);
   font-family: var(--font-mono);
   text-align: center;
+  transition: color 0.3s ease;
+}
+.gate:hover .gate-hint { color: var(--text-secondary); }
+
+/* ─── Text Scramble ───────────────────────────────────── */
+.scramble-char {
+  color: var(--text-tertiary);
+  font-weight: 400;
 }
 
 /* ─── Home Bio ────────────────────────────────────────── */
