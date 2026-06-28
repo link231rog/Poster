@@ -9,8 +9,8 @@ const { items } = Astro.props;
 ---
 
 <div class="timeline-list">
-	{items.map((item) => (
-		<article class="timeline-item">
+	{items.map((item, i) => (
+		<article class="timeline-item" data-animate="slide-right" data-delay={String(i * 120)}>
 			<div class="timeline-date">{item.start} — {item.end}</div>
 			<div class="timeline-body">
 				<h3>{item.role}</h3>

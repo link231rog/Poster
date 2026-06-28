@@ -1,0 +1,38 @@
+---
+/**
+ * Typewriter.astro — Typing animation for text.
+ * Usage: <Typewriter text="Hello" speed={80} />
+ */
+type Props = {
+  text: string;
+  speed?: number;
+  class?: string;
+};
+
+const { text, speed = 70, class: className = '' } = Astro.props;
+---
+
+<span class={`typewriter-target ${className}`} data-text={text} data-speed={speed}></span>
+
+<script>
+(() => {
+  document.querySelectorAll<HTMLElement>('.typewriter-target').forEach((el) => {
+    const text = el.dataset.text || '';
+    const speed = parseInt(el.dataset.speed || '70', 10);
+    let i = 0;
+
+    function type() {
+      if (i < text.length) {
+        el.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        // Done typing — keep caret blinking via CSS
+      }
+    }
+
+    // Small initial delay for page load
+    setTimeout(type, 400);
+  });
+})();
+</script>

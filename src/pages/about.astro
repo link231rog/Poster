@@ -7,10 +7,10 @@ const [site, page] = await Promise.all([getSiteData(), getAboutPageData()]);
 
 <BaseLayout title={`About · ${site.seo.title}`} description={page.summary} navigation={site.navigation.items} pathname="/about">
 	<section class="section page-flow reading-page">
-		<span class="eyebrow">About</span>
-		<h1 class="page-title">{page.title}</h1>
-		<p class="page-summary">{page.summary}</p>
-		<div class="prose reading-block">
+		<span class="eyebrow" data-animate="fade">About</span>
+		<h1 class="page-title" data-animate data-delay="100">{page.title}</h1>
+		<p class="page-summary" data-animate data-delay="200">{page.summary}</p>
+		<div class="prose reading-block" data-animate data-delay="300">
 			<p>{page.body}</p>
 		</div>
 	</section>

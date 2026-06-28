@@ -8,9 +8,9 @@ const [site, page] = await Promise.all([getSiteData(), getTimelinePageData()]);
 
 <BaseLayout title={`Timeline · ${site.seo.title}`} description="Education, work, research, and milestones." navigation={site.navigation.items} pathname="/timeline">
 	<section class="section page-flow">
-		<span class="eyebrow">Timeline</span>
-		<h1 class="page-title">A compact record of what I’ve been building.</h1>
-		<p class="page-summary">Education, independent work, and milestone projects in one chronological line.</p>
+		<span class="eyebrow" data-animate="fade">Timeline</span>
+		<h1 class="page-title" data-animate data-delay="100">A compact record of what I’ve been building.</h1>
+		<p class="page-summary" data-animate data-delay="200">Education, independent work, and milestone projects in one chronological line.</p>
 		<div class="timeline-shell">
 			<TimelineList items={page.items} />
 		</div>

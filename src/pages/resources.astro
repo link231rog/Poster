@@ -7,17 +7,17 @@ const [site, page] = await Promise.all([getSiteData(), getResourcesPageData()]);
 
 <BaseLayout title={`Resources · ${site.seo.title}`} description="Reading, tools, and references." navigation={site.navigation.items} pathname="/resources">
 	<section class="section page-flow">
-		<span class="eyebrow">Resources</span>
-		<h1 class="page-title">Tools, reading, and systems I keep coming back to.</h1>
-		<div class="prose reading-block compact-reading-block">
+		<span class="eyebrow" data-animate="fade">Resources</span>
+		<h1 class="page-title" data-animate data-delay="100">Tools, reading, and systems I keep coming back to.</h1>
+		<div class="prose reading-block compact-reading-block" data-animate data-delay="200">
 			<p>{page.intro}</p>
 		</div>
 		<div class="resource-columns">
-			{page.groups.map((group) => (
-				<section class="resource-group">
+			{page.groups.map((group, gi) => (
+				<section class="resource-group" data-animate data-delay={String(gi * 150)}>
 					<h2>{group.category}</h2>
-					{group.items.map((item) => (
-						<div class="resource-item">
+					{group.items.map((item, ii) => (
+						<div class="resource-item" data-animate="slide-right" data-delay={String(gi * 150 + ii * 80)}>
 							<div class="section">
 								<a href={item.url} target="_blank" rel="noreferrer">{item.name}</a>
 								<p>{item.note}</p>
