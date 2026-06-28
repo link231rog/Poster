@@ -18,28 +18,15 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 				<Typewriter text={page.profile.name} speed={90} />
 			</h1>
 			<p class="hero-subtitle" data-animate data-delay="400">{page.profile.headline}</p>
-			<p class="hero-lead" data-animate data-delay="500">{page.profile.shortBio}</p>
 			<div class="cta-row" data-animate data-delay="600">
 				<a class="button" href={page.home.hero.primaryCta.href}>{page.home.hero.primaryCta.label}</a>
 				<a class="button-secondary" href={`mailto:${page.profile.email}`}>Email</a>
 			</div>
-			<ul class="inline-list quiet-list" data-animate="fade" data-delay="700">
-				<li>
-					<span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span>
-				</li>
-				<li>{page.profile.currentFocus}</li>
-				<li>{page.profile.location}</li>
-			</ul>
-			<ul class="social-list text-links" data-animate="fade" data-delay="800">
-				{page.profile.socials.map((social) => (
-					<li><a href={social.url} target="_blank" rel="noreferrer">{social.label}</a></li>
-				))}
-			</ul>
 		</section>
 
 		<section class="home-section section">
-			<div data-animate data-delay="0">
-				<SectionHeader eyebrow="Featured work" title="Selected projects" description="A small set of projects that explain what I build, how I think, and where I spend time." linkHref={`${import.meta.env.BASE_URL}projects`} linkLabel="All projects" />
+			<div data-animate>
+				<SectionHeader title="Selected projects" description="Projects that explain what I build and how I think." linkHref={`${import.meta.env.BASE_URL}projects`} linkLabel="All projects" />
 			</div>
 			<div class="editorial-list">
 				{page.featuredProjects.map((project, i) => (
@@ -53,24 +40,30 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 		{page.latestPosts.length > 0 && (
 			<section class="home-section section">
 				<div data-animate>
-					<SectionHeader eyebrow="Writing" title="Latest posts" description="Recent notes on agent systems, developer tooling, and building in public." linkHref={`${import.meta.env.BASE_URL}blog`} linkLabel="All posts" />
+					<SectionHeader eyebrow="Writing" title="Latest posts" linkHref={`${import.meta.env.BASE_URL}blog`} linkLabel="All posts" />
 				</div>
-				<div class="blog-list">
-					{page.latestPosts.map((post) => <BlogPostCard post={post} />)}
+				<div class="blog-list-compact">
+					{page.latestPosts.map((post, i) => (
+						<a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="blog-row" data-animate data-delay={String(i * 80)}>
+							<time class="blog-row-date">{post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}</time>
+							<span class="blog-row-title">{post.title}</span>
+							{post.featured && <span class="blog-row-badge">*</span>}
+						</a>
+					))}
 				</div>
 			</section>
 		)}
 
 		<section class="home-section section">
 			<div data-animate>
-				<SectionHeader eyebrow="Timeline" title="Recent trajectory" description="A short reading view of current work, research, and milestones." linkHref={`${import.meta.env.BASE_URL}timeline`} linkLabel="Full timeline" />
+				<SectionHeader title="Recent trajectory" linkHref={`${import.meta.env.BASE_URL}timeline`} linkLabel="Full timeline" />
 			</div>
 			<TimelineList items={page.timelinePreview} />
 		</section>
 
 		<section class="home-section section compact-section">
 			<div data-animate>
-				<SectionHeader eyebrow="Current focus" title="What I am optimizing for right now" description="A compact summary of tools, interests, and the work themes shaping the next few projects." />
+				<SectionHeader title="Focus areas" />
 			</div>
 			<ul class="tag-list muted-tags">
 				{page.profile.skills.map((skill, i) => (
