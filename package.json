@@ -13,7 +13,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "astro": "^6.0.8"
+    "astro": "^6.0.8",
+    "marked": "^18.0.5"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",

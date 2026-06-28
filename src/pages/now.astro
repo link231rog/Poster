@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getNowPageData, getSiteData } from '../lib/content';
+
+const [site, page] = await Promise.all([getSiteData(), getNowPageData()]);
+---
+
+<BaseLayout title={`Now · ${site.seo.title}`} description="What I'm focused on right now — building, reading, thinking about." navigation={site.navigation.items} pathname="/now">
+	<section class="section page-flow">
+		<span class="eyebrow" data-animate="fade">Now</span>
+		<h1 class="page-title" data-animate data-delay="100">{page.title}</h1>
+		<p class="page-summary" data-animate data-delay="200">
+			A snapshot of what I'm working on, reading, and thinking about.
+			{page.updatedAt && <span class="now-updated">Last updated: {page.updatedAt}</span>}
+		</p>
+
+		<div class="now-grid">
+			{page.sections.map((section, i) => (
+				<section class="now-section" data-animate data-delay={String(300 + i * 100)}>
+					<h2>{section.section}</h2>
+					<ul>
+						{section.items.map((item) => <li>{item}</li>)}
+					</ul>
+				</section>
+			))}
+		</div>
+
+		<div class="prose now-body" data-animate data-delay={String(300 + page.sections.length * 100)} set:html={page.html} />
+	</section>
+</BaseLayout>

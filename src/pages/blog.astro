@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { getBlogPageData, getSiteData } from '../lib/content';
+
+const [site, page] = await Promise.all([getSiteData(), getBlogPageData()]);
+---
+
+<BaseLayout title={`Blog · ${site.seo.title}`} description="Writing on agent systems, developer tooling, and building in public." navigation={site.navigation.items} pathname="/blog">
+	<section class="section page-flow">
+		<span class="eyebrow" data-animate="fade">Blog</span>
+		<h1 class="page-title" data-animate data-delay="100">Writing about what I'm building and learning.</h1>
+		<p class="page-summary" data-animate data-delay="200">Technical notes, research reflections, and ideas worth sharing. Updated occasionally.</p>
+
+		<div class="blog-list">
+			{page.posts.length > 0 ? (
+				page.posts.map((post) => <BlogPostCard post={post} />)
+			) : (
+				<p class="blog-empty" data-animate>No posts yet. Check back soon.</p>
+			)}
+		</div>
+
+		<NewsletterSignup />
+	</section>
+</BaseLayout>

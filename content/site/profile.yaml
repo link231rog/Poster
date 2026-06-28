@@ -1,25 +1,27 @@
-name: Link
-headline: Research Engineer building agent workflows, tooling, and calm developer systems.
-short_bio: I build small, reliable systems for research and developer experience—shipping clear interfaces, readable architecture, and content-first tools.
-location: Remote
-email: link@example.com
+name: Zixuan Huang
+headline: CS student building agent systems, developer tooling, and calm infrastructure.
+short_bio: I study at Southwest University in Chongqing. I build small, reliable systems at the intersection of AI research and developer experience — agent workflows, content-first tools, and things that age well.
+location: Chongqing, China
+email: huangzixuan@example.com
 avatar: /avatar.png
-current_focus: Designing static-first personal infrastructure and agentic workflows with deliberate interfaces.
+current_focus: Agent orchestration reproducibility and static-first personal infrastructure.
 skills:
-  - Astro
+  - Python
   - TypeScript
-  - LLM Systems
-  - UX Engineering
+  - LLM Agents
+  - Astro
+  - Research Engineering
+  - UX Writing
 status:
-  text: Currently shipping a GitHub-native showcase system.
+  text: Researching agent guardrails and building in public.
   type: active
 socials:
   - platform: GitHub
     label: GitHub
-    url: https://github.com/link
+    url: https://github.com/link231rog
   - platform: X
     label: X
-    url: https://x.com/link
+    url: https://x.com/link231rog
   - platform: Email
     label: Email
-    url: mailto:link@example.com
+    url: "mailto:huangzixuan@example.com"

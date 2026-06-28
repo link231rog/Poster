@@ -4,7 +4,9 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
 
-import type { Profile, Project, ResourceGroup, SiteData, TimelineItem } from '../types/content';
+import { marked } from 'marked';
+
+import type { BlogPost, NewsletterConfig, NowPageData, Profile, Project, ResourceGroup, SiteData, TimelineItem } from '../types/content';
 
 const rootDir = process.cwd();
 const contentDir = path.join(rootDir, 'content');
@@ -135,16 +137,19 @@ export async function getTimelinePageData(): Promise<{ items: TimelineItem[] }> 
 }
 
 export async function getHomePageData() {
-	const [site, home, projects, timeline] = await Promise.all([
+	const [site, home, projects, timeline, blogPosts] = await Promise.all([
 		getSiteData(),
 		readYamlFile<any>(path.join(contentDir, 'site', 'home.yaml')),
 		getProjects(),
 		getTimeline(),
+		getBlogPosts(),
 	]);
 
 	const featuredProjects = projects
 		.filter((project) => project.featured)
 		.slice(0, Number(home.featured_projects_count ?? 2));
+
+	const latestPosts = blogPosts.slice(0, Number(home.latest_posts_count ?? 3));
 
 	return {
 		profile: site.profile,
@@ -152,6 +157,104 @@ export async function getHomePageData() {
 			hero: home.hero,
 		},
 		featuredProjects,
+		latestPosts,
 		timelinePreview: timeline.slice(0, Number(home.timeline_preview_count ?? 3)),
+	};
+}
+
+// ─── Blog ───────────────────────────────────────────────
+
+function sortBlogPosts(posts: BlogPost[]): BlogPost[] {
+	return [...posts].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+export async function getBlogPosts(opts?: { includeDraft?: boolean }): Promise<BlogPost[]> {
+	const blogDir = path.join(contentDir, 'blog');
+	const files = (await readdir(blogDir)).filter((f) => f.endsWith('.md'));
+
+	const posts = await Promise.all(
+		files.map(async (file) => {
+			const raw = await readFile(path.join(blogDir, file), 'utf-8');
+			const parsed = matter(raw);
+			const slug = file.replace(/\.md$/, '');
+			const html = await marked(parsed.content.trim());
+
+			return {
+				slug,
+				title: parsed.data.title ?? slug,
+				date: parsed.data.date ?? '',
+				summary: parsed.data.summary ?? '',
+				tags: parsed.data.tags ?? [],
+				draft: parsed.data.draft ?? false,
+				featured: parsed.data.featured ?? false,
+				body: parsed.content.trim(),
+				html,
+			} satisfies BlogPost;
+		}),
+	);
+
+	const filtered = opts?.includeDraft ? posts : posts.filter((p) => !p.draft);
+	return sortBlogPosts(filtered);
+}
+
+export async function getBlogPost(slug: string): Promise<BlogPost | null> {
+	const filePath = path.join(contentDir, 'blog', `${slug}.md`);
+	try {
+		const raw = await readFile(filePath, 'utf-8');
+		const parsed = matter(raw);
+		const html = await marked(parsed.content.trim());
+
+		return {
+			slug,
+			title: parsed.data.title ?? slug,
+			date: parsed.data.date ?? '',
+			summary: parsed.data.summary ?? '',
+			tags: parsed.data.tags ?? [],
+			draft: parsed.data.draft ?? false,
+			featured: parsed.data.featured ?? false,
+			body: parsed.content.trim(),
+			html,
+		};
+	} catch {
+		return null;
+	}
+}
+
+export async function getBlogPageData(): Promise<{ posts: BlogPost[] }> {
+	return { posts: await getBlogPosts() };
+}
+
+// ─── Now Page ───────────────────────────────────────────
+
+export async function getNowPageData(): Promise<NowPageData> {
+	const page = await readMarkdownFile<any>(path.join(contentDir, 'pages', 'now.md'));
+	const html = await marked(page.content);
+
+	return {
+		title: page.data.title ?? 'Now',
+		updatedAt: page.data.updated_at ?? '',
+		sections: page.data.sections ?? [],
+		body: page.content,
+		html,
+	};
+}
+
+// ─── Newsletter ─────────────────────────────────────────
+
+export async function getNewsletterConfig(): Promise<NewsletterConfig> {
+	return readYamlFile<NewsletterConfig>(path.join(contentDir, 'site', 'newsletter.yaml'));
+}
+
+// ─── About (with HTML) ──────────────────────────────────
+
+export async function getAboutPageDataHtml(): Promise<{ title: string; summary: string; body: string; html: string }> {
+	const page = await readMarkdownFile<any>(path.join(contentDir, 'pages', 'about.md'));
+	const html = await marked(page.content);
+
+	return {
+		title: page.data.title,
+		summary: page.data.summary,
+		body: page.content,
+		html,
 	};
 }

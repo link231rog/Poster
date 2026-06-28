@@ -1,0 +1,6 @@
+enabled: true
+heading: "Stay in the loop"
+description: "Occasional notes on agent systems, developer tooling, and what I'm building. No spam, unsubscribe anytime."
+placeholder: "your@email.com"
+buttonText: "Subscribe"
+action: "#"

@@ -67,3 +67,37 @@ export type ResourceGroup = {
 	category: string;
 	items: ResourceItem[];
 };
+
+export type BlogPost = {
+	slug: string;
+	title: string;
+	date: string;
+	summary: string;
+	tags: string[];
+	draft: boolean;
+	featured: boolean;
+	body: string;
+	html?: string;
+};
+
+export type NowEntry = {
+	section: string;
+	items: string[];
+};
+
+export type NowPageData = {
+	title: string;
+	updatedAt: string;
+	sections: NowEntry[];
+	body: string;
+	html?: string;
+};
+
+export type NewsletterConfig = {
+	enabled: boolean;
+	heading: string;
+	description: string;
+	placeholder: string;
+	buttonText: string;
+	action: string;
+};

@@ -1,0 +1,22 @@
+---
+import { getNewsletterConfig } from '../lib/content';
+
+const config = await getNewsletterConfig();
+---
+
+{config.enabled && (
+	<section class="newsletter-section" data-animate>
+		<h3 class="newsletter-heading">{config.heading}</h3>
+		<p class="newsletter-desc">{config.description}</p>
+		<form class="newsletter-form" action={config.action} method="post">
+			<input
+				type="email"
+				name="email"
+				placeholder={config.placeholder}
+				required
+				class="newsletter-input"
+			/>
+			<button type="submit" class="button newsletter-btn">{config.buttonText}</button>
+		</form>
+	</section>
+)}

@@ -3,9 +3,11 @@ items:
     label: Home
   - href: /about
     label: About
+  - href: /blog
+    label: Blog
   - href: /projects
     label: Projects
+  - href: /now
+    label: Now
   - href: /timeline
     label: Timeline
-  - href: /resources
-    label: Resources
