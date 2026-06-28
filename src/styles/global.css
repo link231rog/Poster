@@ -83,8 +83,9 @@ p { color: var(--text-secondary); margin: 0; }
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.05;
-  margin: 12px 0 20px;
+  margin: 12px auto 20px;
   max-width: 16ch;
+  text-align: center;
 }
 .page-title {
   font-size: clamp(1.8rem, 4vw, 2.6rem);
@@ -98,6 +99,11 @@ p { color: var(--text-secondary); margin: 0; }
   max-width: 56ch;
   color: var(--text-secondary);
   line-height: 1.65;
+}
+.hero-subtitle {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 .hero-lead {
   max-width: 52ch;
@@ -226,7 +232,15 @@ p { color: var(--text-secondary); margin: 0; }
 }
 
 /* ─── Hero ────────────────────────────────────────────── */
-.hero-intro { position: relative; }
+.hero-intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+  justify-content: center;
+}
 
 /* ─── Cards ───────────────────────────────────────────── */
 .project-card {
@@ -730,7 +744,8 @@ p { color: var(--text-secondary); margin: 0; }
   grid-template-columns: 1fr 1fr;
   gap: 1px;
   margin-top: 40px;
-  max-width: 480px;
+  width: 100%;
+  max-width: 520px;
   background: var(--border);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -739,23 +754,25 @@ p { color: var(--text-secondary); margin: 0; }
 .gate {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 28px 24px;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
   background: var(--bg);
   transition: background 0.2s ease;
   text-decoration: none;
 }
 .gate:hover { background: var(--surface); }
 .gate-label {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text);
 }
 .gate-hint {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-tertiary);
   font-family: var(--font-mono);
+  text-align: center;
 }
 
 /* ─── Home Bio ────────────────────────────────────────── */
@@ -763,12 +780,19 @@ p { color: var(--text-secondary); margin: 0; }
   margin-top: 48px;
   padding-top: 32px;
   border-top: 1px solid var(--border);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .bio-text {
   font-size: 15px;
   line-height: 1.7;
   max-width: 56ch;
   margin-bottom: 16px;
+}
+.home-bio .inline-list {
+  justify-content: center;
 }
 
 /* ─── Travel Layout ───────────────────────────────────── */
