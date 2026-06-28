@@ -6,6 +6,7 @@ tags:
  - meta
  - writing
  - research
+category: work
 draft: false
 featured: false
 ---

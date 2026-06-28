@@ -74,10 +74,29 @@ export type BlogPost = {
 	date: string;
 	summary: string;
 	tags: string[];
+	category: 'work' | 'life';
 	draft: boolean;
 	featured: boolean;
 	body: string;
 	html?: string;
+};
+
+export type Photo = {
+	id: string;
+	title: string;
+	location: string;
+	province: string;
+	date: string;
+	src: string;
+	aspect: 'landscape' | 'portrait' | 'square';
+};
+
+export type TravelLocation = {
+	province: string;
+	code: string;
+	visited: boolean;
+	photos: number;
+	note?: string;
 };
 
 export type NowEntry = {

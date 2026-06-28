@@ -3,11 +3,7 @@ items:
     label: Home
   - href: /about
     label: About
-  - href: /blog
-    label: Blog
-  - href: /projects
-    label: Projects
+  - href: /travel
+    label: Travel
   - href: /now
     label: Now
-  - href: /timeline
-    label: Timeline

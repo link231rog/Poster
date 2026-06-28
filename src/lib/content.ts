@@ -6,7 +6,7 @@ import yaml from 'js-yaml';
 
 import { marked } from 'marked';
 
-import type { BlogPost, NewsletterConfig, NowPageData, Profile, Project, ResourceGroup, SiteData, TimelineItem } from '../types/content';
+import type { BlogPost, NewsletterConfig, NowPageData, Photo, Profile, Project, ResourceGroup, SiteData, TimelineItem, TravelLocation } from '../types/content';
 
 const rootDir = process.cwd();
 const contentDir = path.join(rootDir, 'content');
@@ -185,6 +185,7 @@ export async function getBlogPosts(opts?: { includeDraft?: boolean }): Promise<B
 				date: parsed.data.date ?? '',
 				summary: parsed.data.summary ?? '',
 				tags: parsed.data.tags ?? [],
+				category: parsed.data.category ?? 'work',
 				draft: parsed.data.draft ?? false,
 				featured: parsed.data.featured ?? false,
 				body: parsed.content.trim(),
@@ -210,6 +211,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 			date: parsed.data.date ?? '',
 			summary: parsed.data.summary ?? '',
 			tags: parsed.data.tags ?? [],
+			category: parsed.data.category ?? 'work',
 			draft: parsed.data.draft ?? false,
 			featured: parsed.data.featured ?? false,
 			body: parsed.content.trim(),
@@ -257,4 +259,28 @@ export async function getAboutPageDataHtml(): Promise<{ title: string; summary: 
 		body: page.content,
 		html,
 	};
+}
+
+// ─── Photos ─────────────────────────────────────────────
+
+export async function getPhotos(): Promise<Photo[]> {
+	const data = await readYamlFile<{ photos: Photo[] }>(path.join(contentDir, 'photo', 'photos.yaml'));
+	return data.photos ?? [];
+}
+
+export async function getPhotosByProvince(province: string): Promise<Photo[]> {
+	const photos = await getPhotos();
+	return photos.filter((p) => p.province === province);
+}
+
+// ─── Travel ─────────────────────────────────────────────
+
+export async function getTravelLocations(): Promise<TravelLocation[]> {
+	const data = await readYamlFile<{ visited: TravelLocation[] }>(path.join(contentDir, 'travel', 'locations.yaml'));
+	return data.visited ?? [];
+}
+
+export async function getTravelPageData() {
+	const [locations, photos] = await Promise.all([getTravelLocations(), getPhotos()]);
+	return { locations, photos };
 }

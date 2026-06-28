@@ -1,0 +1,86 @@
+---
+/**
+ * PhotoGallery.astro - Masonry-style photo gallery with location filtering.
+ */
+import type { Photo } from '../types/content';
+
+type Props = {
+	photos: Photo[];
+	activeProvince?: string;
+};
+
+const { photos, activeProvince = '' } = Astro.props;
+const filtered = activeProvince
+	? photos.filter(p => p.province === activeProvince)
+	: photos;
+---
+
+<div class="photo-gallery" id="photo-gallery" data-active-province={activeProvince}>
+	{filtered.length > 0 ? (
+		<div class="photo-grid">
+			{filtered.map((photo, i) => (
+				<figure
+					class={`photo-item photo-${photo.aspect}`}
+					data-province={photo.province}
+					data-animate
+					data-delay={String(i * 60)}
+				>
+					<img src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\//, '')}`} alt={photo.title} loading="lazy" />
+					<figcaption class="photo-caption">
+						<span class="photo-title">{photo.title}</span>
+						<span class="photo-meta">{photo.location} · {photo.date}</span>
+					</figcaption>
+				</figure>
+			))}
+		</div>
+	) : (
+		<div class="photo-empty">
+			<p>No photos from this location yet.</p>
+		</div>
+	)}
+</div>
+
+<script>
+(() => {
+	// Listen for province selection from map
+	const map = document.getElementById('china-map');
+	const gallery = document.getElementById('photo-gallery');
+	if (!map || !gallery) return;
+
+	map.addEventListener('province-select', ((e: CustomEvent) => {
+		const code = e.detail.code;
+		gallery.dataset.activeProvince = code;
+
+		// Show/hide photos
+		gallery.querySelectorAll('.photo-item').forEach((item) => {
+			const el = item as HTMLElement;
+			if (el.dataset.province === code) {
+				el.style.display = '';
+			} else {
+				el.style.display = 'none';
+			}
+		});
+	}) as EventListener);
+
+	// Click photo to open lightbox
+	gallery.addEventListener('click', (e) => {
+		const img = (e.target as HTMLElement).closest('img');
+		if (!img) return;
+
+		const lightbox = document.createElement('div');
+		lightbox.className = 'lightbox';
+		lightbox.innerHTML = `
+			<div class="lightbox-backdrop"></div>
+			<img src="${img.src}" alt="${img.alt}" class="lightbox-img" />
+			<button class="lightbox-close" aria-label="Close">×</button>
+		`;
+		document.body.appendChild(lightbox);
+
+		lightbox.querySelector('.lightbox-backdrop')?.addEventListener('click', () => lightbox.remove());
+		lightbox.querySelector('.lightbox-close')?.addEventListener('click', () => lightbox.remove());
+		document.addEventListener('keydown', function handler(e) {
+			if (e.key === 'Escape') { lightbox.remove(); document.removeEventListener('keydown', handler); }
+		});
+	});
+})();
+</script>

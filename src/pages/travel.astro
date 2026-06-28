@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ChinaMap from '../components/ChinaMap.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import { getSiteData, getTravelPageData } from '../lib/content';
+
+const [site, page] = await Promise.all([getSiteData(), getTravelPageData()]);
+---
+
+<BaseLayout title={`Travel · ${site.seo.title}`} description="Places I've been and photos I've taken." navigation={site.navigation.items} pathname="/travel">
+	<section class="section page-flow">
+		<span class="eyebrow" data-animate="fade">Travel</span>
+		<h1 class="page-title" data-animate data-delay="100">Places I've been.</h1>
+		<p class="page-summary" data-animate data-delay="200">
+			Click a province to see photos from that location. {page.locations.length} provinces visited, {page.photos.length} photos and counting.
+		</p>
+
+		<div class="travel-layout" data-animate data-delay="300">
+			<div class="travel-map">
+				<ChinaMap
+					locations={page.locations}
+				/>
+				<span class="map-visited-codes" data-visited-codes={page.locations.filter(l => l.visited).map(l => l.code).join(',')} style="display:none"></span>
+			</div>
+
+			<div class="travel-notes">
+				{page.locations.filter(l => l.visited).map((loc, i) => (
+					<div class="travel-note" data-animate data-delay={String(400 + i * 80)}>
+						<h3>{loc.province}</h3>
+						<p class="travel-note-meta">{loc.photos} photos</p>
+						{loc.note && <p class="travel-note-text">{loc.note}</p>}
+					</div>
+				))}
+			</div>
+		</div>
+
+		<div class="travel-photos" data-animate data-delay="500">
+			<h2>Photographs</h2>
+			<PhotoGallery photos={page.photos} />
+		</div>
+	</section>
+</BaseLayout>

@@ -1,0 +1,25 @@
+visited:
+  - province: "Chongqing"
+    code: "CQ"
+    photos: 12
+    note: "Where I study. The mountain city never stops surprising me."
+  - province: "Sichuan"
+    code: "SC"
+    photos: 8
+    note: "Chengdu's pace of life is something else."
+  - province: "Beijing"
+    code: "BJ"
+    photos: 6
+    note: "History stacked on top of the future."
+  - province: "Guangdong"
+    code: "GD"
+    photos: 5
+    note: "Shenzhen's energy is electric."
+  - province: "Zhejiang"
+    code: "ZJ"
+    photos: 4
+    note: "Hangzhou's West Lake in autumn."
+  - province: "Yunnan"
+    code: "YN"
+    photos: 7
+    note: "Mountains, clouds, and slow mornings."

@@ -6,6 +6,7 @@ tags:
  - astro
  - static
  - design
+category: work
 draft: false
 featured: false
 ---

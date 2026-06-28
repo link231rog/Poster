@@ -6,6 +6,7 @@ tags:
  - agents
  - prompts
  - systems
+category: work
 draft: false
 featured: true
 ---

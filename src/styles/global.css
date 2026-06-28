@@ -724,6 +724,244 @@ p { color: var(--text-secondary); margin: 0; }
   50% { opacity: 0.3; }
 }
 
+/* ─── Hero Gates (Work/Life) ──────────────────────────── */
+.hero-gates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: 40px;
+  max-width: 480px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.gate {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 28px 24px;
+  background: var(--bg);
+  transition: background 0.2s ease;
+  text-decoration: none;
+}
+.gate:hover { background: var(--surface); }
+.gate-label {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.gate-hint {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+/* ─── Home Bio ────────────────────────────────────────── */
+.home-bio {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.bio-text {
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 56ch;
+  margin-bottom: 16px;
+}
+
+/* ─── Travel Layout ───────────────────────────────────── */
+.travel-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+  align-items: start;
+}
+.travel-map { position: relative; }
+.travel-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.travel-note {
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease;
+}
+.travel-note:hover { border-color: var(--border-hover); }
+.travel-note h3 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+.travel-note-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin: 0 0 6px;
+}
+.travel-note-text {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.travel-photos {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.travel-photos h2 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+}
+
+/* ─── China Map ───────────────────────────────────────── */
+.china-map-wrap { position: relative; }
+.china-map {
+  width: 100%;
+  height: auto;
+}
+.province {
+  fill: var(--surface);
+  stroke: var(--border);
+  stroke-width: 0.5;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+  cursor: default;
+}
+.province.is-visited {
+  fill: var(--surface-hover);
+  stroke: var(--border-hover);
+  cursor: pointer;
+}
+.province.is-visited:hover {
+  fill: rgba(255, 255, 255, 0.08);
+}
+.province.is-active {
+  fill: rgba(255, 255, 255, 0.12);
+  stroke: var(--text);
+  stroke-width: 1;
+}
+.map-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.legend-dot.visited {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+}
+
+/* ─── Photo Gallery ───────────────────────────────────── */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+.photo-item {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease;
+  cursor: pointer;
+}
+.photo-item:hover { border-color: var(--border-hover); }
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-landscape img { aspect-ratio: 4/3; }
+.photo-portrait img { aspect-ratio: 3/4; }
+.photo-square img { aspect-ratio: 1; }
+.photo-caption {
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.photo-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+.photo-meta {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.photo-empty {
+  padding: 48px;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+}
+
+/* ─── Lightbox ────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightbox-in 0.2s ease;
+}
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+}
+.lightbox-img {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+.lightbox-close:hover { background: var(--surface-hover); }
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 900px) {
   .shell { padding: 16px 16px 48px; }
@@ -740,4 +978,7 @@ p { color: var(--text-secondary); margin: 0; }
   .hero-title { font-size: 2rem; }
   .cta-row { flex-direction: column; }
   .button, .button-secondary { width: 100%; justify-content: center; }
+  .hero-gates { grid-template-columns: 1fr; }
+  .travel-layout { grid-template-columns: 1fr; }
+  .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
 }

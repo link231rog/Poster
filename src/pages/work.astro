@@ -1,0 +1,61 @@
+---
+import ProjectCard from '../components/ProjectCard.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import TimelineList from '../components/TimelineList.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getBlogPosts, getProjects, getSiteData, getTimeline } from '../lib/content';
+
+const [site, projects, timeline, blogPosts] = await Promise.all([
+	getSiteData(),
+	getProjects(),
+	getTimeline(),
+	getBlogPosts(),
+]);
+
+const workPosts = blogPosts.filter(p => p.category === 'work');
+---
+
+<BaseLayout title={`Work · ${site.seo.title}`} description="Projects, research, and technical writing." navigation={site.navigation.items} pathname="/work">
+	<section class="section page-flow">
+		<span class="eyebrow" data-animate="fade">Work</span>
+		<h1 class="page-title" data-animate data-delay="100">What I build and study.</h1>
+		<p class="page-summary" data-animate data-delay="200">Projects, research, and writing on agent systems, developer tooling, and infrastructure.</p>
+	</section>
+
+	<section class="section">
+		<div data-animate>
+			<SectionHeader title="Projects" />
+		</div>
+		<div class="editorial-list">
+			{projects.map((project, i) => (
+				<div data-animate data-delay={String(i * 100)}>
+					<ProjectCard project={project} />
+				</div>
+			))}
+		</div>
+	</section>
+
+	{workPosts.length > 0 && (
+		<section class="section">
+			<div data-animate>
+				<SectionHeader title="Writing" linkHref={`${import.meta.env.BASE_URL}blog`} linkLabel="All posts" />
+			</div>
+			<div class="blog-list-compact">
+				{workPosts.map((post, i) => (
+					<a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="blog-row" data-animate data-delay={String(i * 80)}>
+						<time class="blog-row-date">{post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}</time>
+						<span class="blog-row-title">{post.title}</span>
+					</a>
+				))}
+			</div>
+		</section>
+	)}
+
+	<section class="section">
+		<div data-animate>
+			<SectionHeader title="Timeline" />
+		</div>
+		<TimelineList items={timeline} />
+	</section>
+</BaseLayout>
