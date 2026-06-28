@@ -3,9 +3,9 @@ title: "Learning in Public as a Research Strategy"
 date: "2026-04-10"
 summary: "Why writing about what you're building is the fastest way to build better things."
 tags:
-  - meta
-  - writing
-  - research
+ - meta
+ - writing
+ - research
 draft: false
 featured: false
 ---
@@ -32,9 +32,9 @@ It's not about posting every thought. It's about:
 
 ## How I Do It
 
-- **This blog** — technical writing about things I'm building
-- **GitHub** — open-source projects and experiments
-- **Short-form posts** — quick notes on X/Twitter
+- **This blog** - technical writing about things I'm building
+- **GitHub** - open-source projects and experiments
+- **Short-form posts** - quick notes on X/Twitter
 
 The key is consistency, not volume. One thoughtful post a month beats daily noise.
 

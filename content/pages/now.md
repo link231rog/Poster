@@ -4,8 +4,8 @@ updated_at: "2026-06-28"
 sections:
   - section: Building
     items:
-      - "OpenCode Workflows — a toolkit for reproducible agent orchestration"
-      - "Poster — this site, a static-first personal infrastructure experiment"
+      - "OpenCode Workflows - a toolkit for reproducible agent orchestration"
+      - "Poster - this site, a static-first personal infrastructure experiment"
       - "A research prototype for evaluating agent guardrails"
   - section: Reading
     items:
@@ -19,7 +19,7 @@ sections:
       - "What 'developer experience' really means beyond syntax sugar"
   - section: Learning
     items:
-      - "Rust — for building faster, more reliable CLI tools"
+      - "Rust - for building faster, more reliable CLI tools"
       - "Advanced Astro patterns for content-heavy sites"
       - "Research methodology and paper writing"
 ---

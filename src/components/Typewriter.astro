@@ -1,6 +1,6 @@
 ---
 /**
- * Typewriter.astro — Typing animation for text.
+ * Typewriter.astro - Typing animation for text.
  * Usage: <Typewriter text="Hello" speed={80} />
  */
 type Props = {
@@ -27,7 +27,7 @@ const { text, speed = 70, class: className = '' } = Astro.props;
         i++;
         setTimeout(type, speed);
       } else {
-        // Done typing — keep caret blinking via CSS
+        // Done typing - keep caret blinking via CSS
       }
     }
 

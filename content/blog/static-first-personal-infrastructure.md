@@ -3,9 +3,9 @@ title: "Why I Went Static-First for My Personal Site"
 date: "2026-05-20"
 summary: "On choosing Astro, content-file workflows, and building a site that ages well."
 tags:
-  - astro
-  - static
-  - design
+ - astro
+ - static
+ - design
 draft: false
 featured: false
 ---
@@ -21,7 +21,7 @@ My requirements were simple:
 - Content lives in Markdown files I can edit locally
 - No database, no external CMS, no vendor lock-in
 - Deploys to GitHub Pages with zero configuration
-- Fast by default — no runtime JavaScript unless I choose it
+- Fast by default - no runtime JavaScript unless I choose it
 
 Astro checked every box.
 
@@ -47,6 +47,6 @@ Every piece of content is a file. Every file has frontmatter. The build step rea
 
 ## What I'd Do Differently
 
-I started with too much structure. YAML configs for everything, typed schemas, abstraction layers. Over time I've simplified — fewer files, less ceremony, more Markdown.
+I started with too much structure. YAML configs for everything, typed schemas, abstraction layers. Over time I've simplified - fewer files, less ceremony, more Markdown.
 
 The best content system is one you actually use.
