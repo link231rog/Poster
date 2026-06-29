@@ -1,0 +1,73 @@
+---
+/**
+ * Sidebar.astro - Sticky left sidebar with CV info and section nav.
+ * Brittany Chiang style layout.
+ */
+import type { Profile } from '../types/content';
+
+type Props = {
+	profile: Profile;
+	activeSection?: string;
+	sections: Array<{ id: string; label: string }>;
+};
+
+const { profile, activeSection = '', sections } = Astro.props;
+---
+
+<aside class="sidebar">
+	<div class="sidebar-inner">
+		<div class="sidebar-identity">
+			<h1 class="sidebar-name">{profile.name}</h1>
+			<p class="sidebar-headline">{profile.headline}</p>
+			<ul class="cv-list sidebar-cv">
+				<li>B.Eng. in Automation, Southwest University (211)</li>
+				<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></li>
+				<li>Research focus: AI Agent</li>
+				<li>CCS 2026 under review (3rd author)</li>
+			</ul>
+		</div>
+
+		<nav class="sidebar-nav" aria-label="In-page navigation">
+			{sections.map((s) => (
+				<a
+					href={`#${s.id}`}
+					class:list={['sidebar-nav-link', activeSection === s.id && 'is-active']}
+					data-section={s.id}
+				>
+					<span class="nav-indicator"></span>
+					<span class="nav-label">{s.label}</span>
+				</a>
+			))}
+		</nav>
+
+		<ul class="sidebar-socials text-links">
+			{profile.socials.map((social) => (
+				<li><a href={social.url} target="_blank" rel="noreferrer">{social.label}</a></li>
+			))}
+		</ul>
+	</div>
+</aside>
+
+<script>
+(() => {
+	// IntersectionObserver for active nav state
+	const links = document.querySelectorAll('.sidebar-nav-link');
+	if (!links.length) return;
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const id = entry.target.id;
+					links.forEach((link) => {
+						link.classList.toggle('is-active', (link as HTMLElement).dataset.section === id);
+					});
+				}
+			});
+		},
+		{ threshold: 0.2, rootMargin: '-80px 0px -60% 0px' }
+	);
+
+	document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
+})();
+</script>

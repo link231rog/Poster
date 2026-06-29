@@ -1,9 +1,7 @@
 ---
 import ProjectCard from '../components/ProjectCard.astro';
-import BlogPostCard from '../components/BlogPostCard.astro';
 import TimelineList from '../components/TimelineList.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import SplitLayout from '../layouts/SplitLayout.astro';
 import { getBlogPosts, getProjects, getSiteData, getTimeline } from '../lib/content';
 
 const [site, projects, timeline, blogPosts] = await Promise.all([
@@ -14,48 +12,83 @@ const [site, projects, timeline, blogPosts] = await Promise.all([
 ]);
 
 const workPosts = blogPosts.filter(p => p.category === 'work');
+
+const sidebarSections = [
+	{ id: 'about', label: 'About' },
+	{ id: 'projects', label: 'Projects' },
+	{ id: 'writing', label: 'Writing' },
+	{ id: 'experience', label: 'Experience' },
+];
 ---
 
-<BaseLayout title={`Work · ${site.seo.title}`} description="Projects, research, and technical writing." navigation={site.navigation.items} pathname="/work">
-	<section class="section page-flow">
-		<span class="eyebrow" data-animate="fade">Work</span>
-		<h1 class="page-title" data-animate data-delay="100">What I build and study.</h1>
-		<p class="page-summary" data-animate data-delay="200">Projects, research, and writing on agent systems, developer tooling, and infrastructure.</p>
+<SplitLayout
+	title={`Work · ${site.seo.title}`}
+	description="Projects, research, and technical writing."
+	navigation={site.navigation.items}
+	profile={site.profile}
+	pathname="/work"
+	activeSection="about"
+	sidebarSections={sidebarSections}
+>
+	<section id="about" class="split-section">
+		<h2 class="section-title">About</h2>
+		<div class="prose">
+			<p>I'm a computer science student at Southwest University in Chongqing, focusing on AI Agent research at <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> under Associate Professor Junjie Huang.</p>
+			<p>My work centers on agent systems that don't drift - making multi-agent workflows reproducible, debuggable, and safe. I'm also interested in developer tooling and building systems that age well.</p>
+			<p>Currently, I have a paper under review at CCS 2026 (3rd author) on RAG safety and adversarial robustness.</p>
+		</div>
 	</section>
 
-	<section class="section">
-		<div data-animate>
-			<SectionHeader title="Projects" />
-		</div>
-		<div class="editorial-list">
-			{projects.map((project, i) => (
-				<div data-animate data-delay={String(i * 100)}>
-					<ProjectCard project={project} />
+	<section id="projects" class="split-section">
+		<h2 class="section-title">Projects</h2>
+		<div class="experience-list">
+			{projects.map((project) => (
+				<div class="experience-item group">
+					<div class="experience-highlight"></div>
+					<div class="experience-content">
+						<div class="experience-header">
+							<h3 class="experience-title">{project.title}</h3>
+							<span class="experience-date">{project.year}</span>
+						</div>
+						<p class="experience-desc">{project.summary}</p>
+						<ul class="tag-list muted-tags">
+							{project.tags.map((tag) => <li class="tag">{tag}</li>)}
+						</ul>
+						<div class="experience-links">
+							<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
+							{project.demo && <a class="button-secondary" href={project.demo} target="_blank" rel="noreferrer">Demo</a>}
+						</div>
+					</div>
 				</div>
 			))}
 		</div>
 	</section>
 
 	{workPosts.length > 0 && (
-		<section class="section">
-			<div data-animate>
-				<SectionHeader title="Writing" linkHref={`${import.meta.env.BASE_URL}blog`} linkLabel="All posts" />
-			</div>
-			<div class="blog-list-compact">
-				{workPosts.map((post, i) => (
-					<a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="blog-row" data-animate data-delay={String(i * 80)}>
-						<time class="blog-row-date">{post.date ? new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : ''}</time>
-						<span class="blog-row-title">{post.title}</span>
+		<section id="writing" class="split-section">
+			<h2 class="section-title">Writing</h2>
+			<div class="experience-list">
+				{workPosts.map((post) => (
+					<a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="experience-item group blog-experience-item">
+						<div class="experience-highlight"></div>
+						<div class="experience-content">
+							<div class="experience-header">
+								<h3 class="experience-title">{post.title}</h3>
+								<span class="experience-date">{post.date ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : ''}</span>
+							</div>
+							<p class="experience-desc">{post.summary}</p>
+							<ul class="tag-list muted-tags">
+								{post.tags.map((tag) => <li class="tag">{tag}</li>)}
+							</ul>
+						</div>
 					</a>
 				))}
 			</div>
 		</section>
 	)}
 
-	<section class="section">
-		<div data-animate>
-			<SectionHeader title="Timeline" />
-		</div>
+	<section id="experience" class="split-section">
+		<h2 class="section-title">Experience</h2>
 		<TimelineList items={timeline} />
 	</section>
-</BaseLayout>
+</SplitLayout>

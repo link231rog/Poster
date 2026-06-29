@@ -1079,6 +1079,227 @@ p { color: var(--text-secondary); margin: 0; }
   to { opacity: 1; }
 }
 
+/* ─── Split Layout (Brittany Chiang style) ────────────── */
+.split-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+}
+.split-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 24px;
+}
+.split-layout {
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+}
+.split-content {
+  width: 56%;
+  padding-top: 0;
+}
+.split-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.split-footer p { font-size: 13px; color: var(--text-tertiary); }
+
+/* ─── Sidebar ─────────────────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: 0;
+  width: 40%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 0 48px;
+}
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.sidebar-identity { }
+.sidebar-name {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+.sidebar-headline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 20px;
+  max-width: 32ch;
+}
+.sidebar-cv {
+  font-size: 13px;
+  gap: 4px;
+  margin-bottom: 24px;
+}
+
+/* ─── Sidebar Nav ─────────────────────────────────────── */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.nav-indicator {
+  width: 32px;
+  height: 1px;
+  background: var(--border);
+  transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), background 0.3s ease;
+  flex-shrink: 0;
+}
+.sidebar-nav-link:hover .nav-indicator,
+.sidebar-nav-link.is-active .nav-indicator {
+  width: 56px;
+  background: var(--text);
+}
+.nav-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  transition: color 0.2s ease;
+}
+.sidebar-nav-link:hover .nav-label,
+.sidebar-nav-link.is-active .nav-label {
+  color: var(--text);
+}
+
+/* ─── Sidebar Socials ─────────────────────────────────── */
+.sidebar-socials {
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 24px 0 0;
+  list-style: none;
+  font-size: 13px;
+}
+
+/* ─── Split Sections ──────────────────────────────────── */
+.split-section {
+  margin-bottom: 72px;
+  scroll-margin-top: 24px;
+}
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  margin: 0 0 20px;
+  font-family: var(--font-mono);
+}
+.section-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+}
+
+/* ─── Experience List (hover highlight) ───────────────── */
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.experience-item {
+  position: relative;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  transition: background 0.25s ease;
+  display: block;
+  text-decoration: none;
+}
+.experience-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+.experience-highlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.03), transparent 60%);
+  pointer-events: none;
+}
+.experience-item:hover .experience-highlight { opacity: 1; }
+.experience-content { position: relative; z-index: 1; }
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+.experience-title {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+}
+.experience-date {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+.experience-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 8px;
+}
+.experience-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.blog-experience-item {
+  cursor: pointer;
+}
+.blog-experience-item:hover .experience-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Travel Map Section ──────────────────────────────── */
+.travel-map-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.travel-notes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.travel-note {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease;
+}
+.travel-note:hover { border-color: var(--border-hover); }
+.travel-note h3 { font-size: 13px; font-weight: 500; margin: 0 0 2px; }
+.travel-note-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); margin: 0 0 4px; }
+.travel-note-text { font-size: 12px; line-height: 1.5; }
+
 /* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 900px) {
   .shell { padding: 16px 16px 48px; }
@@ -1098,4 +1319,27 @@ p { color: var(--text-secondary); margin: 0; }
   .hero-gates { grid-template-columns: 1fr; }
   .travel-layout { grid-template-columns: 1fr; }
   .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+/* ─── Split Layout Responsive ─────────────────────────── */
+@media (max-width: 900px) {
+  .split-layout {
+    flex-direction: column;
+    gap: 0;
+  }
+  .sidebar {
+    position: relative;
+    width: 100%;
+    max-height: none;
+    padding: 0 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .split-content {
+    width: 100%;
+  }
+  .sidebar-nav { display: none; }
+  .sidebar-socials { display: none; }
+  .split-shell { padding: 16px 16px 48px; }
+  .travel-notes { grid-template-columns: 1fr; }
 }
