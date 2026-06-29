@@ -857,6 +857,37 @@ p { color: var(--text-secondary); margin: 0; }
   justify-content: center;
 }
 
+/* ─── Hero CV ─────────────────────────────────────────── */
+.hero-cv {
+  margin-top: 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.cv-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+.cv-list a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.cv-list a:hover { text-decoration-color: var(--text); }
+.cv-status {
+  justify-content: center;
+}
+
 /* ─── Travel Layout ───────────────────────────────────── */
 .travel-layout {
   display: grid;

@@ -16,9 +16,14 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 			</h1>
 			<p class="hero-subtitle" data-animate data-delay="400">{page.profile.headline}</p>
 
-			<div class="hero-bio" data-animate data-delay="550">
-				<p class="bio-text">{page.profile.shortBio}</p>
-				<ul class="inline-list quiet-list">
+			<div class="hero-cv" data-animate data-delay="550">
+				<ul class="cv-list">
+					<li>B.Eng. in Automation, Southwest University (211)</li>
+					<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a>, supervised by Assoc. Prof. Junjie Huang</li>
+					<li>Research focus: AI Agent</li>
+					<li>CCS 2026 under review (3rd author) - RAG safety</li>
+				</ul>
+				<ul class="inline-list quiet-list cv-status">
 					<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
 					<li>{page.profile.location}</li>
 				</ul>

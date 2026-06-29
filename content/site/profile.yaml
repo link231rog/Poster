@@ -1,19 +1,18 @@
 name: Zixuan Huang
-headline: CS student building agent systems, developer tooling, and calm infrastructure.
-short_bio: I study at Southwest University in Chongqing. I build small, reliable systems at the intersection of AI research and developer experience - agent workflows, content-first tools, and things that age well.
+headline: B.Eng. in Automation, Southwest University. Focusing on AI Agent research at EZE LAB.
+short_bio: Member of EZE LAB under Associate Professor Junjie Huang. Research focus on AI Agent and RAG safety. CCS 2026 under review (3rd author).
 location: Chongqing, China
 email: huangzixuan@example.com
 avatar: /avatar.png
-current_focus: Agent orchestration reproducibility and static-first personal infrastructure.
+current_focus: AI Agent research, RAG safety, and building in public.
 skills:
+  - AI Agent
+  - RAG Safety
   - Python
-  - TypeScript
-  - LLM Agents
-  - Astro
+  - Automation
   - Research Engineering
-  - UX Writing
 status:
-  text: Researching agent guardrails and building in public.
+  text: CCS 2026 under review
   type: active
 socials:
   - platform: GitHub
