@@ -7,12 +7,28 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 ---
 
 <BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
+	<!-- Full-screen hero: slogan + image -->
+	<section class="hero-screen" id="hero-screen">
+		<div class="hero-screen-content">
+			<h1 class="hero-screen-title">
+				<Typewriter text="I prefer to be a creator" speed={55} />
+			</h1>
+			<p class="hero-screen-name">{page.profile.name}</p>
+		</div>
+		<div class="hero-screen-image">
+			<!-- TODO: Replace with your own photo -->
+			<div class="hero-image-placeholder"></div>
+		</div>
+		<div class="hero-scroll-hint">
+			<span>Scroll</span>
+			<span class="scroll-arrow"></span>
+		</div>
+	</section>
+
+	<!-- Main content: split layout -->
 	<section class="home-split">
 		<div class="home-left" data-animate="fade" data-delay="100">
 			<p class="hero-name-label">{page.profile.name}</p>
-			<h1 class="hero-title">
-				<Typewriter text="I prefer to be a creator" speed={60} />
-			</h1>
 			<p class="hero-headline">{page.profile.headline}</p>
 
 			<ul class="cv-list">
@@ -29,12 +45,12 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 		</div>
 
 		<div class="home-right">
-			<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-block gate-from-right" data-delay="400">
+			<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-block gate-from-right" data-delay="200">
 				<span class="gate-block-label">Work</span>
 				<span class="gate-block-desc">Projects, research, writing</span>
 				<span class="gate-block-line"></span>
 			</a>
-			<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-block gate-from-right" data-delay="550">
+			<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-block gate-from-right" data-delay="350">
 				<span class="gate-block-label">Life</span>
 				<span class="gate-block-desc">Travel, photography, blog</span>
 				<span class="gate-block-line"></span>
@@ -45,13 +61,41 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 <script>
 (() => {
+	// Parallax fade on hero section
+	const hero = document.getElementById('hero-screen');
+	if (hero) {
+		let ticking = false;
+		window.addEventListener('scroll', () => {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					const scrollY = window.scrollY;
+					const vh = window.innerHeight;
+					const progress = Math.min(scrollY / vh, 1);
+					hero.style.opacity = String(1 - progress);
+					hero.style.transform = `translateY(${scrollY * 0.3}px)`;
+					ticking = false;
+				});
+				ticking = true;
+			}
+		}, { passive: true });
+	}
+
 	// Gate entrance animation
 	const gates = document.querySelectorAll('.gate-from-right');
-	gates.forEach((gate) => {
-		const el = gate as HTMLElement;
-		const delay = parseInt(el.dataset.delay || '400', 10);
-		setTimeout(() => el.classList.add('gate-visible'), delay);
-	});
+	const gateObserver = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const el = entry.target as HTMLElement;
+					const delay = parseInt(el.dataset.delay || '200', 10);
+					setTimeout(() => el.classList.add('gate-visible'), delay);
+					gateObserver.unobserve(el);
+				}
+			});
+		},
+		{ threshold: 0.2 }
+	);
+	gates.forEach((gate) => gateObserver.observe(gate));
 
 	// Magnetic hover on gates
 	document.querySelectorAll<HTMLElement>('.gate-block').forEach((gate) => {

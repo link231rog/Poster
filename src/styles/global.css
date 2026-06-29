@@ -744,6 +744,87 @@ p { color: var(--text-secondary); margin: 0; }
   50% { opacity: 0.3; }
 }
 
+/* ─── Hero Screen (full viewport) ─────────────────────── */
+.hero-screen {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+.hero-screen-content {
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.hero-screen-title {
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  margin: 0;
+}
+.hero-screen-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.hero-screen-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 60%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  animation: hint-float 2s ease-in-out infinite;
+  z-index: 2;
+}
+.scroll-arrow {
+  display: block;
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--text-tertiary), transparent);
+  animation: arrow-grow 2s ease-in-out infinite;
+}
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+@keyframes arrow-grow {
+  0%, 100% { height: 24px; opacity: 0.4; }
+  50% { height: 32px; opacity: 0.8; }
+}
+
 /* ─── Home Split Layout ────────────────────────────────── */
 .home-split {
   display: flex;
