@@ -9,10 +9,10 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 <BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
 	<section class="home-flow">
 		<section class="hero-intro section">
-			<p class="hero-slogan" data-animate="fade" data-delay="50">I prefer to be a creator</p>
+			<p class="hero-name-label" data-animate="fade" data-delay="50">{page.profile.name}</p>
 
-			<h1 class="hero-title hero-scramble" data-animate="fade" data-delay="150" data-text={page.profile.name}>
-				{page.profile.name}
+			<h1 class="hero-title hero-scramble" data-animate="fade" data-delay="150" data-text="I prefer to be a creator">
+				I prefer to be a creator
 			</h1>
 			<p class="hero-subtitle" data-animate data-delay="400">{page.profile.headline}</p>
 
