@@ -744,25 +744,43 @@ p { color: var(--text-secondary); margin: 0; }
   50% { opacity: 0.3; }
 }
 
-/* ─── Hero Gates (Work/Life) ──────────────────────────── */
-.hero-gates {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  margin-top: 40px;
-  width: 100%;
+/* ─── Home Split Layout ────────────────────────────────── */
+.home-split {
+  display: flex;
+  gap: 64px;
+  min-height: 80vh;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.home-left {
+  flex: 1;
   max-width: 520px;
+}
+.home-right {
+  flex: 0 0 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-.gate {
+.hero-headline {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0 0 24px;
+  max-width: 44ch;
+}
+
+/* ─── Gate Block (vertical stack) ─────────────────────── */
+.gate-block {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 8px;
-  padding: 36px 24px;
+  padding: 40px 32px;
   background: var(--bg);
   text-decoration: none;
   position: relative;
@@ -770,37 +788,29 @@ p { color: var(--text-secondary); margin: 0; }
   transition: background 0.25s ease, transform 0.15s ease;
   will-change: transform;
 }
-/* Entrance animations */
-.gate-from-left {
-  opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.25s ease;
-}
 .gate-from-right {
   opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1), transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.25s ease;
+  transform: translateX(30px);
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), background 0.25s ease;
 }
-.gate-from-left.gate-visible,
 .gate-from-right.gate-visible {
   opacity: 1;
   transform: translateX(0);
 }
 /* Hover glow */
-.gate::before {
+.gate-block::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: inherit;
   opacity: 0;
   transition: opacity 0.4s ease;
-  background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.06), transparent 60%);
+  background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.04), transparent 60%);
   pointer-events: none;
 }
-.gate:hover { background: var(--surface); }
-.gate:hover::before { opacity: 1; }
-/* Bottom accent line */
-.gate-line {
+.gate-block:hover { background: var(--surface); }
+.gate-block:hover::before { opacity: 1; }
+/* Bottom line */
+.gate-block-line {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -809,28 +819,27 @@ p { color: var(--text-secondary); margin: 0; }
   background: var(--text);
   transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1), left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
-.gate:hover .gate-line {
+.gate-block:hover .gate-block-line {
   width: 100%;
   left: 0;
 }
-.gate-label {
-  font-size: 20px;
+.gate-block-label {
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text);
   transition: letter-spacing 0.3s ease;
 }
-.gate:hover .gate-label {
-  letter-spacing: 0.04em;
+.gate-block:hover .gate-block-label {
+  letter-spacing: 0.06em;
 }
-.gate-hint {
-  font-size: 12px;
+.gate-block-desc {
+  font-size: 13px;
   color: var(--text-tertiary);
   font-family: var(--font-mono);
-  text-align: center;
   transition: color 0.3s ease;
 }
-.gate:hover .gate-hint { color: var(--text-secondary); }
+.gate-block:hover .gate-block-desc { color: var(--text-secondary); }
 
 /* ─── Text Scramble ───────────────────────────────────── */
 .scramble-char {
@@ -1316,9 +1325,20 @@ p { color: var(--text-secondary); margin: 0; }
   .hero-title { font-size: 2rem; }
   .cta-row { flex-direction: column; }
   .button, .button-secondary { width: 100%; justify-content: center; }
-  .hero-gates { grid-template-columns: 1fr; }
   .travel-layout { grid-template-columns: 1fr; }
   .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+}
+
+/* ─── Home Split Responsive ───────────────────────────── */
+@media (max-width: 900px) {
+  .home-split {
+    flex-direction: column;
+    gap: 32px;
+    min-height: auto;
+    padding-top: 16px;
+  }
+  .home-left { max-width: 100%; }
+  .home-right { flex: none; width: 100%; }
 }
 
 /* ─── Split Layout Responsive ─────────────────────────── */

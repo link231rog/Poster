@@ -7,56 +7,54 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 ---
 
 <BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
-	<section class="home-flow">
-		<section class="hero-intro section">
-			<p class="hero-name-label" data-animate="fade" data-delay="50">{page.profile.name}</p>
-
-			<h1 class="hero-title" data-animate="fade" data-delay="150">
+	<section class="home-split">
+		<div class="home-left" data-animate="fade" data-delay="100">
+			<p class="hero-name-label">{page.profile.name}</p>
+			<h1 class="hero-title">
 				<Typewriter text="I prefer to be a creator" speed={60} />
 			</h1>
-			<p class="hero-subtitle" data-animate data-delay="400">{page.profile.headline}</p>
+			<p class="hero-headline">{page.profile.headline}</p>
 
-			<div class="hero-cv" data-animate data-delay="550">
-				<ul class="cv-list">
-					<li>B.Eng. in Automation, Southwest University (211)</li>
-					<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a>, supervised by Assoc. Prof. Junjie Huang</li>
-					<li>Research focus: AI Agent</li>
-					<li>CCS 2026 under review (3rd author) - RAG safety</li>
-				</ul>
-				<ul class="inline-list quiet-list cv-status">
-					<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
-					<li>{page.profile.location}</li>
-				</ul>
-			</div>
+			<ul class="cv-list">
+				<li>B.Eng. in Automation, Southwest University (211)</li>
+				<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></li>
+				<li>Research focus: AI Agent</li>
+				<li>CCS 2026 under review (3rd author)</li>
+			</ul>
 
-			<div class="hero-gates" data-animate="none">
-				<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-work gate-from-left" data-delay="700">
-					<span class="gate-label">Work</span>
-					<span class="gate-hint">Projects, research, writing</span>
-					<span class="gate-line"></span>
-				</a>
-				<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-life gate-from-right" data-delay="700">
-					<span class="gate-label">Life</span>
-					<span class="gate-hint">Travel, photography, blog</span>
-					<span class="gate-line"></span>
-				</a>
-			</div>
-		</section>
+			<ul class="inline-list quiet-list cv-status">
+				<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
+				<li>{page.profile.location}</li>
+			</ul>
+		</div>
+
+		<div class="home-right">
+			<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-block gate-from-right" data-delay="400">
+				<span class="gate-block-label">Work</span>
+				<span class="gate-block-desc">Projects, research, writing</span>
+				<span class="gate-block-line"></span>
+			</a>
+			<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-block gate-from-right" data-delay="550">
+				<span class="gate-block-label">Life</span>
+				<span class="gate-block-desc">Travel, photography, blog</span>
+				<span class="gate-block-line"></span>
+			</a>
+		</div>
 	</section>
 </BaseLayout>
 
 <script>
 (() => {
 	// Gate entrance animation
-	const gates = document.querySelectorAll('.gate-from-left, .gate-from-right');
+	const gates = document.querySelectorAll('.gate-from-right');
 	gates.forEach((gate) => {
 		const el = gate as HTMLElement;
-		const delay = parseInt(el.dataset.delay || '700', 10);
+		const delay = parseInt(el.dataset.delay || '400', 10);
 		setTimeout(() => el.classList.add('gate-visible'), delay);
 	});
 
 	// Magnetic hover on gates
-	document.querySelectorAll<HTMLElement>('.gate').forEach((gate) => {
+	document.querySelectorAll<HTMLElement>('.gate-block').forEach((gate) => {
 		gate.addEventListener('mousemove', (e) => {
 			const rect = gate.getBoundingClientRect();
 			const x = e.clientX - rect.left;
@@ -68,7 +66,7 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 			gate.style.setProperty('--mx', `${x}px`);
 			gate.style.setProperty('--my', `${y}px`);
-			gate.style.transform = `translate(${dx * 4}px, ${dy * 4}px) scale(1.02)`;
+			gate.style.transform = `translateY(${dy * 3}px) scale(1.01)`;
 		});
 
 		gate.addEventListener('mouseleave', () => {
