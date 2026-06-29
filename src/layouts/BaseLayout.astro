@@ -22,8 +22,8 @@ const { title, description, navigation, pathname = '/' } = Astro.props;
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-		<link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
+		<link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
 		<title>{title}</title>
 	</head>
 	<body>
@@ -37,7 +37,7 @@ const { title, description, navigation, pathname = '/' } = Astro.props;
 					<ul class="nav-list">
 						{navigation.map((item) => (
 							<li>
-								<a class:list={[pathname === item.href && 'is-active']} href={`${import.meta.env.BASE_URL}${item.href === '/' ? '' : item.href.slice(1)}`}>
+								<a class:list={[pathname === item.href && 'is-active']} href={`${import.meta.env.BASE_URL}${item.href === '/' ? '' : '/' + item.href.slice(1)}`}>
 									{item.label}
 								</a>
 							</li>
