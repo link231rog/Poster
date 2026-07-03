@@ -40,7 +40,7 @@ const { title, description, navigation, profile, pathname = '/', activeSection =
 		<ScrollProgress />
 		<div class="grain-overlay" transition:persist></div>
 
-		<div class="split-shell page-enter">
+		<div class="split-shell page-enter" transition:animate="slide">
 			<header class="split-topbar" data-animate="fade">
 				<a class="brand" href={`${import.meta.env.BASE_URL}`}>Link</a>
 				<nav>

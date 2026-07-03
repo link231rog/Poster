@@ -1590,8 +1590,36 @@ p { color: var(--text-secondary); margin: 0; }
 
 /* PPT-like slide transition via Astro ClientRouter */
 ::view-transition-old(root) {
-  animation: none;
+  animation: slide-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 ::view-transition-new(root) {
-  animation: none;
+  animation: slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes slide-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-30%); opacity: 0; }
+}
+@keyframes slide-out-reverse {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(30%); opacity: 0; }
+}
+@keyframes slide-in {
+  from { transform: translateX(30%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-reverse {
+  from { transform: translateX(-30%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+::view-transition-old(root):active-view-transition-type(slide-left) {
+  animation-name: slide-out;
+}
+::view-transition-new(root):active-view-transition-type(slide-left) {
+  animation-name: slide-in;
+}
+::view-transition-old(root):active-view-transition-type(slide-right) {
+  animation-name: slide-out-reverse;
+}
+::view-transition-new(root):active-view-transition-type(slide-right) {
+  animation-name: slide-in-reverse;
 }
