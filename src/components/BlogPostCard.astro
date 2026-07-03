@@ -10,7 +10,7 @@ const dateStr = post.date ? new Date(post.date).toLocaleDateString('en-US', { ye
 ---
 
 <article class="blog-card" data-animate data-delay="0">
-	<a href={`${import.meta.env.BASE_URL}blog/${post.slug}`} class="blog-card-link">
+	<a href={`${import.meta.env.BASE_URL}/blog/${post.slug}`} class="blog-card-link">
 		<div class="blog-card-meta">
 			<time class="blog-date">{dateStr}</time>
 			{post.featured && <span class="blog-featured">Featured</span>}

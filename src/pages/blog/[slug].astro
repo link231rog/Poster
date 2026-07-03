@@ -14,7 +14,7 @@ const { slug } = Astro.params;
 const [site, post] = await Promise.all([getSiteData(), getBlogPost(slug!)]);
 
 if (!post) {
-	return Astro.redirect(`${import.meta.env.BASE_URL}blog`);
+	return Astro.redirect(`${import.meta.env.BASE_URL}/blog`);
 }
 
 const dateStr = post.date
@@ -28,7 +28,7 @@ const dateStr = post.date
 
 <BaseLayout title={`${post.title} · ${site.seo.title}`} description={post.summary} navigation={site.navigation.items} pathname="/blog">
 	<article class="section page-flow blog-post-page">
-		<a href={`${import.meta.env.BASE_URL}blog`} class="back-link" data-animate="fade">← All posts</a>
+		<a href={`${import.meta.env.BASE_URL}/blog`} class="back-link" data-animate="fade">← All posts</a>
 
 		<header class="blog-post-header" data-animate data-delay="100">
 			<div class="blog-post-meta">
@@ -46,7 +46,7 @@ const dateStr = post.date
 
 		<footer class="blog-post-footer" data-animate data-delay="300">
 			<NewsletterSignup />
-			<a href={`${import.meta.env.BASE_URL}blog`} class="back-link">← Back to all posts</a>
+			<a href={`${import.meta.env.BASE_URL}/blog`} class="back-link">← Back to all posts</a>
 		</footer>
 	</article>
 </BaseLayout>
