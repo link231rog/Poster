@@ -4,6 +4,7 @@
  * Left: sticky sidebar. Right: scrollable content.
  */
 import type { NavigationItem, Profile } from '../types/content';
+import { ClientRouter } from 'astro:transitions';
 import Sidebar from '../components/Sidebar.astro';
 import AnimateOnScroll from '../components/AnimateOnScroll.astro';
 import ParticleField from '../components/ParticleField.astro';
@@ -32,11 +33,12 @@ const { title, description, navigation, profile, pathname = '/', activeSection =
 		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
 		<link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
 		<title>{title}</title>
+		<ClientRouter />
 	</head>
 	<body>
-		<ParticleField />
+		<ParticleField transition:persist />
 		<ScrollProgress />
-		<div class="grain-overlay"></div>
+		<div class="grain-overlay" transition:persist></div>
 
 		<div class="split-shell page-enter">
 			<header class="split-topbar" data-animate="fade">

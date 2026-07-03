@@ -62,7 +62,7 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 </BaseLayout>
 
 <script>
-(() => {
+document.addEventListener('astro:page-load', () => {
 	// Hero scroll animation: globe sinks below horizon, text stays pinned
 	const hero = document.getElementById('hero-screen');
 	const heroVisual = hero?.querySelector('.hero-screen-visual');
@@ -180,30 +180,5 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 		// Initial state
 		updateZoom();
 	}
-
-	// Circle clip-path overlay transition for gate navigation
-	const overlay = document.getElementById('page-transition-overlay');
-	if (overlay) {
-		document.querySelectorAll<HTMLElement>('.gate-block').forEach((gate) => {
-			gate.addEventListener('click', (e) => {
-				if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-
-				const href = gate.getAttribute('href');
-				if (!href) return;
-
-				e.preventDefault();
-
-				// Set circle origin to click coordinates
-				overlay.style.setProperty('--tx', e.clientX + 'px');
-				overlay.style.setProperty('--ty', e.clientY + 'px');
-				overlay.classList.add('is-expanding');
-
-				// Navigate at animation peak
-				overlay.addEventListener('animationend', () => {
-					window.location.href = href;
-				}, { once: true });
-			});
-		});
-	}
-})();
+});
 </script>
