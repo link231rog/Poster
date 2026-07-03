@@ -47,12 +47,12 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 			<div class="home-right">
 				<a href={`${import.meta.env.BASE_URL}/work`} class="gate gate-block gate-from-right" data-delay="200">
-					<span class="gate-block-label">Work</span>
+					<span class="gate-block-label" transition:name="gate-work">Work</span>
 					<span class="gate-block-desc">Projects, research, writing</span>
 					<span class="gate-block-line"></span>
 				</a>
 				<a href={`${import.meta.env.BASE_URL}/travel`} class="gate gate-block gate-from-right" data-delay="350">
-					<span class="gate-block-label">Life</span>
+					<span class="gate-block-label" transition:name="gate-life">Life</span>
 					<span class="gate-block-desc">Travel, photography, blog</span>
 					<span class="gate-block-line"></span>
 				</a>

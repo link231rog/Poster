@@ -31,7 +31,7 @@ const sidebarSections = [
 	activeSection="study"
 	sidebarSections={sidebarSections}
 >
-	<section id="study" class="split-section">
+	<section id="study" class="split-section stagger-el">
 		<h2 class="section-title">Study</h2>
 		<div class="prose">
 			<p>B.Eng. in Automation, Southwest University (211 in Chongqing)</p>
@@ -66,7 +66,7 @@ const sidebarSections = [
 		</div>
 	</section>
 
-	<section id="about" class="split-section">
+	<section id="about" class="split-section stagger-el">
 		<h2 class="section-title">About</h2>
 		<div class="prose">
 			<p>I focus on AI Agent research at <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> under Associate Professor Junjie Huang.</p>
@@ -75,7 +75,7 @@ const sidebarSections = [
 		</div>
 	</section>
 
-	<section id="projects" class="split-section">
+	<section id="projects" class="split-section stagger-el">
 		<h2 class="section-title">Projects</h2>
 		<div class="experience-list">
 			{projects.map((project) => (
@@ -101,7 +101,7 @@ const sidebarSections = [
 	</section>
 
 	{workPosts.length > 0 && (
-		<section id="writing" class="split-section">
+		<section id="writing" class="split-section stagger-el">
 			<h2 class="section-title">Writing</h2>
 			<div class="experience-list">
 				{workPosts.map((post) => (
@@ -123,7 +123,7 @@ const sidebarSections = [
 		</section>
 	)}
 
-	<section id="experience" class="split-section">
+	<section id="experience" class="split-section stagger-el">
 		<h2 class="section-title">Experience</h2>
 		<TimelineList items={timeline} />
 	</section>

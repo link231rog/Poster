@@ -735,11 +735,7 @@ p { color: var(--text-secondary); margin: 0; }
 
 /* ─── Page Transition ─────────────────────────────────── */
 .page-enter {
-  animation: page-slide-in 0.55s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
-}
-@keyframes page-slide-in {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  /* Reserved for future initial-load effects */
 }
 
 /* ─── Pulse ───────────────────────────────────────────── */
@@ -1584,42 +1580,84 @@ p { color: var(--text-secondary); margin: 0; }
   .travel-notes { grid-template-columns: 1fr; }
 }
 
-/* ─── Page Transition Overlay ─────────────────────────── */
-/* Removed: #page-transition-overlay, .is-expanding, @keyframes overlay-expand
-   Replaced by Astro ClientRouter + view transitions. */
+/* ═══════════════════════════════════════════════════════
+   Canvas-Pull View Transition
+   ═══════════════════════════════════════════════════════
+   Like pulling a new canvas over the old one.
+   Forward (home → subpage): old slides left, new slides in from right.
+   Backward (subpage → home): old slides right, new slides in from left.
+   ═══════════════════════════════════════════════════════ */
 
-/* PPT-like slide transition via Astro ClientRouter */
+/* ─── Forward ──────────────────────────────────────── */
 ::view-transition-old(root) {
-  animation: slide-out 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: canvas-pull-out 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 ::view-transition-new(root) {
-  animation: slide-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: canvas-pull-in 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-@keyframes slide-out {
+
+/* ─── Reverse (back to home) ────────────────────────── */
+html[data-astro-transition-direction="backward"]::view-transition-old(root) {
+  animation-name: canvas-pull-out-reverse;
+}
+html[data-astro-transition-direction="backward"]::view-transition-new(root) {
+  animation-name: canvas-pull-in-reverse;
+}
+
+@keyframes canvas-pull-out {
   from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(-30%); opacity: 0; }
+  to   { transform: translateX(-22%); opacity: 0.25; }
 }
-@keyframes slide-out-reverse {
+@keyframes canvas-pull-in {
+  from { transform: translateX(38%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes canvas-pull-out-reverse {
   from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(30%); opacity: 0; }
+  to   { transform: translateX(22%); opacity: 0.25; }
 }
-@keyframes slide-in {
-  from { transform: translateX(30%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+@keyframes canvas-pull-in-reverse {
+  from { transform: translateX(-38%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
 }
-@keyframes slide-in-reverse {
-  from { transform: translateX(-30%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+
+/* ─── Gate-label / sidebar morph ────────────────────── */
+::view-transition-old(gate-work),
+::view-transition-new(gate-work),
+::view-transition-old(gate-life),
+::view-transition-new(gate-life) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
-::view-transition-old(root):active-view-transition-type(slide-left) {
-  animation-name: slide-out;
+
+/* ─── Mobile: simple crossfade ──────────────────────── */
+@media (max-width: 900px) {
+  ::view-transition-old(root) { animation: fade-out 0.2s ease forwards; }
+  ::view-transition-new(root) { animation: fade-in  0.2s ease forwards; }
+  html[data-astro-transition-direction="backward"]::view-transition-old(root) { animation-name: fade-out; }
+  html[data-astro-transition-direction="backward"]::view-transition-new(root) { animation-name: fade-in; }
+  @keyframes fade-out { to { opacity: 0; } }
+  @keyframes fade-in  { from { opacity: 0; } }
+
+  ::view-transition-old(gate-work),
+  ::view-transition-new(gate-work),
+  ::view-transition-old(gate-life),
+  ::view-transition-new(gate-life) {
+    animation-duration: 0.2s;
+  }
 }
-::view-transition-new(root):active-view-transition-type(slide-left) {
-  animation-name: slide-in;
+
+/* ═══════════════════════════════════════════════════════
+   Staggered Entrance on SPA navigation
+   ═══════════════════════════════════════════════════════ */
+.stagger-el {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
 }
-::view-transition-old(root):active-view-transition-type(slide-right) {
-  animation-name: slide-out-reverse;
+.stagger-el.stagger-enter {
+  animation: stagger-fade-up 0.55s cubic-bezier(0.23, 1, 0.32, 1) var(--stagger-delay, 0s) both;
 }
-::view-transition-new(root):active-view-transition-type(slide-right) {
-  animation-name: slide-in-reverse;
+@keyframes stagger-fade-up {
+  to { opacity: 1; transform: translateY(0); }
 }

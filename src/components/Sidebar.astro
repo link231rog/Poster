@@ -9,12 +9,13 @@ type Props = {
 	profile: Profile;
 	activeSection?: string;
 	sections: Array<{ id: string; label: string }>;
+	pairedTo?: string;
 };
 
-const { profile, activeSection = '', sections } = Astro.props;
+const { profile, activeSection = '', sections, pairedTo } = Astro.props;
 ---
 
-<aside class="sidebar">
+<aside class="sidebar stagger-el">
 	<div class="sidebar-inner">
 		<div class="sidebar-identity">
 			<h1 class="sidebar-name">{profile.name}</h1>
@@ -35,7 +36,7 @@ const { profile, activeSection = '', sections } = Astro.props;
 					data-section={s.id}
 				>
 					<span class="nav-indicator"></span>
-					<span class="nav-label">{s.label}</span>
+					<span class="nav-label" transition:name={s.id === sections[0]?.id ? pairedTo : undefined}>{s.label}</span>
 				</a>
 			))}
 		</nav>
