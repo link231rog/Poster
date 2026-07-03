@@ -61,12 +61,12 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 <script>
 (() => {
-	// Sunset animation: hero content sinks below horizon on scroll
+	// Hero scroll animation: globe sinks below horizon, text stays pinned
 	const hero = document.getElementById('hero-screen');
-	const heroInner = hero?.querySelector('.hero-screen-inner');
+	const heroVisual = hero?.querySelector('.hero-screen-visual');
 	const scrollHint = hero?.querySelector('.hero-scroll-hint');
 
-	if (hero && heroInner) {
+	if (hero && heroVisual) {
 		let ticking = false;
 		let cachedVh = window.innerHeight;
 		window.addEventListener('scroll', () => {
@@ -80,9 +80,9 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 					// Ease-out cubic for a "pulling away" feel
 					const eased = 1 - Math.pow(1 - progress, 3);
 
-					// Content sinks downward and fades
-					heroInner.style.transform = `translateY(${eased * vh}px)`;
-					heroInner.style.opacity = String(Math.max(0, 1 - progress));
+					// Globe sinks downward and fades — only top ~1/3 remains visible
+					heroVisual.style.transform = `translateY(${eased * 60}vh)`;
+					heroVisual.style.opacity = String(Math.max(0, 1 - progress * 1.5));
 
 					// Scroll hint vanishes quickly
 					if (scrollHint) {

@@ -750,7 +750,8 @@ p { color: var(--text-secondary); margin: 0; }
 
 /* ─── Hero Screen (full viewport) ─────────────────────── */
 .hero-screen {
-  position: relative;
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 100vh;
   min-height: 600px;
@@ -760,6 +761,7 @@ p { color: var(--text-secondary); margin: 0; }
   justify-content: center;
   overflow: hidden;
   background: var(--bg-warm);
+  z-index: 10;
 }
 .hero-screen-inner {
   display: flex;
@@ -770,7 +772,6 @@ p { color: var(--text-secondary); margin: 0; }
   max-width: 1200px;
   padding: 0 48px;
   gap: 48px;
-  will-change: transform, opacity;
 }
 .hero-screen-content {
   flex: 0 0 42%;
@@ -823,6 +824,7 @@ p { color: var(--text-secondary); margin: 0; }
   opacity: 0;
   transform: translateY(20px) scale(0.95);
   animation: hero-fade-up-scale 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.4s forwards;
+  will-change: transform, opacity;
 }
 .hero-scroll-hint {
   position: absolute;
@@ -909,6 +911,20 @@ p { color: var(--text-secondary); margin: 0; }
   align-items: center;
   max-width: 1100px;
   margin: 0 auto;
+  position: relative;
+  z-index: 20;
+  background: var(--bg);
+}
+.home-split::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  background: var(--bg);
+  z-index: -1;
 }
 .home-left {
   flex: 1;
