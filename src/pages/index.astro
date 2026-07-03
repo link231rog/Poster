@@ -68,11 +68,13 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 	if (hero && heroInner) {
 		let ticking = false;
+		let cachedVh = window.innerHeight;
 		window.addEventListener('scroll', () => {
 			if (!ticking) {
+				cachedVh = window.innerHeight;
 				requestAnimationFrame(() => {
 					const scrollY = window.scrollY;
-					const vh = window.innerHeight;
+					const vh = cachedVh;
 					const progress = Math.min(scrollY / vh, 1);
 
 					// Ease-out cubic for a "pulling away" feel
