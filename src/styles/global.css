@@ -735,10 +735,10 @@ p { color: var(--text-secondary); margin: 0; }
 
 /* ─── Page Transition ─────────────────────────────────── */
 .page-enter {
-  animation: page-slide-in 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: page-slide-in 0.55s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
 }
 @keyframes page-slide-in {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -1584,64 +1584,19 @@ p { color: var(--text-secondary); margin: 0; }
   .travel-notes { grid-template-columns: 1fr; }
 }
 
-/* ─── View Transitions ────────────────────────────────── */
-@supports (view-transition-name: test) {
-  .gate-block-label {
-    view-transition-name: none;
-  }
-
-  .split-shell[data-view-transition="work-label"] .sidebar-name {
-    view-transition-name: work-label;
-  }
-  .split-shell[data-view-transition="life-label"] .sidebar-name {
-    view-transition-name: life-label;
-  }
+/* ─── Page Transition Overlay ─────────────────────────── */
+#page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #1a1714;
+  clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%));
+  pointer-events: none;
 }
-
-/* Gate label: longer, more visible transition */
-::view-transition-old(work-label),
-::view-transition-old(life-label) {
-  animation: vt-label-out 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+#page-transition-overlay.is-expanding {
+  animation: overlay-expand 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
-::view-transition-new(work-label),
-::view-transition-new(life-label) {
-  animation: vt-label-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
-}
-
-/* Root page content: smooth cross-fade with noticeable motion */
-::view-transition-old(root) {
-  animation: vt-page-out 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
-::view-transition-new(root) {
-  animation: vt-page-in 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.08s both;
-}
-
-/* Disable default cross-fade so our custom animations take over */
-::view-transition-old(root),
-::view-transition-new(root) {
-  mix-blend-mode: normal;
-}
-
-@keyframes vt-label-out {
-  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-  to   { opacity: 0; transform: translateY(-20px) scale(0.95); filter: blur(3px); }
-}
-@keyframes vt-label-in {
-  from { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(3px); }
-  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-}
-@keyframes vt-page-out {
-  from { opacity: 1; transform: scale(1); filter: blur(0); }
-  to   { opacity: 0; transform: scale(0.98); filter: blur(2px); }
-}
-@keyframes vt-page-in {
-  from { opacity: 0; transform: scale(1.02); filter: blur(2px); }
-  to   { opacity: 1; transform: scale(1); filter: blur(0); }
-}
-
-/* Disable the default page-enter animation when view transitions are active */
-@supports (view-transition-name: test) {
-  .page-enter {
-    animation: none;
-  }
+@keyframes overlay-expand {
+  from { clip-path: circle(0% at var(--tx, 50%) var(--ty, 50%)); }
+  to   { clip-path: circle(150% at var(--tx, 50%) var(--ty, 50%)); }
 }

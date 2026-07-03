@@ -38,7 +38,7 @@ const { title, description, navigation, profile, pathname = '/', activeSection =
 		<ScrollProgress />
 		<div class="grain-overlay"></div>
 
-		<div class="split-shell page-enter" data-view-transition={pathname === '/work' ? 'work-label' : pathname === '/travel' ? 'life-label' : ''}>
+		<div class="split-shell page-enter">
 			<header class="split-topbar" data-animate="fade">
 				<a class="brand" href={`${import.meta.env.BASE_URL}`}>Link</a>
 				<nav>
