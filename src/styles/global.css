@@ -1598,35 +1598,48 @@ p { color: var(--text-secondary); margin: 0; }
   }
 }
 
-/* Gate label cross-fade */
+/* Gate label: longer, more visible transition */
 ::view-transition-old(work-label),
 ::view-transition-old(life-label) {
-  animation: vt-fade-out 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: vt-label-out 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 ::view-transition-new(work-label),
 ::view-transition-new(life-label) {
-  animation: vt-fade-in 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: vt-label-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
 }
 
-/* Root (page content) cross-fade */
+/* Root page content: smooth cross-fade with noticeable motion */
 ::view-transition-old(root) {
-  animation: vt-fade-out 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: vt-page-out 0.45s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 ::view-transition-new(root) {
-  animation: vt-fade-in 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: vt-page-in 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.08s both;
 }
 
-@keyframes vt-fade-out {
-  from { opacity: 1; transform: translateY(0) scale(1); }
-  to   { opacity: 0; transform: translateY(-10px) scale(0.98); }
-}
-@keyframes vt-fade-in {
-  from { opacity: 0; transform: translateY(10px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+/* Disable default cross-fade so our custom animations take over */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
 }
 
-/* Disable the default page-enter animation when view transitions are active
-   so the two animations don't fight each other */
+@keyframes vt-label-out {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to   { opacity: 0; transform: translateY(-20px) scale(0.95); filter: blur(3px); }
+}
+@keyframes vt-label-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(3px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes vt-page-out {
+  from { opacity: 1; transform: scale(1); filter: blur(0); }
+  to   { opacity: 0; transform: scale(0.98); filter: blur(2px); }
+}
+@keyframes vt-page-in {
+  from { opacity: 0; transform: scale(1.02); filter: blur(2px); }
+  to   { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* Disable the default page-enter animation when view transitions are active */
 @supports (view-transition-name: test) {
   .page-enter {
     animation: none;

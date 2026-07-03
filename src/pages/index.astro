@@ -181,11 +181,10 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 		updateZoom();
 	}
 
-	// View Transition API for gate navigation
+	// View Transition API for smooth gate navigation
 	if ('startViewTransition' in document) {
 		document.querySelectorAll<HTMLElement>('.gate-block').forEach((gate) => {
 			gate.addEventListener('click', (e) => {
-				// Respect modifier keys and non-left clicks (let browser handle them)
 				if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 
 				const href = gate.getAttribute('href');
@@ -193,18 +192,18 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 				e.preventDefault();
 
-				// Assign view-transition-name based on destination
+				// Assign view-transition-name to the clicked label
 				const label = gate.querySelector('.gate-block-label') as HTMLElement | null;
 				if (label) {
 					const isWork = href.includes('work');
 					label.style.viewTransitionName = isWork ? 'work-label' : 'life-label';
 				}
 
-				// Start transition and navigate after browser captures old state
-				document.startViewTransition();
-				setTimeout(() => {
+				// startViewTransition wraps the actual navigation
+				// The callback tells the browser "here's the DOM update to animate"
+				document.startViewTransition(() => {
 					window.location.href = href;
-				}, 50);
+				});
 			});
 		});
 	}
