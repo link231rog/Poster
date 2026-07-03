@@ -180,5 +180,33 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 		// Initial state
 		updateZoom();
 	}
+
+	// View Transition API for gate navigation
+	if ('startViewTransition' in document) {
+		document.querySelectorAll<HTMLElement>('.gate-block').forEach((gate) => {
+			gate.addEventListener('click', (e) => {
+				// Respect modifier keys and non-left clicks (let browser handle them)
+				if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+				const href = gate.getAttribute('href');
+				if (!href) return;
+
+				e.preventDefault();
+
+				// Assign view-transition-name based on destination
+				const label = gate.querySelector('.gate-block-label') as HTMLElement | null;
+				if (label) {
+					const isWork = href.includes('work');
+					label.style.viewTransitionName = isWork ? 'work-label' : 'life-label';
+				}
+
+				// Start transition and navigate after browser captures old state
+				document.startViewTransition();
+				setTimeout(() => {
+					window.location.href = href;
+				}, 50);
+			});
+		});
+	}
 })();
 </script>

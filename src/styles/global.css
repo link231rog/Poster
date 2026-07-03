@@ -1583,3 +1583,52 @@ p { color: var(--text-secondary); margin: 0; }
   .split-shell { padding: 16px 16px 48px; }
   .travel-notes { grid-template-columns: 1fr; }
 }
+
+/* ─── View Transitions ────────────────────────────────── */
+@supports (view-transition-name: test) {
+  .gate-block-label {
+    view-transition-name: none;
+  }
+
+  .split-shell[data-view-transition="work-label"] .sidebar-name {
+    view-transition-name: work-label;
+  }
+  .split-shell[data-view-transition="life-label"] .sidebar-name {
+    view-transition-name: life-label;
+  }
+}
+
+/* Gate label cross-fade */
+::view-transition-old(work-label),
+::view-transition-old(life-label) {
+  animation: vt-fade-out 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+::view-transition-new(work-label),
+::view-transition-new(life-label) {
+  animation: vt-fade-in 0.35s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* Root (page content) cross-fade */
+::view-transition-old(root) {
+  animation: vt-fade-out 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+::view-transition-new(root) {
+  animation: vt-fade-in 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-10px) scale(0.98); }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Disable the default page-enter animation when view transitions are active
+   so the two animations don't fight each other */
+@supports (view-transition-name: test) {
+  .page-enter {
+    animation: none;
+  }
+}
