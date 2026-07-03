@@ -1,5 +1,5 @@
 ---
-import Typewriter from '../components/Typewriter.astro';
+import WireframeGlobe from '../components/WireframeGlobe.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getHomePageData, getSiteData } from '../lib/content';
 
@@ -7,17 +7,17 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 ---
 
 <BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
-	<!-- Full-screen hero: slogan + image -->
+	<!-- Full-screen hero: asymmetric layout inspired by Mimo AI -->
 	<section class="hero-screen" id="hero-screen">
-		<div class="hero-screen-content">
-			<h1 class="hero-screen-title">
-				<Typewriter text="I prefer to be a creator" speed={55} />
-			</h1>
-			<p class="hero-screen-name">{page.profile.name}</p>
-		</div>
-		<div class="hero-screen-image">
-			<!-- TODO: Replace with your own photo -->
-			<div class="hero-image-placeholder"></div>
+		<div class="hero-screen-inner">
+			<div class="hero-screen-content">
+				<h1 class="hero-screen-title">Poster</h1>
+				<p class="hero-screen-tagline">I prefer to be a creator</p>
+				<p class="hero-screen-name">{page.profile.name}</p>
+			</div>
+			<div class="hero-screen-visual">
+				<WireframeGlobe />
+			</div>
 		</div>
 		<div class="hero-scroll-hint">
 			<span>Scroll</span>
