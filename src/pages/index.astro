@@ -27,34 +27,36 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 	<!-- Main content: split layout -->
 	<section class="home-split">
-		<div class="home-left" data-animate="fade" data-delay="100">
-			<p class="hero-name-label">{page.profile.name}</p>
-			<p class="hero-headline">{page.profile.headline}</p>
+		<div class="home-split-inner">
+			<div class="home-left" data-animate="fade" data-delay="100">
+				<p class="hero-name-label">{page.profile.name}</p>
+				<p class="hero-headline">{page.profile.headline}</p>
 
-			<ul class="cv-list">
-				<li>B.Eng. in Automation, Southwest University (211)</li>
-				<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></li>
-				<li>Research focus: AI Agent</li>
-				<li>CCS 2026 under review (3rd author)</li>
-			</ul>
+				<ul class="cv-list">
+					<li>B.Eng. in Automation, Southwest University (211)</li>
+					<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></li>
+					<li>Research focus: AI Agent</li>
+					<li>CCS 2026 under review (3rd author)</li>
+				</ul>
 
-			<ul class="inline-list quiet-list cv-status">
-				<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
-				<li>{page.profile.location}</li>
-			</ul>
-		</div>
+				<ul class="inline-list quiet-list cv-status">
+					<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
+					<li>{page.profile.location}</li>
+				</ul>
+			</div>
 
-		<div class="home-right">
-			<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-block gate-from-right" data-delay="200">
-				<span class="gate-block-label">Work</span>
-				<span class="gate-block-desc">Projects, research, writing</span>
-				<span class="gate-block-line"></span>
-			</a>
-			<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-block gate-from-right" data-delay="350">
-				<span class="gate-block-label">Life</span>
-				<span class="gate-block-desc">Travel, photography, blog</span>
-				<span class="gate-block-line"></span>
-			</a>
+			<div class="home-right">
+				<a href={`${import.meta.env.BASE_URL}work`} class="gate gate-block gate-from-right" data-delay="200">
+					<span class="gate-block-label">Work</span>
+					<span class="gate-block-desc">Projects, research, writing</span>
+					<span class="gate-block-line"></span>
+				</a>
+				<a href={`${import.meta.env.BASE_URL}travel`} class="gate gate-block gate-from-right" data-delay="350">
+					<span class="gate-block-label">Life</span>
+					<span class="gate-block-desc">Travel, photography, blog</span>
+					<span class="gate-block-line"></span>
+				</a>
+			</div>
 		</div>
 	</section>
 </BaseLayout>
@@ -134,5 +136,68 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 			gate.style.transform = '';
 		});
 	});
+
+	// Scroll-to-focus zoom on home-split (Antigravity-style)
+	const homeSplit = document.querySelector('.home-split');
+	const homeSplitInner = document.querySelector('.home-split-inner');
+	if (homeSplit && homeSplitInner) {
+		let zoomTicking = false;
+		let zoomActive = false;
+
+		const zoomObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					zoomActive = entry.isIntersecting;
+					if (zoomActive && !zoomTicking) {
+						zoomTicking = true;
+						requestAnimationFrame(updateZoom);
+					}
+				});
+			},
+			{ threshold: 0, rootMargin: '100px 0px 100px 0px' }
+		);
+		zoomObserver.observe(homeSplit);
+
+		function updateZoom() {
+			if (!zoomActive) {
+				zoomTicking = false;
+				return;
+			}
+
+			const rect = homeSplit.getBoundingClientRect();
+			const vh = window.innerHeight;
+
+			// Progress: 0 when section top is at viewport bottom,
+			// 1 when section top reaches viewport top
+			let progress = (vh - rect.top) / vh;
+			progress = Math.min(Math.max(progress, 0), 1);
+
+			// Ease-out cubic for a smooth "coming into focus" feel
+			const eased = 1 - Math.pow(1 - progress, 3);
+
+			// Mobile: subtler zoom range
+			const isMobile = window.innerWidth <= 900;
+			const startScale = isMobile ? 0.95 : 0.85;
+			const startOpacity = isMobile ? 0.85 : 0.6;
+
+			const scale = startScale + (1 - startScale) * eased;
+			const opacity = startOpacity + (1 - startOpacity) * eased;
+
+			homeSplitInner.style.transform = `scale(${scale})`;
+			homeSplitInner.style.opacity = String(opacity);
+
+			zoomTicking = false;
+			if (zoomActive) {
+				requestAnimationFrame(updateZoom);
+			}
+		}
+
+		window.addEventListener('scroll', () => {
+			if (zoomActive && !zoomTicking) {
+				zoomTicking = true;
+				requestAnimationFrame(updateZoom);
+			}
+		}, { passive: true });
+	}
 })();
 </script>
