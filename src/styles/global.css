@@ -759,7 +759,6 @@ p { color: var(--text-secondary); margin: 0; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  will-change: transform, opacity;
   background: var(--bg-warm);
 }
 .hero-screen-inner {
@@ -771,6 +770,7 @@ p { color: var(--text-secondary); margin: 0; }
   max-width: 1200px;
   padding: 0 48px;
   gap: 48px;
+  will-change: transform, opacity;
 }
 .hero-screen-content {
   flex: 0 0 42%;

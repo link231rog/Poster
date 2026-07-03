@@ -61,9 +61,12 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 
 <script>
 (() => {
-	// Parallax fade on hero section
+	// Sunset animation: hero content sinks below horizon on scroll
 	const hero = document.getElementById('hero-screen');
-	if (hero) {
+	const heroInner = hero?.querySelector('.hero-screen-inner');
+	const scrollHint = hero?.querySelector('.hero-scroll-hint');
+
+	if (hero && heroInner) {
 		let ticking = false;
 		window.addEventListener('scroll', () => {
 			if (!ticking) {
@@ -71,8 +74,20 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 					const scrollY = window.scrollY;
 					const vh = window.innerHeight;
 					const progress = Math.min(scrollY / vh, 1);
-					hero.style.opacity = String(1 - progress);
-					hero.style.transform = `translateY(${scrollY * 0.3}px)`;
+
+					// Ease-out cubic for a "pulling away" feel
+					const eased = 1 - Math.pow(1 - progress, 3);
+
+					// Content sinks downward and fades
+					heroInner.style.transform = `translateY(${eased * vh}px)`;
+					heroInner.style.opacity = String(Math.max(0, 1 - progress));
+
+					// Scroll hint vanishes quickly
+					if (scrollHint) {
+						scrollHint.style.opacity = String(Math.max(0, 1 - progress * 4));
+						scrollHint.style.transform = `translateX(-50%) translateY(${progress * 16}px)`;
+					}
+
 					ticking = false;
 				});
 				ticking = true;
