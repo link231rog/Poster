@@ -11,8 +11,9 @@ const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
 	<section class="hero-screen" id="hero-screen">
 		<div class="hero-screen-inner">
 			<div class="hero-screen-content">
-				<h1 class="hero-screen-title">Poster</h1>
-				<p class="hero-screen-tagline">I prefer to be a creator</p>
+				<h1 class="hero-screen-title">
+					<span id="typewriter-text"></span><span class="cursor" id="typewriter-cursor">|</span>
+				</h1>
 				<p class="hero-screen-name">{page.profile.name}</p>
 			</div>
 			<div class="hero-screen-visual">
@@ -180,6 +181,26 @@ document.addEventListener('astro:page-load', () => {
 		}, { passive: true });
 		// Initial state
 		updateZoom();
+	}
+
+	// Typewriter effect for hero title
+	const typewriterEl = document.getElementById('typewriter-text');
+	const cursorEl = document.getElementById('typewriter-cursor');
+	if (typewriterEl && cursorEl) {
+		const text = 'I prefer to be a creator';
+		let charIndex = 0;
+
+		setTimeout(() => {
+			const interval = setInterval(() => {
+				if (charIndex < text.length) {
+					typewriterEl.textContent += text[charIndex];
+					charIndex++;
+				} else {
+					clearInterval(interval);
+					cursorEl.classList.add('blink');
+				}
+			}, 80);
+		}, 400);
 	}
 });
 </script>

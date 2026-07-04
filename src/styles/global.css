@@ -789,16 +789,25 @@ p { color: var(--text-secondary); margin: 0; }
   transform: translateY(30px);
   animation: hero-fade-up 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards;
 }
-.hero-screen-tagline {
-  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.4;
-  margin: 0;
-  color: var(--text-warm-secondary);
-  opacity: 0;
-  transform: translateY(20px);
-  animation: hero-fade-up 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.5s forwards;
+.typewriter-text {
+  /* inherits hero-screen-title styles from parent h1 */
+}
+.cursor {
+  display: inline-block;
+  font-size: 1.15em;
+  color: var(--text-warm);
+  margin-left: 3px;
+  line-height: 1;
+  vertical-align: baseline;
+  animation: none;
+  font-weight: 300;
+}
+.cursor.blink {
+  animation: blink 0.7s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 .hero-screen-name {
   font-family: var(--font-mono);
@@ -1271,22 +1280,31 @@ p { color: var(--text-secondary); margin: 0; }
 .split-shell {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 24px 64px;
+  padding: 24px 24px 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .split-topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 0 24px;
+  flex-shrink: 0;
 }
 .split-layout {
   display: flex;
   justify-content: space-between;
   gap: 48px;
+  flex: 1;
+  min-height: 0;
 }
 .split-content {
   width: 56%;
   padding-top: 0;
+  padding-bottom: 48px;
+  overflow-y: auto;
 }
 .split-footer {
   margin-top: 64px;
@@ -1605,9 +1623,16 @@ p { color: var(--text-secondary); margin: 0; }
 
 /* ─── Split Layout Responsive ─────────────────────────── */
 @media (max-width: 900px) {
+  .split-shell {
+    height: auto;
+    overflow: visible;
+    padding: 16px 16px 48px;
+  }
   .split-layout {
     flex-direction: column;
     gap: 0;
+    flex: none;
+    min-height: auto;
   }
   .sidebar {
     position: relative;
@@ -1619,10 +1644,11 @@ p { color: var(--text-secondary); margin: 0; }
   }
   .split-content {
     width: 100%;
+    overflow-y: visible;
+    padding-bottom: 0;
   }
   .sidebar-nav { display: none; }
   .sidebar-socials { display: none; }
-  .split-shell { padding: 16px 16px 48px; }
   .travel-notes { grid-template-columns: 1fr; }
   /* scale back text sizes on mobile */
   .section-title { font-size: 12px; }
