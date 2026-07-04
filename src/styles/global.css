@@ -1388,7 +1388,7 @@ p { color: var(--text-secondary); margin: 0; }
   scroll-margin-top: 24px;
 }
 .section-title {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1397,14 +1397,14 @@ p { color: var(--text-secondary); margin: 0; }
   font-family: var(--font-mono);
 }
 .section-desc {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-secondary);
   margin: 0 0 24px;
 }
 
 /* ─── Subsection ─────────────────────────────────────── */
 .subsection-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1422,7 +1422,7 @@ p { color: var(--text-secondary); margin: 0; }
 }
 .subsection-list li {
   padding: 3px 0;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text);
   line-height: 1.6;
 }
@@ -1606,6 +1606,11 @@ p { color: var(--text-secondary); margin: 0; }
   .sidebar-socials { display: none; }
   .split-shell { padding: 16px 16px 48px; }
   .travel-notes { grid-template-columns: 1fr; }
+  /* scale back text sizes on mobile */
+  .section-title { font-size: 12px; }
+  .subsection-title { font-size: 11px; }
+  .subsection-list li { font-size: 14px; }
+  .section-desc { font-size: 14px; }
 }
 
 
