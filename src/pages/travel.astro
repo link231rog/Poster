@@ -9,6 +9,7 @@ const [site, page] = await Promise.all([getSiteData(), getTravelPageData()]);
 const sidebarSections = [
 	{ id: 'map', label: 'Map' },
 	{ id: 'photos', label: 'Photos' },
+	{ id: 'investment', label: 'Investment' },
 ];
 ---
 
@@ -42,5 +43,14 @@ const sidebarSections = [
 	<section id="photos" class="split-section stagger-el">
 		<h2 class="section-title">Photographs</h2>
 		<PhotoGallery photos={page.photos} />
+	</section>
+
+	<section id="investment" class="split-section stagger-el">
+		<h2 class="section-title">Investment</h2>
+		<p class="section-intro">2 years of Hong Kong stock market experience.</p>
+		<div class="prose investment-body">
+			<p>Value investing practitioner. Systematic approach to portfolio management.</p>
+			<p>Believe investing is a reflection of cognition — same as research, it requires framework, discipline, and a long-term perspective.</p>
+		</div>
 	</section>
 </SplitLayout>

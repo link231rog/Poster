@@ -1,25 +1,19 @@
 ---
-import ProjectCard from '../components/ProjectCard.astro';
-import TimelineList from '../components/TimelineList.astro';
 import SplitLayout from '../layouts/SplitLayout.astro';
-import { getBlogPosts, getProjects, getSiteData, getTimeline } from '../lib/content';
+import { getSiteData } from '../lib/content';
 
-const [site, projects, timeline, blogPosts] = await Promise.all([
-	getSiteData(),
-	getProjects(),
-	getTimeline(),
-	getBlogPosts(),
-]);
+const site = await getSiteData();
 
-const workPosts = blogPosts.filter(p => p.category === 'work');
-
-const sidebarSections = [
+const workSections = [
 	{ id: 'study', label: 'Study' },
-	{ id: 'about', label: 'About' },
-	{ id: 'projects', label: 'Projects' },
-	{ id: 'writing', label: 'Writing' },
-	{ id: 'experience', label: 'Experience' },
+	{ id: 'research', label: 'Research' },
+	{ id: 'engineering', label: 'Engineering' },
 ];
+
+const socials = site.profile.socials;
+const gh = socials.find(s => s.platform === 'GitHub');
+const email = socials.find(s => s.platform === 'Email');
+const scholar = socials.find(s => s.platform === 'Scholar');
 ---
 
 <SplitLayout
@@ -29,102 +23,62 @@ const sidebarSections = [
 	profile={site.profile}
 	pathname="/work"
 	activeSection="study"
-	sidebarSections={sidebarSections}
+	sidebarSections={workSections}
+	layout="three-column"
+	workSections={workSections}
 >
-	<section id="study" class="split-section stagger-el">
+	<div slot="work-left">
+		<h1 class="work-left-name">{site.profile.name}</h1>
+		<p class="work-left-tagline">Agent 研究者 · 工程驱动的设计者</p>
+		<div class="work-left-links">
+			{gh && <a class="work-left-link" href={gh.url} target="_blank" rel="noreferrer">GitHub</a>}
+			{email && <a class="work-left-link" href={email.url}>Email</a>}
+			{scholar && <a class="work-left-link" href={scholar.url} target="_blank" rel="noreferrer">Scholar</a>}
+		</div>
+	</div>
+
+	<section id="study" class="work-section stagger-el">
 		<h2 class="section-title">Study</h2>
-		<div class="prose">
-			<p>B.Eng. in Automation, Southwest University (211 in Chongqing)</p>
+		<div class="work-section-meta">
+			<p>西南大学（211, 重庆）</p>
+			<p>自动化专业 本科</p>
 			<p>GPA 3.84 · Rank 5%</p>
-			<p>CET-6 540 · Preparing for IELTS</p>
+			<p>CET-6 540 · 备考 IELTS 中</p>
 		</div>
-		<div class="experience-list">
-			<!-- Awards -->
-			<div class="experience-item group">
-				<div class="experience-highlight"></div>
-				<div class="experience-content">
-					<div class="experience-header">
-						<h3 class="experience-title">Awards</h3>
-					</div>
-					<ul class="prose">
-						<li>西南大学校二等奖学金</li>
-						<li>西南大学三好学生</li>
-						<li>西南大学优秀共青团员</li>
-					</ul>
-				</div>
-			</div>
-			<!-- Competitions -->
-			<div class="experience-item group">
-				<div class="experience-highlight"></div>
-				<div class="experience-content">
-					<div class="experience-header">
-						<h3 class="experience-title">Competitions</h3>
-					</div>
-					<p class="experience-desc">挑战杯、大学生创新创业大赛等比赛经历若干</p>
-				</div>
-			</div>
-		</div>
+		<ul class="work-list">
+			<li>西南大学校二等奖学金</li>
+			<li>西南大学三好学生</li>
+			<li>西南大学优秀共青团员</li>
+			<li>挑战杯、大学生创新创业大赛等比赛经历若干</li>
+		</ul>
 	</section>
 
-	<section id="about" class="split-section stagger-el">
-		<h2 class="section-title">About</h2>
-		<div class="prose">
-			<p>I focus on AI Agent research at <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> under Associate Professor Junjie Huang.</p>
-			<p>My work centers on agent systems that don't drift - making multi-agent workflows reproducible, debuggable, and safe. I'm also interested in developer tooling and building systems that age well.</p>
-			<p>Currently, I have a paper under review at CCS 2026 (3rd author) on RAG safety and adversarial robustness.</p>
+	<section id="research" class="work-section stagger-el">
+		<h2 class="section-title">Research</h2>
+		<div class="work-section-meta">
+			<p>EZE LAB 成员，导师：<a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">黄俊杰副教授</a></p>
+			<p>研究方向：AI Agent · RAG Safety</p>
 		</div>
+		<ul class="work-list">
+			<li>CCS 2026 在审（第三作者）—— RAG 安全与对抗鲁棒性</li>
+			<li>AAAI 已投稿 —— Hypergraph &amp; LLM</li>
+		</ul>
+		<ul class="work-list">
+			<li class="work-list-ongoing">— Hypergraph &amp; LLM 实验进行中</li>
+			<li class="work-list-ongoing">— 人机共生方向论文撰写中</li>
+		</ul>
 	</section>
 
-	<section id="projects" class="split-section stagger-el">
-		<h2 class="section-title">Projects</h2>
-		<div class="experience-list">
-			{projects.map((project) => (
-				<div class="experience-item group">
-					<div class="experience-highlight"></div>
-					<div class="experience-content">
-						<div class="experience-header">
-							<h3 class="experience-title">{project.title}</h3>
-							<span class="experience-date">{project.year}</span>
-						</div>
-						<p class="experience-desc">{project.summary}</p>
-						<ul class="tag-list muted-tags">
-							{project.tags.map((tag) => <li class="tag">{tag}</li>)}
-						</ul>
-						<div class="experience-links">
-							<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
-							{project.demo && <a class="button-secondary" href={project.demo} target="_blank" rel="noreferrer">Demo</a>}
-						</div>
-					</div>
-				</div>
-			))}
-		</div>
-	</section>
-
-	{workPosts.length > 0 && (
-		<section id="writing" class="split-section stagger-el">
-			<h2 class="section-title">Writing</h2>
-			<div class="experience-list">
-				{workPosts.map((post) => (
-					<a href={`${import.meta.env.BASE_URL}/blog/${post.slug}`} class="experience-item group blog-experience-item">
-						<div class="experience-highlight"></div>
-						<div class="experience-content">
-							<div class="experience-header">
-								<h3 class="experience-title">{post.title}</h3>
-								<span class="experience-date">{post.date ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : ''}</span>
-							</div>
-							<p class="experience-desc">{post.summary}</p>
-							<ul class="tag-list muted-tags">
-								{post.tags.map((tag) => <li class="tag">{tag}</li>)}
-							</ul>
-						</div>
-					</a>
-				))}
-			</div>
-		</section>
-	)}
-
-	<section id="experience" class="split-section stagger-el">
-		<h2 class="section-title">Experience</h2>
-		<TimelineList items={timeline} />
+	<section id="engineering" class="work-section stagger-el">
+		<h2 class="section-title">Engineering</h2>
+		<ul class="work-list">
+			<li>Agent 工作流编排：多模型路由 + 上下文感知（2025.11–2026.01）</li>
+			<li>Markdown 工具链：Agent skill 管理与上下文工程</li>
+			<li>Harness Engineering：opencode skills 维护与 superpowers 集成</li>
+			<li>多智能体系统：模型选择策略与团队协作设计</li>
+		</ul>
+		<ul class="work-list">
+			<li class="work-list-ongoing">— LoRA 微调实验进行中</li>
+		</ul>
 	</section>
 </SplitLayout>

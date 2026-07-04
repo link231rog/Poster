@@ -1,16 +1,14 @@
 ---
 slug: poster-site
 title: Poster Site
-summary: A content-driven personal site optimized for GitHub Pages, static export, and clean long-term maintenance.
+summary: 内容驱动的个人网站，Astro + TypeScript，部署于 GitHub Pages。
 tags:
- - astro
- - static
- - design-system
-repo: https://github.com/link/poster-site
-demo: https://link.github.io/poster-site
-featured: true
+  - astro
+  - static
+  - design-system
+repo: https://github.com/link231rog/Poster
+demo: https://link231rog.github.io/Poster/
+featured: false
 status: ongoing
 year: 2025
 ---
-
-Built to separate structured content from presentation while keeping deployment friction near zero.

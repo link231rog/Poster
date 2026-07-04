@@ -1,7 +1,8 @@
 ---
 /**
- * SplitLayout.astro - Brittany Chiang style split layout.
- * Left: sticky sidebar. Right: scrollable content.
+ * SplitLayout.astro - Split layout (2-column) or Three-column layout (/work).
+ * layout="split" (default): Brittany Chiang style sidebar + content.
+ * layout="three-column": left profile + middle progress bar + right content.
  */
 import type { NavigationItem, Profile } from '../types/content';
 import { ClientRouter } from 'astro:transitions';
@@ -19,9 +20,11 @@ type Props = {
 	pathname?: string;
 	activeSection?: string;
 	sidebarSections: Array<{ id: string; label: string }>;
+	layout?: 'split' | 'three-column';
+	workSections?: Array<{ id: string; label: string }>;
 };
 
-const { title, description, navigation, profile, pathname = '/', activeSection = '', sidebarSections } = Astro.props;
+const { title, description, navigation, profile, pathname = '/', activeSection = '', sidebarSections, layout = 'split', workSections = [] } = Astro.props;
 const pairedTo = pathname === '/work' ? 'gate-work' : pathname === '/travel' ? 'gate-life' : undefined;
 ---
 
@@ -57,15 +60,38 @@ const pairedTo = pathname === '/work' ? 'gate-work' : pathname === '/travel' ? '
 				</nav>
 			</header>
 
-			<div class="split-layout">
-				<Sidebar profile={profile} activeSection={activeSection} sections={sidebarSections} pairedTo={pairedTo} />
-				<main class="split-content stagger-el">
-					<slot />
-					<footer class="split-footer">
-						<p>Built with Astro. Static by design.</p>
-					</footer>
-				</main>
-			</div>
+			{layout === 'three-column' ? (
+				<div class="work-layout">
+					<aside class="work-left">
+						<slot name="work-left" />
+					</aside>
+					<div class="work-progress" role="navigation" aria-label="Section navigation">
+						{workSections.map((s, i) => (
+							<a href={`#${s.id}`} class="work-progress-dot" data-section={s.id}>
+								<span class="work-progress-marker"></span>
+								<span class="work-progress-label">{s.label}</span>
+							</a>
+						))}
+						<div class="work-progress-track"></div>
+					</div>
+					<main class="work-content">
+						<slot />
+						<footer class="split-footer">
+							<p>Built with Astro. Static by design.</p>
+						</footer>
+					</main>
+				</div>
+			) : (
+				<div class="split-layout">
+					<Sidebar profile={profile} activeSection={activeSection} sections={sidebarSections} pairedTo={pairedTo} />
+					<main class="split-content stagger-el">
+						<slot />
+						<footer class="split-footer">
+							<p>Built with Astro. Static by design.</p>
+						</footer>
+					</main>
+				</div>
+			)}
 		</div>
 		<AnimateOnScroll />
 	</body>
@@ -73,22 +99,53 @@ const pairedTo = pathname === '/work' ? 'gate-work' : pathname === '/travel' ? '
 
 <script>
 document.addEventListener('astro:page-load', () => {
-	const split = document.querySelector('.split-layout');
-	if (!split) return;
+	// ── Stagger entrance ──
+	const split = document.querySelector('.split-layout') || document.querySelector('.work-layout');
+	if (split) {
+		if (!window._staggerReady) {
+			split.querySelectorAll('.stagger-el').forEach((el) => {
+				(el as HTMLElement).style.opacity = '1';
+				(el as HTMLElement).style.transform = 'translateY(0)';
+			});
+			window._staggerReady = true;
+		} else {
+			split.querySelectorAll('.stagger-el').forEach((el, i) => {
+				(el as HTMLElement).style.setProperty('--stagger-delay', `${i * 0.07}s`);
+				el.classList.add('stagger-enter');
+			});
+		}
+	}
 
-	if (!window._staggerReady) {
-		// Initial load: make stagger elements visible immediately
-		split.querySelectorAll('.stagger-el').forEach((el) => {
-			(el as HTMLElement).style.opacity = '1';
-			(el as HTMLElement).style.transform = 'translateY(0)';
-		});
-		window._staggerReady = true;
-	} else {
-		// SPA navigation: stagger entrance with delays
-		split.querySelectorAll('.stagger-el').forEach((el, i) => {
-			(el as HTMLElement).style.setProperty('--stagger-delay', `${i * 0.07}s`);
-			el.classList.add('stagger-enter');
-		});
+	// ── Work progress bar ──
+	const dots = document.querySelectorAll('.work-progress-dot');
+	if (!dots.length) return;
+
+	const sections: HTMLElement[] = [];
+	dots.forEach((dot) => {
+		const id = (dot as HTMLElement).dataset.section;
+		const el = document.getElementById(id!);
+		if (el) sections.push(el);
+	});
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					const id = entry.target.id;
+					dots.forEach((d) => {
+						d.classList.toggle('is-active', (d as HTMLElement).dataset.section === id);
+					});
+				}
+			});
+		},
+		{ threshold: 0.3, rootMargin: '-80px 0px -50% 0px' }
+	);
+
+	sections.forEach((el) => observer.observe(el));
+
+	// Activate first dot by default
+	if (sections.length && !document.querySelector('.work-progress-dot.is-active')) {
+		dots[0].classList.add('is-active');
 	}
 });
 </script>

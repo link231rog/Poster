@@ -1,36 +1,28 @@
 ---
-title: About me
-summary: Research engineer focused on agent systems, developer tooling, and building things that age well.
+title: About Me
+summary: Automation engineer turned AI Agent researcher.
 ---
 
 ## Background
 
-I'm a student at Southwest University in Chongqing, China, where I study computer science with a focus on AI systems and human-computer interaction.
+I studied Automation at Southwest University (211) in Chongqing — GPA 3.84, ranked in the top 5% of my class. Not the typical CS path, and that's exactly the point. Automation gave me a systematic way of thinking: control theory, signal processing, embedded systems. I learned to treat software as part of a larger engineered system, not an isolated artifact.
 
-My work sits at the boundary between research and engineering. I build small, reliable systems - agent workflows, developer tools, and content-first platforms - with a bias toward clarity over cleverness.
+## Research
 
-## What I Care About
+I joined EZE LAB in 2025 under Associate Professor Junjie Huang, where I work on AI Agent safety and RAG robustness. My first paper — a study on RAG safety and adversarial robustness — is currently under review at CCS 2026 (3rd author). A second paper on Hypergraph & LLM has been submitted to AAAI.
 
-Three things drive my work right now:
+The transition from Automation to AI research felt natural. Both are about building systems that behave predictably under uncertainty — you just swap differential equations for latent spaces.
 
-**Agent systems that don't drift.** I'm interested in how we make multi-agent workflows reproducible, debuggable, and safe. Prompt engineering is easy; prompt *management* is hard.
+## Engineering
 
-**Developer experience as a first-class concern.** Good tooling should be invisible. The best developer experience is one you don't notice because everything just works.
+My engineering work started in August 2025 with Gemini CLI. I built a Markdown-based workflow system for agent skill management, then moved to multi-agent orchestration with model routing and context-aware selection. By early 2026, I was building harness engineering tooling — integrating opencode skills, superpowers, and automated workflows into a coherent toolkit.
 
-**Content-first infrastructure.** I believe the best personal sites are the ones you actually maintain. Static files, Markdown, Git - boring technology that lasts.
+One year, from a CLI toy to a full agent engineering stack. The arc is connecting research ideas to working systems.
 
-## How I Work
+## Beyond Research
 
-I write in Markdown. I build with Astro and TypeScript. I deploy to GitHub Pages. I try to keep dependencies minimal and architecture simple.
-
-I believe in learning in public - sharing what I'm building before it's polished, being honest about what I don't know, and documenting the process along the way.
-
-## Beyond Code
-
-When I'm not building things, I'm usually reading about systems thinking, exploring new research papers, or figuring out how to explain complex ideas in simple ways.
-
-I think the most interesting work happens at the intersection of disciplines - where computer science meets education, where engineering meets design, where research meets practice.
+Two years of Hong Kong stock market trading taught me as much about risk modeling as any paper. I also shoot film photography and travel when I can. Different domains, same habit: look for the underlying structure.
 
 ## Connect
 
-The best way to reach me is through [GitHub](https://github.com/link231rog) or [email](mailto:link@example.com). I'm always open to conversations about agent systems, developer tooling, or interesting problems worth solving.
+GitHub: [link231rog](https://github.com/link231rog) · Email: huangzixuan@example.com · Scholar: coming soon.

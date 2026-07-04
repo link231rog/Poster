@@ -1,15 +1,15 @@
 ---
-slug: opencode-workflows
-title: OpenCode Workflows
-summary: A compact system for agent orchestration, reproducible prompts, and technical review loops.
+slug: harness-toolkit
+title: Harness Engineering Toolkit
+summary: Agent 工具链的工程化封装——集成 opencode skills、superpowers 与自动化工作流。
 tags:
- - agents
- - tooling
- - prompts
-repo: https://github.com/link/opencode-workflows
+  - tooling
+  - skills
+  - automation
+repo: null
 featured: true
-status: shipped
+status: ongoing
 year: 2026
 ---
 
-Focused on reducing prompt drift and making multi-agent work more legible.
+Agent 工具链工程化实践，从 prompt 管理到多智能体协作的完整闭环。
