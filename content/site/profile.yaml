@@ -1,6 +1,6 @@
 name: Zixuan Huang
 headline: B.Eng. in Automation, Southwest University (211). AI Agent researcher at EZE LAB.
-short_bio: Member of EZE LAB under Associate Professor Junjie Huang. Research focus on AI Agent and RAG safety. CCS 2026 under review (3rd author).
+short_bio: Member of EZE LAB under Associate Professor Junjie Huang. Research focus on AI Agent and RAG safety. CCS 2026 under review (3rd author) · AAAI 2027 Processing.
 location: Chongqing, China
 email: huangzixuan@example.com
 avatar: /avatar.png
@@ -12,7 +12,7 @@ skills:
   - Automation
   - Research Engineering
 status:
-  text: CCS 2026 under review
+  text: CCS 2026 under review · AAAI 2027 Processing
   type: active
 socials:
   - platform: GitHub
