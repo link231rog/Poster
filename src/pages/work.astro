@@ -9,11 +9,6 @@ const workSections = [
 	{ id: 'research', label: 'Research' },
 	{ id: 'engineering', label: 'Engineering' },
 ];
-
-const socials = site.profile.socials;
-const gh = socials.find(s => s.platform === 'GitHub');
-const email = socials.find(s => s.platform === 'Email');
-const scholar = socials.find(s => s.platform === 'Scholar');
 ---
 
 <SplitLayout
@@ -24,61 +19,49 @@ const scholar = socials.find(s => s.platform === 'Scholar');
 	pathname="/work"
 	activeSection="study"
 	sidebarSections={workSections}
-	layout="three-column"
-	workSections={workSections}
 >
-	<div slot="work-left">
-		<h1 class="work-left-name">{site.profile.name}</h1>
-		<p class="work-left-tagline">Agent 研究者 · 工程驱动的设计者</p>
-		<div class="work-left-links">
-			{gh && <a class="work-left-link" href={gh.url} target="_blank" rel="noreferrer">GitHub</a>}
-			{email && <a class="work-left-link" href={email.url}>Email</a>}
-			{scholar && <a class="work-left-link" href={scholar.url} target="_blank" rel="noreferrer">Scholar</a>}
-		</div>
-	</div>
-
-	<section id="study" class="work-section stagger-el">
+	<section id="study" class="split-section stagger-el">
 		<h2 class="section-title">Study</h2>
 		<div class="work-section-meta">
-			<p>西南大学（211, 重庆）</p>
-			<p>自动化专业 本科</p>
+			<p>Southwest University (211, Chongqing)</p>
+			<p>B.Eng. in Automation</p>
 			<p>GPA 3.84 · Rank 5%</p>
-			<p>CET-6 540 · 备考 IELTS 中</p>
+			<p>CET-6 540 · Preparing for IELTS</p>
 		</div>
 		<ul class="work-list">
-			<li>西南大学校二等奖学金</li>
-			<li>西南大学三好学生</li>
-			<li>西南大学优秀共青团员</li>
-			<li>挑战杯、大学生创新创业大赛等比赛经历若干</li>
+			<li>University Second-Class Scholarship</li>
+			<li>Merit Student</li>
+			<li>Outstanding League Member</li>
+			<li>Challenge Cup, University Student Innovation &amp; Entrepreneurship Competition</li>
 		</ul>
 	</section>
 
-	<section id="research" class="work-section stagger-el">
+	<section id="research" class="split-section stagger-el">
 		<h2 class="section-title">Research</h2>
 		<div class="work-section-meta">
-			<p>EZE LAB 成员，导师：<a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">黄俊杰副教授</a></p>
-			<p>研究方向：AI Agent · RAG Safety</p>
+			<p>Member of EZE LAB, supervised by <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">Prof. Junjie Huang</a></p>
+			<p>Research focus: AI Agent · RAG Safety</p>
 		</div>
 		<ul class="work-list">
-			<li>CCS 2026 在审（第三作者）—— RAG 安全与对抗鲁棒性</li>
-			<li>AAAI 已投稿 —— Hypergraph &amp; LLM</li>
+			<li>CCS 2026 under review (3rd author) — RAG Safety &amp; Adversarial Robustness</li>
+			<li>AAAI submitted — Hypergraph &amp; LLM</li>
 		</ul>
 		<ul class="work-list">
-			<li class="work-list-ongoing">— Hypergraph &amp; LLM 实验进行中</li>
-			<li class="work-list-ongoing">— 人机共生方向论文撰写中</li>
+			<li class="work-list-ongoing">— Hypergraph &amp; LLM experiments ongoing</li>
+			<li class="work-list-ongoing">— Human-machine symbiosis paper in progress</li>
 		</ul>
 	</section>
 
-	<section id="engineering" class="work-section stagger-el">
+	<section id="engineering" class="split-section stagger-el">
 		<h2 class="section-title">Engineering</h2>
 		<ul class="work-list">
-			<li>Agent 工作流编排：多模型路由 + 上下文感知（2025.11–2026.01）</li>
-			<li>Markdown 工具链：Agent skill 管理与上下文工程</li>
-			<li>Harness Engineering：opencode skills 维护与 superpowers 集成</li>
-			<li>多智能体系统：模型选择策略与团队协作设计</li>
+			<li>Agent workflow orchestration: multi-model routing + context-aware selection (2025.11–2026.01)</li>
+			<li>Markdown toolchain: Agent skill management &amp; context engineering</li>
+			<li>Harness Engineering: opencode skills maintenance &amp; superpowers integration</li>
+			<li>Multi-agent systems: model selection strategy &amp; team collaboration design</li>
 		</ul>
 		<ul class="work-list">
-			<li class="work-list-ongoing">— LoRA 微调实验进行中</li>
+			<li class="work-list-ongoing">— LoRA fine-tuning experiments ongoing</li>
 		</ul>
 	</section>
 </SplitLayout>

@@ -1,7 +1,7 @@
 ---
 slug: poster-site
 title: Poster Site
-summary: 内容驱动的个人网站，Astro + TypeScript，部署于 GitHub Pages。
+summary: Content-driven personal site built with Astro + TypeScript, deployed on GitHub Pages.
 tags:
   - astro
   - static
