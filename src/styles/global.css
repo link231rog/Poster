@@ -1402,6 +1402,34 @@ p { color: var(--text-secondary); margin: 0; }
   margin: 0 0 24px;
 }
 
+/* ─── Subsection ─────────────────────────────────────── */
+.subsection-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin: 24px 0 8px;
+  font-family: var(--font-mono);
+}
+.subsection-title:first-child {
+  margin-top: 0;
+}
+.subsection-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.subsection-list li {
+  padding: 3px 0;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+}
+.subsection-list .processing-item {
+  color: var(--text-tertiary);
+}
+
 /* ─── Experience List (hover highlight) ───────────────── */
 .experience-list {
   display: flex;
