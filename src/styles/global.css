@@ -86,7 +86,7 @@ p { color: var(--text); margin: 0; }
   font-family: var(--font-mono);
   font-size: 13px;
   letter-spacing: 0.1em;
-  color: var(--text-tertiary);
+  color: var(--text);
   margin: 0 0 24px;
 }
 .hero-title {
@@ -132,7 +132,7 @@ p { color: var(--text); margin: 0; }
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 .text-links a:hover { color: var(--text); border-color: var(--border-hover); }
-.quiet-list { color: var(--text-tertiary); font-size: 14px; gap: 16px; }
+.quiet-list { color: var(--text-secondary); font-size: 14px; gap: 16px; }
 
 /* ─── Nav ─────────────────────────────────────────────── */
 .nav-list {
@@ -958,7 +958,7 @@ p { color: var(--text); margin: 0; }
 }
 .hero-headline {
   font-size: 15px;
-  color: var(--text-secondary);
+  color: var(--text);
   line-height: 1.65;
   margin: 0 0 24px;
   max-width: 44ch;
@@ -1071,8 +1071,8 @@ p { color: var(--text); margin: 0; }
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 14px;
-  color: var(--text-secondary);
+  font-size: 15px;
+  color: var(--text);
   font-family: var(--font-mono);
 }
 .cv-list a {
@@ -1465,7 +1465,7 @@ p { color: var(--text); margin: 0; }
   text-decoration-color: var(--text);
 }
 .subsection-list .processing-item {
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 /* ─── Experience List (hover highlight) ───────────────── */
