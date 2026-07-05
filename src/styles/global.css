@@ -811,9 +811,9 @@ p { color: var(--text); margin: 0; }
 }
 .hero-screen-name {
   font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-warm-secondary);
-  letter-spacing: 0.1em;
+  font-size: 14px;
+  color: var(--text-warm);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   margin: 0;
   opacity: 0;
