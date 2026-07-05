@@ -56,6 +56,10 @@ const { profile, activeSection = '', sections, pairedTo } = Astro.props;
 	const links = document.querySelectorAll('.sidebar-nav-link');
 	if (!links.length) return;
 
+	// Use .split-content as scroll root (only right column scrolls)
+	// Falls back to viewport when on non-split pages
+	const scrollRoot = document.querySelector('.split-content') || null;
+
 	const observer = new IntersectionObserver(
 		(entries) => {
 			entries.forEach((entry) => {
@@ -67,9 +71,18 @@ const { profile, activeSection = '', sections, pairedTo } = Astro.props;
 				}
 			});
 		},
-		{ threshold: 0.2, rootMargin: '-80px 0px -60% 0px' }
+		{ root: scrollRoot, threshold: 0.2, rootMargin: '-80px 0px -60% 0px' }
 	);
 
-	document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
+	const sections = document.querySelectorAll('section[id]');
+	sections.forEach((section) => observer.observe(section));
+
+	// Set initial active section to first section
+	if (sections.length > 0 && links.length > 0) {
+		const firstId = sections[0].id;
+		links.forEach((link) => {
+			link.classList.toggle('is-active', (link as HTMLElement).dataset.section === firstId);
+		});
+	}
 })();
 </script>
