@@ -1,7 +1,5 @@
 items:
   - href: /
-    label: Home
-  - href: /work
     label: Work
   - href: /travel
     label: Life

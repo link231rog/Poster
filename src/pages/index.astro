@@ -1,206 +1,75 @@
 ---
-import WireframeGlobe from '../components/WireframeGlobe.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getHomePageData, getSiteData } from '../lib/content';
+import SplitLayout from '../layouts/SplitLayout.astro';
+import { getSiteData } from '../lib/content';
 
-const [site, page] = await Promise.all([getSiteData(), getHomePageData()]);
+const site = await getSiteData();
+
+const workSections = [
+	{ id: 'study', label: 'Study' },
+	{ id: 'research', label: 'Research' },
+	{ id: 'engineering', label: 'Engineering' },
+];
 ---
 
-<BaseLayout title={site.seo.title} description={site.seo.description} navigation={site.navigation.items} pathname="/">
-	<!-- Full-screen hero: asymmetric layout inspired by Mimo AI -->
-	<section class="hero-screen" id="hero-screen">
-		<div class="hero-screen-inner">
-			<div class="hero-screen-content">
-				<h1 class="hero-screen-title">
-					<span id="typewriter-text"></span><span class="cursor" id="typewriter-cursor">|</span>
-				</h1>
-				<p class="hero-screen-name">{page.profile.name}</p>
-			</div>
-			<div class="hero-screen-visual">
-				<WireframeGlobe />
-			</div>
-		</div>
-		<div class="hero-scroll-hint">
-			<span>Scroll</span>
-			<span class="scroll-arrow"></span>
-		</div>
+<SplitLayout
+	title={site.seo.title}
+	description="Projects, research, and technical writing."
+	navigation={site.navigation.items}
+	profile={site.profile}
+	pathname="/"
+	activeSection="study"
+	sidebarSections={workSections}
+>
+	<section id="study" class="split-section stagger-el">
+		<h2 class="section-title">Study</h2>
+
+		<h3 class="subsection-title">Academic</h3>
+		<ul class="subsection-list">
+			<li>Southwest University (211, Chongqing)</li>
+			<li>B.Eng. in Automation</li>
+			<li><strong>GPA 3.84</strong> · Rank 5%</li>
+			<li><strong>CET-6 540</strong> · Preparing for IELTS</li>
+		</ul>
+
+		<h3 class="subsection-title">Awards</h3>
+		<ul class="subsection-list">
+			<li>University Second-Class Scholarship</li>
+			<li>Merit Student</li>
+			<li>Outstanding League Member</li>
+		</ul>
+
+		<h3 class="subsection-title">Processing</h3>
+		<ul class="subsection-list">
+			<li class="processing-item">Challenge Cup, University Innovation &amp; Entrepreneurship Competition</li>
+		</ul>
 	</section>
 
-	<!-- Main content: split layout -->
-	<section class="home-split">
-		<div class="home-split-inner">
-			<div class="home-left" data-animate="fade" data-delay="100">
-				<p class="hero-name-label">{page.profile.name}</p>
-				<p class="hero-headline">{page.profile.headline}</p>
-
-				<ul class="cv-list">
-					<li>B.Eng. in Automation, Southwest University (211)</li>
-					<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></li>
-					<li>Research focus: AI Agent</li>
-					<li>CCS 2026 under review (3rd author)</li>
-					<li>AAAI submitted (Hypergraph & LLM)</li>
-				</ul>
-
-				<ul class="inline-list quiet-list cv-status">
-					<li><span class="status-pill"><span class="status-dot"></span>{page.profile.status.text}</span></li>
-					<li>{page.profile.location}</li>
-				</ul>
-			</div>
-
-			<div class="home-right">
-				<a href={`${import.meta.env.BASE_URL}/work`} class="gate gate-block gate-from-right" data-delay="200">
-					<span class="gate-block-label" transition:name="gate-work">Work</span>
-					<span class="gate-block-desc">Projects, research, writing</span>
-					<span class="gate-block-line"></span>
-				</a>
-				<a href={`${import.meta.env.BASE_URL}/travel`} class="gate gate-block gate-from-right" data-delay="350">
-					<span class="gate-block-label" transition:name="gate-life">Life</span>
-					<span class="gate-block-desc">Travel, photography, blog</span>
-					<span class="gate-block-line"></span>
-				</a>
-			</div>
+	<section id="research" class="split-section stagger-el">
+		<h2 class="section-title">Research</h2>
+		<div class="work-section-meta">
+			<p>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a>, supervised by <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">Prof. Junjie Huang</a></p>
+			<p>Research focus: <strong>AI Agent</strong> · <strong>RAG Safety</strong></p>
 		</div>
+		<ul class="subsection-list">
+			<li><strong>CCS 2026</strong> under review (3rd author) — RAG Safety &amp; Adversarial Robustness</li>
+			<li><strong>AAAI 2027</strong> · Processing — Hypergraph &amp; LLM</li>
+		</ul>
+		<ul class="subsection-list">
+			<li class="processing-item">Hypergraph &amp; LLM experiments ongoing</li>
+			<li class="processing-item">Human-machine symbiosis paper in progress</li>
+		</ul>
 	</section>
-</BaseLayout>
 
-<script>
-document.addEventListener('astro:page-load', () => {
-	// Hero scroll animation: globe sinks below horizon, text stays pinned
-	const hero = document.getElementById('hero-screen');
-	const heroVisual = hero?.querySelector('.hero-screen-visual');
-	const scrollHint = hero?.querySelector('.hero-scroll-hint');
-
-	if (hero && heroVisual) {
-		let ticking = false;
-		let cachedVh = window.innerHeight;
-		window.addEventListener('scroll', () => {
-			if (!ticking) {
-				cachedVh = window.innerHeight;
-				requestAnimationFrame(() => {
-					const scrollY = window.scrollY;
-					const vh = cachedVh;
-					const progress = Math.min(scrollY / vh, 1);
-
-					// Ease-out cubic for a "pulling away" feel
-					const eased = 1 - Math.pow(1 - progress, 3);
-
-					// Globe sinks downward and fades — only top ~1/3 remains visible
-					heroVisual.style.transform = `translateY(${eased * 60}vh) scale(1)`;
-					heroVisual.style.opacity = String(Math.max(0, 1 - progress * 1.5));
-
-					// Scroll hint vanishes quickly
-					if (scrollHint) {
-						scrollHint.style.opacity = String(Math.max(0, 1 - progress * 4));
-						scrollHint.style.transform = `translateX(-50%) translateY(${progress * 16}px)`;
-					}
-
-					ticking = false;
-				});
-				ticking = true;
-			}
-		}, { passive: true });
-	}
-
-	// Gate entrance animation
-	const gates = document.querySelectorAll('.gate-from-right');
-	const gateObserver = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const el = entry.target as HTMLElement;
-					const delay = parseInt(el.dataset.delay || '200', 10);
-					setTimeout(() => el.classList.add('gate-visible'), delay);
-					gateObserver.unobserve(el);
-				}
-			});
-		},
-		{ threshold: 0.2 }
-	);
-	gates.forEach((gate) => gateObserver.observe(gate));
-
-	// Magnetic hover on gates
-	document.querySelectorAll<HTMLElement>('.gate-block').forEach((gate) => {
-		gate.addEventListener('mousemove', (e) => {
-			const rect = gate.getBoundingClientRect();
-			const x = e.clientX - rect.left;
-			const y = e.clientY - rect.top;
-			const cx = rect.width / 2;
-			const cy = rect.height / 2;
-			const dx = (x - cx) / cx;
-			const dy = (y - cy) / cy;
-
-			gate.style.setProperty('--mx', `${x}px`);
-			gate.style.setProperty('--my', `${y}px`);
-			gate.style.transform = `translateY(${dy * 3}px) scale(1.01)`;
-		});
-
-		gate.addEventListener('mouseleave', () => {
-			gate.style.transform = '';
-		});
-	});
-
-	// Scroll-to-focus zoom on home-split (Antigravity-style)
-	const homeSplit = document.querySelector('.home-split');
-	const homeSplitInner = document.querySelector('.home-split-inner');
-	if (homeSplit && homeSplitInner) {
-		const sectionTop = (homeSplit as HTMLElement).offsetTop;
-		const sectionH = (homeSplit as HTMLElement).offsetHeight;
-		const vh = window.innerHeight;
-		// Animation plays over the first viewport of scroll after section top
-		const scrollRange = Math.max(sectionH - vh, vh);
-
-		function updateZoom() {
-			const scrollY = window.scrollY;
-			// progress 0 = section top at viewport bottom, 1 = scrolled past section
-			let progress = (scrollY - sectionTop + vh) / (scrollRange + vh);
-			progress = Math.min(Math.max(progress, 0), 1);
-
-			// Ease-out cubic
-			const eased = 1 - Math.pow(1 - progress, 3);
-
-			const isMobile = window.innerWidth <= 900;
-			const startScale = isMobile ? 0.95 : 0.85;
-			const startOpacity = isMobile ? 0.85 : 0.6;
-
-			const scale = startScale + (1 - startScale) * eased;
-			const opacity = startOpacity + (1 - startOpacity) * eased;
-
-			homeSplitInner.style.transform = `scale(${scale})`;
-			homeSplitInner.style.opacity = String(opacity);
-		}
-
-		let ticking = false;
-		window.addEventListener('scroll', () => {
-			if (!ticking) {
-				requestAnimationFrame(() => {
-					updateZoom();
-					ticking = false;
-				});
-				ticking = true;
-			}
-		}, { passive: true });
-		// Initial state
-		updateZoom();
-	}
-
-	// Typewriter effect for hero title
-	const typewriterEl = document.getElementById('typewriter-text');
-	const cursorEl = document.getElementById('typewriter-cursor');
-	if (typewriterEl && cursorEl) {
-		const text = 'I prefer to be a creator';
-		let charIndex = 0;
-
-		setTimeout(() => {
-			const interval = setInterval(() => {
-				if (charIndex < text.length) {
-					typewriterEl.textContent += text[charIndex];
-					charIndex++;
-				} else {
-					clearInterval(interval);
-					cursorEl.classList.add('blink');
-				}
-			}, 80);
-		}, 400);
-	}
-});
-</script>
+	<section id="engineering" class="split-section stagger-el">
+		<h2 class="section-title">Engineering</h2>
+		<ul class="subsection-list">
+			<li>Agent workflow orchestration: multi-model routing + context-aware selection (2025.11–2026.01)</li>
+			<li>Markdown toolchain: Agent skill management &amp; context engineering</li>
+			<li>Harness Engineering: opencode skills maintenance &amp; superpowers integration</li>
+			<li>Multi-agent systems: model selection strategy &amp; team collaboration design</li>
+		</ul>
+		<ul class="subsection-list">
+			<li class="processing-item">LoRA fine-tuning experiments ongoing</li>
+		</ul>
+	</section>
+</SplitLayout>

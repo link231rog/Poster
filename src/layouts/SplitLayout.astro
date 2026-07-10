@@ -20,7 +20,6 @@ type Props = {
 };
 
 const { title, description, navigation, profile, pathname = '/', activeSection = '', sidebarSections } = Astro.props;
-const pairedTo = pathname === '/work' ? 'gate-work' : pathname === '/travel' ? 'gate-life' : undefined;
 ---
 
 <!doctype html>
@@ -55,7 +54,7 @@ const pairedTo = pathname === '/work' ? 'gate-work' : pathname === '/travel' ? '
 			</header>
 
 			<div class="split-layout">
-				<Sidebar profile={profile} activeSection={activeSection} sections={sidebarSections} pairedTo={pairedTo} />
+				<Sidebar profile={profile} activeSection={activeSection} sections={sidebarSections} />
 				<main class="split-content stagger-el">
 					<slot />
 					<footer class="split-footer">

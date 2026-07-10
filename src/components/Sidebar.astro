@@ -9,10 +9,9 @@ type Props = {
 	profile: Profile;
 	activeSection?: string;
 	sections: Array<{ id: string; label: string }>;
-	pairedTo?: string;
 };
 
-const { profile, activeSection = '', sections, pairedTo } = Astro.props;
+const { profile, activeSection = '', sections } = Astro.props;
 ---
 
 <aside class="sidebar stagger-el">
@@ -37,7 +36,7 @@ const { profile, activeSection = '', sections, pairedTo } = Astro.props;
 					data-section={s.id}
 				>
 					<span class="nav-indicator"></span>
-					<span class="nav-label" transition:name={s.id === sections[0]?.id ? pairedTo : undefined}>{s.label}</span>
+					<span class="nav-label">{s.label}</span>
 				</a>
 			))}
 		</nav>
@@ -52,37 +51,68 @@ const { profile, activeSection = '', sections, pairedTo } = Astro.props;
 
 <script>
 (() => {
-	// IntersectionObserver for active nav state
+	// Activation-line approach for active nav state.
+	// Replaces IntersectionObserver which is unreliable for short bottom sections.
 	const links = document.querySelectorAll('.sidebar-nav-link');
 	if (!links.length) return;
 
-	// Use .split-content as scroll root (only right column scrolls)
-	// Falls back to viewport when on non-split pages
-	const scrollRoot = document.querySelector('.split-content') || null;
-
-	const observer = new IntersectionObserver(
-		(entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					const id = entry.target.id;
-					links.forEach((link) => {
-						link.classList.toggle('is-active', (link as HTMLElement).dataset.section === id);
-					});
-				}
-			});
-		},
-		{ root: scrollRoot, threshold: 0.2, rootMargin: '-80px 0px -60% 0px' }
-	);
+	const scrollRoot = document.querySelector('.split-content');
+	if (!scrollRoot) return;
 
 	const sections = document.querySelectorAll('section[id]');
-	sections.forEach((section) => observer.observe(section));
+	if (!sections.length) return;
 
-	// Set initial active section to first section
-	if (sections.length > 0 && links.length > 0) {
-		const firstId = sections[0].id;
+	// Activation line: px below the top of the scroll container
+	const ACTIVATION_OFFSET = 120;
+
+	function setActive(id: string) {
 		links.forEach((link) => {
-			link.classList.toggle('is-active', (link as HTMLElement).dataset.section === firstId);
+			link.classList.toggle('is-active', (link as HTMLElement).dataset.section === id);
 		});
 	}
+
+	function updateActiveSection() {
+		const scrollRect = scrollRoot.getBoundingClientRect();
+		const activationLine = scrollRect.top + ACTIVATION_OFFSET;
+
+		// At bottom → last section (handles short last sections reliably)
+		if (scrollRoot.scrollHeight - scrollRoot.scrollTop <= scrollRoot.clientHeight + 1) {
+			setActive(sections[sections.length - 1].id);
+			return;
+		}
+
+		// Walk sections: the last one whose top ≤ activation line wins
+		let activeId = sections[0].id;
+		for (let i = 0; i < sections.length; i++) {
+			const rect = sections[i].getBoundingClientRect();
+			if (activationLine >= rect.top) {
+				activeId = sections[i].id;
+			} else {
+				break;
+			}
+		}
+
+		setActive(activeId);
+	}
+
+	let ticking = false;
+	scrollRoot.addEventListener('scroll', () => {
+		if (!ticking) {
+			requestAnimationFrame(() => {
+				updateActiveSection();
+				ticking = false;
+			});
+			ticking = true;
+		}
+	});
+
+	let resizeTimer: ReturnType<typeof setTimeout>;
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(updateActiveSection, 100);
+	});
+
+	// Initial active from server-rendered class; recalc on load
+	updateActiveSection();
 })();
 </script>

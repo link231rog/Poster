@@ -1,75 +1,17 @@
 ---
-import SplitLayout from '../layouts/SplitLayout.astro';
-import { getSiteData } from '../lib/content';
-
-const site = await getSiteData();
-
-const workSections = [
-	{ id: 'study', label: 'Study' },
-	{ id: 'research', label: 'Research' },
-	{ id: 'engineering', label: 'Engineering' },
-];
+// This page has moved to the homepage (/).
+// Minimal static redirect — meta refresh + JS fallback.
+// import.meta.env.BASE_URL is inlined by Vite at build time (even inside <script>).
 ---
-
-<SplitLayout
-	title={`Work · ${site.seo.title}`}
-	description="Projects, research, and technical writing."
-	navigation={site.navigation.items}
-	profile={site.profile}
-	pathname="/work"
-	activeSection="study"
-	sidebarSections={workSections}
->
-	<section id="study" class="split-section stagger-el">
-		<h2 class="section-title">Study</h2>
-
-		<h3 class="subsection-title">Academic</h3>
-		<ul class="subsection-list">
-			<li>Southwest University (211, Chongqing)</li>
-			<li>B.Eng. in Automation</li>
-			<li><strong>GPA 3.84</strong> · Rank 5%</li>
-			<li><strong>CET-6 540</strong> · Preparing for IELTS</li>
-		</ul>
-
-		<h3 class="subsection-title">Awards</h3>
-		<ul class="subsection-list">
-			<li>University Second-Class Scholarship</li>
-			<li>Merit Student</li>
-			<li>Outstanding League Member</li>
-		</ul>
-
-		<h3 class="subsection-title">Processing</h3>
-		<ul class="subsection-list">
-			<li class="processing-item">Challenge Cup, University Innovation &amp; Entrepreneurship Competition</li>
-		</ul>
-	</section>
-
-	<section id="research" class="split-section stagger-el">
-		<h2 class="section-title">Research</h2>
-		<div class="work-section-meta">
-			<p>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a>, supervised by <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">Prof. Junjie Huang</a></p>
-			<p>Research focus: <strong>AI Agent</strong> · <strong>RAG Safety</strong></p>
-		</div>
-		<ul class="subsection-list">
-			<li><strong>CCS 2026</strong> under review (3rd author) — RAG Safety &amp; Adversarial Robustness</li>
-			<li><strong>AAAI 2027</strong> · Processing — Hypergraph &amp; LLM</li>
-		</ul>
-		<ul class="subsection-list">
-			<li class="processing-item">Hypergraph &amp; LLM experiments ongoing</li>
-			<li class="processing-item">Human-machine symbiosis paper in progress</li>
-		</ul>
-	</section>
-
-	<section id="engineering" class="split-section stagger-el">
-		<h2 class="section-title">Engineering</h2>
-		<ul class="subsection-list">
-			<li>Agent workflow orchestration: multi-model routing + context-aware selection (2025.11–2026.01)</li>
-			<li>Markdown toolchain: Agent skill management &amp; context engineering</li>
-			<li>Harness Engineering: opencode skills maintenance &amp; superpowers integration</li>
-			<li>Multi-agent systems: model selection strategy &amp; team collaboration design</li>
-		</ul>
-		<ul class="subsection-list">
-			<li class="processing-item">LoRA fine-tuning experiments ongoing</li>
-		</ul>
-	</section>
-</SplitLayout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Redirecting…</title>
+		<meta http-equiv="refresh" content={`0; url=${import.meta.env.BASE_URL}/`} />
+		<script>location.replace(import.meta.env.BASE_URL + '/')</script>
+	</head>
+	<body>
+		<p>Moved. <a href={`${import.meta.env.BASE_URL}/`}>Click here</a> if not redirected.</p>
+	</body>
+</html>
