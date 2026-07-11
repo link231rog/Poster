@@ -19,13 +19,22 @@ const { profile, activeSection = '', sections } = Astro.props;
 		<div class="sidebar-identity">
 			<h1 class="sidebar-name">{profile.name}</h1>
 			<p class="sidebar-headline">{profile.headline}</p>
-			<ul class="cv-list sidebar-cv">
-				<li>B.Eng. in Automation, Southwest University (211)</li>
-				<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></li>
-				<li>Research focus: AI Agent</li>
-				<li>CCS 2026 under review (3rd author)</li>
-				<li>AAAI 2027 · Processing</li>
-			</ul>
+			<div class="sidebar-cv">
+				<div class="cv-cluster">
+					<span class="cv-cluster-label">Background</span>
+					<p class="cv-cluster-text">B.Eng. in Automation, Southwest University (211)</p>
+				</div>
+				<div class="cv-cluster">
+					<span class="cv-cluster-label">Research</span>
+					<p class="cv-cluster-text">Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a></p>
+					<p class="cv-cluster-text">Research focus: AI Agent</p>
+				</div>
+				<div class="cv-cluster">
+					<span class="cv-cluster-label">Publications</span>
+					<p class="cv-cluster-text">CCS 2026 under review (3rd author)</p>
+					<p class="cv-cluster-text">AAAI 2027 &#183; Processing</p>
+				</div>
+			</div>
 		</div>
 
 		<nav class="sidebar-nav" aria-label="In-page navigation">
@@ -52,17 +61,16 @@ const { profile, activeSection = '', sections } = Astro.props;
 <script>
 (() => {
 	// Activation-line approach for active nav state.
-	// Replaces IntersectionObserver which is unreliable for short bottom sections.
 	const links = document.querySelectorAll('.sidebar-nav-link');
 	if (!links.length) return;
 
 	const scrollRoot = document.querySelector('.split-content');
 	if (!scrollRoot) return;
+	const isScrollable = () => scrollRoot.scrollHeight > scrollRoot.clientHeight + 2;
 
 	const sections = document.querySelectorAll('section[id]');
 	if (!sections.length) return;
 
-	// Activation line: px below the top of the scroll container
 	const ACTIVATION_OFFSET = 120;
 
 	function setActive(id: string) {
@@ -72,16 +80,16 @@ const { profile, activeSection = '', sections } = Astro.props;
 	}
 
 	function updateActiveSection() {
-		const scrollRect = scrollRoot.getBoundingClientRect();
-		const activationLine = scrollRect.top + ACTIVATION_OFFSET;
-
-		// At bottom → last section (handles short last sections reliably)
-		if (scrollRoot.scrollHeight - scrollRoot.scrollTop <= scrollRoot.clientHeight + 1) {
+		// Only use scroll-bottom guard when container is actually scrollable
+		// (desktop .split-content with overflow-y:auto; on mobile it's overflow:visible)
+		if (isScrollable() && scrollRoot.scrollHeight - scrollRoot.scrollTop <= scrollRoot.clientHeight + 1) {
 			setActive(sections[sections.length - 1].id);
 			return;
 		}
 
-		// Walk sections: the last one whose top ≤ activation line wins
+		const scrollRect = scrollRoot.getBoundingClientRect();
+		const activationLine = scrollRect.top + ACTIVATION_OFFSET;
+
 		let activeId = sections[0].id;
 		for (let i = 0; i < sections.length; i++) {
 			const rect = sections[i].getBoundingClientRect();
@@ -95,8 +103,7 @@ const { profile, activeSection = '', sections } = Astro.props;
 		setActive(activeId);
 	}
 
-	let ticking = false;
-	scrollRoot.addEventListener('scroll', () => {
+	function onScroll() {
 		if (!ticking) {
 			requestAnimationFrame(() => {
 				updateActiveSection();
@@ -104,7 +111,14 @@ const { profile, activeSection = '', sections } = Astro.props;
 			});
 			ticking = true;
 		}
-	});
+	}
+
+	let ticking = false;
+	// On desktop: .split-content is the scroll container (overflow-y:auto).
+	// On mobile: window is the scroll container (split-content is overflow:visible).
+	// Listen on both; the non-scrolling one simply never fires.
+	scrollRoot.addEventListener('scroll', onScroll, { passive: true });
+	window.addEventListener('scroll', onScroll, { passive: true });
 
 	let resizeTimer: ReturnType<typeof setTimeout>;
 	window.addEventListener('resize', () => {
@@ -112,7 +126,6 @@ const { profile, activeSection = '', sections } = Astro.props;
 		resizeTimer = setTimeout(updateActiveSection, 100);
 	});
 
-	// Initial active from server-rendered class; recalc on load
 	updateActiveSection();
 })();
 </script>
