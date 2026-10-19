@@ -16,7 +16,7 @@ Not the typical CS path, and that's exactly the point. Automation gave me a syst
 
 Research Assistant at **[DIGAI Lab](https://yangmenglinsite.github.io/)**, **HKUST(GZ)**, working with **[Prof. Menglin Yang](https://yangmenglinsite.github.io/)** since August 2026. Research focus: **Agent Memory** and **multi-agent systems**.
 
-- **ARR Oct 2026** under review (1st author) — Multi-Agent, Memory & RL · HKUST(GZ), Tencent, SWU
+- **ARR Oct 2026** under review (1st author) — Multi-Agent, Memory & RL · HKUST(GZ), Tencent Yuanbao, SWU
 - **Decision Model Harness** — research project in progress
 - Member of **EZE LAB**, Southwest University, advised by **[Prof. Junjie Huang](https://huangjunjie-cs.github.io/)**
 

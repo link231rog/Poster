@@ -47,7 +47,7 @@ describe('content assembly', () => {
   it('sorts timeline latest first and keeps active entry first', async () => {
     const page = await getTimelinePageData();
 
-    expect(page.items[0].organization).toBe('HKUST(GZ) · Tencent · SWU');
+    expect(page.items[0].organization).toBe('HKUST(GZ) · Tencent Yuanbao · SWU');
     expect(page.items[0].active).toBe(true);
     expect(page.items).toHaveLength(5);
   });

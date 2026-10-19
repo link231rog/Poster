@@ -3,7 +3,7 @@ items:
     start: '2026.10'
     end: Present
     role: First Author
-    organization: HKUST(GZ) · Tencent · SWU
+    organization: HKUST(GZ) · Tencent Yuanbao · SWU
     type: research
     summary: ARR Oct 2026 under review. Multi-Agent, Memory & RL.
     active: true
