@@ -10,6 +10,7 @@ type Props = {
 };
 
 const { photos, activeProvince = '' } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 const filtered = activeProvince
 	? photos.filter(p => p.province === activeProvince)
 	: photos;
@@ -25,7 +26,7 @@ const filtered = activeProvince
 					data-animate
 					data-delay={String(i * 60)}
 				>
-					<img src={`${import.meta.env.BASE_URL}${photo.src.replace(/^\//, '')}`} alt={photo.title} loading="lazy" />
+					<img src={`${baseUrl}/${photo.src.replace(/^\//, '')}`} alt={photo.title} loading="lazy" />
 					<figcaption class="photo-caption">
 						<span class="photo-title">{photo.title}</span>
 						<span class="photo-meta">{photo.location} · {photo.date}</span>

@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:pages": "SITE_URL=https://link231rog.pages.dev BASE_PATH=/ astro build",
+    "deploy:pages": "npm run build:pages && npx wrangler pages deploy dist --project-name link231rog --commit-dirty=true",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run"

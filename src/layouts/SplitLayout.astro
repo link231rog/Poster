@@ -22,6 +22,8 @@ type Props = {
 };
 
 const { title, description, navigation, profile, pathname = '/', activeSection = '', sidebarSections } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const getHref = (href: string) => href === '/' ? (baseUrl || '/') : `${baseUrl}${href}`;
 ---
 
 <!doctype html>
@@ -30,8 +32,8 @@ const { title, description, navigation, profile, pathname = '/', activeSection =
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
-		<link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
+		<link rel="icon" type="image/svg+xml" href={`${baseUrl}/favicon.svg`} />
+		<link rel="icon" href={`${baseUrl}/favicon.ico`} />
 		<title>{title}</title>
 		<script is:inline>
 			(() => {
@@ -71,12 +73,12 @@ const { title, description, navigation, profile, pathname = '/', activeSection =
 
 		<div class="split-shell page-enter">
 			<header class="split-topbar" data-animate="fade">
-				<a class="brand" href={`${import.meta.env.BASE_URL}`}>Link</a>
+				<a class="brand" href={getHref('/')}>Link</a>
 				<nav style="display: flex; align-items: center; gap: 8px;">
 					<ul class="nav-list">
 						{navigation.map((item) => (
 							<li>
-								<a class:list={[pathname === item.href && 'is-active']} href={`${import.meta.env.BASE_URL}${item.href === '/' ? '' : '/' + item.href.slice(1)}`}>
+								<a class:list={[pathname === item.href && 'is-active']} href={getHref(item.href)}>
 									<span class="lang-en">{item.label}</span>
 									<span class="lang-zh">{item.labelZh || item.label}</span>
 								</a>
