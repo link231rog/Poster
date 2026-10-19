@@ -1,6 +1,8 @@
 items:
   - href: /
-    label: Work
+    label: Research
+    label_zh: 科研与背景
   - href: /projects
     label: Projects
+    label_zh: 工程与项目
 

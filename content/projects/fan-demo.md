@@ -1,7 +1,9 @@
 ---
 slug: fan-demo
 title: Fan Blade Anatomy & Prototype
+title_zh: 扇叶解剖与交互原型
 summary: Industrial-grade isometric fan blade anatomy and interactive concept prototype with dual-theme (light/dark) precision rendering.
+summary_zh: 工业级等轴测扇叶解剖与交互式概念原型，支持浅色/深色双主题高精度实时渲染。
 tags:
   - interactive
   - concept-prototype
@@ -11,8 +13,10 @@ repo: null
 demo: https://project-fan-demo.pages.dev/
 links:
   - label: Light View
+    label_zh: 浅色视图
     url: https://project-fan-demo.pages.dev/fan-light.html
   - label: Dark View
+    label_zh: 深色视图
     url: https://project-fan-demo.pages.dev/fan.html
 featured: true
 status: demo

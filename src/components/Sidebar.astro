@@ -8,7 +8,7 @@ import type { Profile } from '../types/content';
 type Props = {
 	profile: Profile;
 	activeSection?: string;
-	sections: Array<{ id: string; label: string }>;
+	sections: Array<{ id: string; label: string; labelZh?: string }>;
 };
 
 const { profile, activeSection = '', sections } = Astro.props;
@@ -17,28 +17,67 @@ const { profile, activeSection = '', sections } = Astro.props;
 <aside class="sidebar stagger-el">
 	<div class="sidebar-inner">
 		<div class="sidebar-identity">
-			<h1 class="sidebar-name">{profile.name}</h1>
-			<p class="sidebar-headline">{profile.headline}</p>
+			<h1 class="sidebar-name">
+				<span class="lang-en">{profile.name}</span>
+				<span class="lang-zh">{profile.nameZh || profile.name}</span>
+			</h1>
+			<p class="sidebar-headline">
+				<span class="lang-en">{profile.headline}</span>
+				<span class="lang-zh">{profile.headlineZh || profile.headline}</span>
+			</p>
 			<div class="sidebar-cv">
 				<div class="cv-cluster">
-					<span class="cv-cluster-label">Research</span>
-					<p class="cv-cluster-text">Research Assistant, <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">DIGAI Lab</a>, HKUST(GZ)</p>
-					<p class="cv-cluster-text">Advised by <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">Prof. Menglin Yang</a> · Agent Memory</p>
-					<p class="cv-cluster-text">Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> · AI Agent</p>
+					<span class="cv-cluster-label">
+						<span class="lang-en">Research</span>
+						<span class="lang-zh">科研经历</span>
+					</span>
+					<p class="cv-cluster-text">
+						<span class="lang-en">Research Assistant, <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">DIGAI Lab</a>, HKUST(GZ)</span>
+						<span class="lang-zh">研究助理，<a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">DIGAI Lab</a>，港科大（广州）</span>
+					</p>
+					<p class="cv-cluster-text">
+						<span class="lang-en">Advised by <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">Prof. Menglin Yang</a> · Agent Memory</span>
+						<span class="lang-zh">导师：<a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">杨梦霖教授</a> · 智能体记忆 (Agent Memory)</span>
+					</p>
+					<p class="cv-cluster-text">
+						<span class="lang-en">Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> · AI Agent</span>
+						<span class="lang-zh">成员，<a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> · AI Agent</span>
+					</p>
 				</div>
 				<div class="cv-cluster">
-					<span class="cv-cluster-label">Background</span>
-					<p class="cv-cluster-text">B.Eng. in Automation, Southwest University (211)</p>
+					<span class="cv-cluster-label">
+						<span class="lang-en">Background</span>
+						<span class="lang-zh">教育背景</span>
+					</span>
+					<p class="cv-cluster-text">
+						<span class="lang-en">B.Eng. in Automation, Southwest University (211)</span>
+						<span class="lang-zh">自动化工学学士，西南大学（211）</span>
+					</p>
 				</div>
 				<div class="cv-cluster">
-					<span class="cv-cluster-label">Publications</span>
-					<p class="cv-cluster-text">ARR Oct 2026 under review (1st author)</p>
-					<p class="cv-cluster-text">Multi-Agent, Memory &amp; RL · HKUST(GZ), Tencent, SWU</p>
+					<span class="cv-cluster-label">
+						<span class="lang-en">Publications</span>
+						<span class="lang-zh">学术成果</span>
+					</span>
+					<p class="cv-cluster-text">
+						<span class="lang-en">ARR Oct 2026 under review (1st author)</span>
+						<span class="lang-zh">ARR 2026年10月在审（第一作者）</span>
+					</p>
+					<p class="cv-cluster-text">
+						<span class="lang-en">Multi-Agent, Memory &amp; RL · HKUST(GZ), Tencent, SWU</span>
+						<span class="lang-zh">Multi-Agent, Memory &amp; RL · 港科大（广州）、腾讯、西南大学</span>
+					</p>
 				</div>
 				<div class="cv-cluster cv-profile">
-					<span class="cv-cluster-label">Profile</span>
+					<span class="cv-cluster-label">
+						<span class="lang-en">Profile</span>
+						<span class="lang-zh">个人特质</span>
+					</span>
 					<p class="cv-cluster-text">ENTJ</p>
-					<p class="cv-cluster-text">Photography · 3D printing · Fitness · Board games · Indie games</p>
+					<p class="cv-cluster-text">
+						<span class="lang-en">Photography · 3D printing · Fitness · Board games · Indie games</span>
+						<span class="lang-zh">摄影 · 3D 打印 · 健身 · 桌游 · 独立游戏</span>
+					</p>
 				</div>
 			</div>
 		</div>
@@ -51,7 +90,10 @@ const { profile, activeSection = '', sections } = Astro.props;
 					data-section={s.id}
 				>
 					<span class="nav-indicator"></span>
-					<span class="nav-label">{s.label}</span>
+					<span class="nav-label">
+						<span class="lang-en">{s.label}</span>
+						<span class="lang-zh">{s.labelZh || s.label}</span>
+					</span>
 				</a>
 			))}
 		</nav>

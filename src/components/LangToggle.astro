@@ -1,0 +1,55 @@
+---
+/**
+ * LangToggle.astro - Switch between English and Chinese.
+ */
+---
+
+<button id="lang-toggle" class="lang-toggle" aria-label="Switch language / 切换语言" title="Switch language" type="button">
+	<span class="lang-pill lang-en">中文</span>
+	<span class="lang-pill lang-zh">EN</span>
+</button>
+
+<style>
+.lang-toggle {
+	background: transparent;
+	border: 1px solid var(--border);
+	color: var(--text-secondary);
+	cursor: pointer;
+	padding: 4px 10px;
+	border-radius: var(--radius-sm);
+	font-family: var(--font-mono);
+	font-size: 13px;
+	font-weight: 500;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.lang-toggle:hover {
+	color: var(--text);
+	border-color: var(--border-hover);
+	background: var(--accent-dim);
+}
+.lang-pill {
+	display: inline-block;
+}
+</style>
+
+<script>
+function initLangToggle() {
+	const btn = document.getElementById('lang-toggle');
+	if (!btn || btn.dataset.bound) return;
+	btn.dataset.bound = 'true';
+
+	btn.addEventListener('click', () => {
+		const current = document.documentElement.getAttribute('data-lang') || 'en';
+		const next = current === 'zh' ? 'en' : 'zh';
+		document.documentElement.setAttribute('data-lang', next);
+		localStorage.setItem('lang', next);
+	});
+}
+
+initLangToggle();
+document.addEventListener('astro:page-load', initLangToggle);
+</script>

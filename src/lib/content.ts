@@ -47,9 +47,13 @@ export async function getSiteData(): Promise<SiteData> {
 
 	const profile: Profile = {
 		name: profileRaw.name,
+		nameZh: profileRaw.name_zh,
 		headline: profileRaw.headline,
+		headlineZh: profileRaw.headline_zh,
 		shortBio: profileRaw.short_bio,
+		shortBioZh: profileRaw.short_bio_zh,
 		location: profileRaw.location,
+		locationZh: profileRaw.location_zh,
 		email: profileRaw.email,
 		avatar: profileRaw.avatar,
 		currentFocus: profileRaw.current_focus,
@@ -73,11 +77,17 @@ export async function getProjects(): Promise<Project[]> {
 			return {
 				slug: data.slug,
 				title: data.title,
+				titleZh: data.title_zh,
 				summary: data.summary,
+				summaryZh: data.summary_zh,
 				tags: data.tags,
 				repo: data.repo,
 				demo: data.demo,
-				links: data.links,
+				links: data.links?.map((link: any) => ({
+					label: link.label,
+					labelZh: link.label_zh,
+					url: link.url,
+				})),
 				featured: Boolean(data.featured),
 				status: data.status,
 				year: Number(data.year),

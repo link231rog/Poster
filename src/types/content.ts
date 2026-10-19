@@ -1,13 +1,18 @@
 export type NavigationItem = {
 	href: string;
 	label: string;
+	labelZh?: string;
 };
 
 export type Profile = {
 	name: string;
+	nameZh?: string;
 	headline: string;
+	headlineZh?: string;
 	shortBio: string;
+	shortBioZh?: string;
 	location: string;
+	locationZh?: string;
 	email: string;
 	avatar: string;
 	currentFocus: string;
@@ -35,11 +40,13 @@ export type SiteData = {
 export type Project = {
 	slug: string;
 	title: string;
+	titleZh?: string;
 	summary: string;
+	summaryZh?: string;
 	tags: string[];
 	repo: string;
 	demo?: string;
-	links?: Array<{ label: string; url: string }>;
+	links?: Array<{ label: string; labelZh?: string; url: string }>;
 	featured: boolean;
 	status: string;
 	year: number;

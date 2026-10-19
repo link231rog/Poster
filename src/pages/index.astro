@@ -4,77 +4,146 @@ import { getSiteData } from '../lib/content';
 
 const site = await getSiteData();
 
-const workSections = [
-	{ id: 'study', label: 'Study' },
-	{ id: 'research', label: 'Research' },
-	{ id: 'engineering', label: 'Engineering' },
+const sidebarSections = [
+	{ id: 'research', label: 'Research', labelZh: '科研经历' },
+	{ id: 'background', label: 'Background & Awards', labelZh: '学业与荣誉' },
+	{ id: 'projects-gateway', label: 'Projects Showcase', labelZh: '精选项目试玩' },
 ];
 ---
 
 <SplitLayout
 	title={site.seo.title}
-	description="Projects, research, and technical writing."
+	description="Research, publications, and academic background."
 	navigation={site.navigation.items}
 	profile={site.profile}
 	pathname="/"
-	activeSection="study"
-	sidebarSections={workSections}
+	activeSection="research"
+	sidebarSections={sidebarSections}
 >
-	<section id="study" class="split-section stagger-el">
-		<h2 class="section-title">Study</h2>
-
-		<h3 class="subsection-title">Academic</h3>
-		<ul class="subsection-list">
-			<li>Southwest University (211, Chongqing)</li>
-			<li>B.Eng. in Automation</li>
-			<li class="cv-metric"><strong>GPA 3.84</strong> · Rank 5%</li>
-			<li class="cv-metric"><strong>CET-6 540</strong> · Preparing for IELTS</li>
-		</ul>
-
-		<h3 class="subsection-title">Awards</h3>
-		<ul class="subsection-list">
-			<li>University Second-Class Scholarship</li>
-			<li>Merit Student</li>
-			<li>Outstanding League Member</li>
-			<li>"Challenge Cup" University Innovation &amp; Entrepreneurship Competition (Second Lead)</li>
-		</ul>
-
-		<h3 class="subsection-title">Processing</h3>
-		<ul class="subsection-list">
-			<li class="processing-item">University Innovation &amp; Entrepreneurship Competition (Ongoing)</li>
-		</ul>
-	</section>
-
 	<section id="research" class="split-section stagger-el">
-		<h2 class="section-title">Research</h2>
+		<h2 class="section-title">
+			<span class="lang-en">Research</span>
+			<span class="lang-zh">科研经历</span>
+		</h2>
 		<div class="work-section-meta">
-			<p>Research Assistant at <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">DIGAI Lab</a>, HKUST(GZ), advised by <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">Prof. Menglin Yang</a></p>
-			<p>Research focus: <strong>Agent Memory</strong> · <strong>Multi-Agent Systems</strong></p>
+			<p>
+				<span class="lang-en">Research Assistant at <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">DIGAI Lab</a>, HKUST(GZ), advised by <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">Prof. Menglin Yang</a></span>
+				<span class="lang-zh">香港科技大学（广州）<a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">DIGAI Lab</a> 研究助理，师从 <a href="https://yangmenglinsite.github.io/" target="_blank" rel="noreferrer">杨梦霖教授</a></span>
+			</p>
+			<p>
+				<span class="lang-en">Research focus: <strong>Agent Memory</strong> · <strong>Multi-Agent Systems</strong></span>
+				<span class="lang-zh">核心研究方向：<strong>智能体记忆（Agent Memory）</strong> · <strong>多智能体系统（Multi-Agent Systems）</strong></span>
+			</p>
 		</div>
 		<ul class="subsection-list">
-			<li><strong>ARR Oct 2026</strong> under review (1st author) — Multi-Agent, Memory &amp; RL · HKUST(GZ), Tencent, SWU</li>
-			<li>Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a>, supervised by Prof. Junjie Huang</li>
+			<li>
+				<span class="lang-en"><strong>ARR Oct 2026</strong> under review (1st author) — Multi-Agent, Memory &amp; RL · HKUST(GZ), Tencent, SWU</span>
+				<span class="lang-zh"><strong>ARR 2026年10月</strong>在审（第一作者）— Multi-Agent, Memory &amp; RL · 港科大（广州）、腾讯、西南大学</span>
+			</li>
+			<li>
+				<span class="lang-en">Member of <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a>, supervised by Prof. Junjie Huang</span>
+				<span class="lang-zh">西南大学 <a href="https://huangjunjie-cs.github.io/" target="_blank" rel="noreferrer">EZE LAB</a> 成员，指导老师：黄俊杰教授</span>
+			</li>
 		</ul>
 		<ul class="subsection-list">
-			<li class="processing-item">Decision Model Harness research ongoing</li>
+			<li class="processing-item">
+				<span class="lang-en">Decision Model Harness research ongoing</span>
+				<span class="lang-zh">Decision Model Harness 决策模型与控制架构进行中</span>
+			</li>
 		</ul>
 	</section>
 
-	<section id="engineering" class="split-section stagger-el">
-		<h2 class="section-title">Engineering</h2>
+	<section id="background" class="split-section stagger-el">
+		<h2 class="section-title">
+			<span class="lang-en">Background &amp; Awards</span>
+			<span class="lang-zh">学业背景与荣誉</span>
+		</h2>
+
+		<h3 class="subsection-title">
+			<span class="lang-en">Academic</span>
+			<span class="lang-zh">学业表现</span>
+		</h3>
 		<ul class="subsection-list">
-			<li>Agent workflow orchestration: multi-model routing + context-aware selection (2025.11–2026.01)</li>
-			<li>Markdown toolchain: Agent skill management &amp; context engineering</li>
-			<li>Harness Engineering: opencode skills maintenance &amp; superpowers integration</li>
-			<li>Multi-agent systems: model selection strategy &amp; team collaboration design</li>
+			<li>
+				<span class="lang-en">Southwest University (211, Chongqing)</span>
+				<span class="lang-zh">西南大学（国家“211工程”，重庆）</span>
+			</li>
+			<li>
+				<span class="lang-en">B.Eng. in Automation</span>
+				<span class="lang-zh">自动化专业 · 工学学士</span>
+			</li>
+			<li class="cv-metric">
+				<span class="lang-en"><strong>GPA 3.84</strong> · Rank 5%</span>
+				<span class="lang-zh"><strong>GPA 3.84</strong> · 专业综合排名前 5%</span>
+			</li>
+			<li class="cv-metric">
+				<span class="lang-en"><strong>CET-6 540</strong> · Preparing for IELTS</span>
+				<span class="lang-zh"><strong>大学英语六级 CET-6 540</strong> · 雅思备考中</span>
+			</li>
 		</ul>
+
+		<h3 class="subsection-title">
+			<span class="lang-en">Awards &amp; Competitions</span>
+			<span class="lang-zh">赛事与奖项荣誉</span>
+		</h3>
 		<ul class="subsection-list">
-			<li class="processing-item">LoRA fine-tuning experiments ongoing</li>
-			<li class="processing-item"><a href="https://project-fan-demo.pages.dev/" target="_blank" rel="noreferrer">Fan Blade Anatomy &amp; Prototype</a> (Interactive demo)</li>
+			<li>
+				<span class="lang-en">"Challenge Cup" University Innovation &amp; Entrepreneurship Competition (Second Lead)</span>
+				<span class="lang-zh"><strong>“挑战杯”大学生创新创业计划竞赛（第二负责人）</strong></span>
+			</li>
+			<li>
+				<span class="lang-en">University Second-Class Scholarship</span>
+				<span class="lang-zh">校级二等奖学金</span>
+			</li>
+			<li>
+				<span class="lang-en">Merit Student</span>
+				<span class="lang-zh">校级“三好学生”荣誉称号</span>
+			</li>
+			<li>
+				<span class="lang-en">Outstanding League Member</span>
+				<span class="lang-zh">校级“优秀共青团员”荣誉称号</span>
+			</li>
+		</ul>
+
+		<h3 class="subsection-title">
+			<span class="lang-en">Processing</span>
+			<span class="lang-zh">进行中项目</span>
+		</h3>
+		<ul class="subsection-list">
+			<li class="processing-item">
+				<span class="lang-en">University Innovation &amp; Entrepreneurship Competition (Ongoing)</span>
+				<span class="lang-zh">大学生创新创业大赛项目（进行中）</span>
+			</li>
+		</ul>
+	</section>
+
+	<section id="projects-gateway" class="split-section stagger-el">
+		<h2 class="section-title">
+			<span class="lang-en">Projects Showcase</span>
+			<span class="lang-zh">精选项目试玩</span>
+		</h2>
+		<p class="section-desc">
+			<span class="lang-en">Engineering implementations, interactive 3D demos, and agent systems are organized in the dedicated Projects page with live URLs.</span>
+			<span class="lang-zh">包含 3D 空间交互原型、自主智能体协作体系与开发者工具链。已独立分设实机项目页面，支持在线试玩体验。</span>
+		</p>
+		<ul class="subsection-list">
+			<li>
+				<span class="lang-en"><a href="https://project-fan-demo.pages.dev/" target="_blank" rel="noreferrer">Fan Blade Anatomy &amp; Prototype</a> (Isometric interactive demo)</span>
+				<span class="lang-zh"><a href="https://project-fan-demo.pages.dev/" target="_blank" rel="noreferrer">扇叶解剖与交互原型</a>（等轴测工业级双主题实时渲染实机）</span>
+			</li>
+			<li>
+				<span class="lang-en"><a href="https://project-3d-chongqin.pages.dev/" target="_blank" rel="noreferrer">Chongqing 3D Interactive Web</a> (Three.js spatial map)</span>
+				<span class="lang-zh"><a href="https://project-3d-chongqin.pages.dev/" target="_blank" rel="noreferrer">重庆 3D 空间交互地图</a>（基于 Three.js 的立体山城多层级空间导航）</span>
+			</li>
+			<li>
+				<span class="lang-en">Agent Orchestration &amp; Harness Engineering Toolkit</span>
+				<span class="lang-zh">智能体编排协作调度系统 &amp; Harness 工具套件</span>
+			</li>
 		</ul>
 		<div style="margin-top: 24px;">
-			<a class="button-secondary" href={`${import.meta.env.BASE_URL}/projects`}>
-				View all projects &amp; live demos &rarr;
+			<a class="button" href={`${import.meta.env.BASE_URL}/projects`}>
+				<span class="lang-en">View all projects &amp; live demos &rarr;</span>
+				<span class="lang-zh">前往浏览全部实机演示与项目网址 &rarr;</span>
 			</a>
 		</div>
 	</section>

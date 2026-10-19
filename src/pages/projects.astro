@@ -6,9 +6,9 @@ import { getProjectsPageData, getSiteData } from '../lib/content';
 const [site, page] = await Promise.all([getSiteData(), getProjectsPageData()]);
 
 const projectSections = [
-	{ id: 'interactive', label: 'Interactive & 3D' },
-	{ id: 'agents', label: 'Agent Systems' },
-	{ id: 'tools', label: 'Tools & Systems' },
+	{ id: 'interactive', label: 'Interactive & 3D', labelZh: '3D 与空间交互' },
+	{ id: 'agents', label: 'Agent Systems', labelZh: '智能体系统' },
+	{ id: 'tools', label: 'Tools & Systems', labelZh: '工具与工作流' },
 ];
 
 const interactiveProjects = page.projects.filter(
@@ -43,8 +43,14 @@ const toolProjects = page.projects.filter(
 	sidebarSections={projectSections}
 >
 	<section id="interactive" class="split-section stagger-el">
-		<h2 class="section-title">Interactive &amp; 3D</h2>
-		<p class="section-desc">Spatial computing, WebGL 3D graphics, and real-time interactive experiences.</p>
+		<h2 class="section-title">
+			<span class="lang-en">Interactive &amp; 3D</span>
+			<span class="lang-zh">3D 与空间交互</span>
+		</h2>
+		<p class="section-desc">
+			<span class="lang-en">Spatial computing, WebGL 3D graphics, and real-time interactive experiences.</span>
+			<span class="lang-zh">空间计算、WebGL 3D 渲染与实时工业级交互原型。</span>
+		</p>
 		<div class="projects-listing">
 			{interactiveProjects.map((project) => (
 				<ProjectCard project={project} />
@@ -53,8 +59,14 @@ const toolProjects = page.projects.filter(
 	</section>
 
 	<section id="agents" class="split-section stagger-el">
-		<h2 class="section-title">Agent Systems</h2>
-		<p class="section-desc">Multi-agent collaboration, model routing, and agent harness workflows.</p>
+		<h2 class="section-title">
+			<span class="lang-en">Agent Systems</span>
+			<span class="lang-zh">智能体系统</span>
+		</h2>
+		<p class="section-desc">
+			<span class="lang-en">Multi-agent collaboration, model routing, and agent harness workflows.</span>
+			<span class="lang-zh">多智能体协同、动态模型路由调度与 Harness 工程体系。</span>
+		</p>
 		<div class="projects-listing">
 			{agentProjects.map((project) => (
 				<ProjectCard project={project} />
@@ -63,8 +75,14 @@ const toolProjects = page.projects.filter(
 	</section>
 
 	<section id="tools" class="split-section stagger-el">
-		<h2 class="section-title">Tools &amp; Systems</h2>
-		<p class="section-desc">Developer toolchains, documentation systems, and web architecture.</p>
+		<h2 class="section-title">
+			<span class="lang-en">Tools &amp; Systems</span>
+			<span class="lang-zh">工具与工作流</span>
+		</h2>
+		<p class="section-desc">
+			<span class="lang-en">Developer toolchains, documentation systems, and web architecture.</span>
+			<span class="lang-zh">开发者工具链、上下文工程体系与 Web 架构。</span>
+		</p>
 		<div class="projects-listing">
 			{toolProjects.map((project) => (
 				<ProjectCard project={project} />

@@ -89,6 +89,14 @@
   --button-hover-bg: #ccc;
 }
 
+/* ─── Bilingual Language Switch ────────────────────────── */
+:root[data-lang="zh"] .lang-en {
+  display: none !important;
+}
+:root:not([data-lang="zh"]) .lang-zh {
+  display: none !important;
+}
+
 /* ─── Reset ───────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
