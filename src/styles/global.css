@@ -833,32 +833,35 @@ p { color: var(--text); margin: 0; }
 .sidebar-cv {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
   margin-bottom: 28px;
 }
 .cv-cluster {
-  border-left: 2px solid var(--border);
+  border-left: 2.5px solid var(--border-hover);
   padding-left: 14px;
   transition: border-color 0.2s ease;
 }
 .cv-cluster:hover {
-  border-left-color: var(--text-secondary);
+  border-left-color: var(--text);
 }
 .cv-cluster-label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 13.5px;
-  font-weight: 600;
+  font-size: 14.5px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.3;
   transition: color 0.2s ease;
 }
 :root[data-lang="zh"] .cv-cluster-label {
-  font-size: 14px;
-  letter-spacing: 0.04em;
+  font-size: 16.5px;
+  letter-spacing: 0.02em;
   font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--text);
 }
 .cv-cluster:hover .cv-cluster-label {
   color: var(--text);
