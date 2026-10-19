@@ -14,8 +14,8 @@ describe('content assembly', () => {
 
     expect(site.profile.name).toBe('Zixuan Huang');
     expect(site.navigation.items).toEqual([
-      { href: '/', label: 'Research', label_zh: '科研与背景' },
-      { href: '/projects', label: 'Projects', label_zh: '工程与项目' },
+      { href: '/', label: 'Research', labelZh: '科研与背景' },
+      { href: '/projects', label: 'Projects', labelZh: '工程与项目' },
     ]);
     expect(site.seo.title).toContain('Zixuan');
   });

@@ -39,9 +39,9 @@ function sortTimeline(items: TimelineItem[]) {
 }
 
 export async function getSiteData(): Promise<SiteData> {
-	const [profileRaw, navigation, seo] = await Promise.all([
+	const [profileRaw, navigationRaw, seo] = await Promise.all([
 		readYamlFile<any>(path.join(contentDir, 'site', 'profile.yaml')),
-		readYamlFile<{ items: SiteData['navigation']['items'] }>(path.join(contentDir, 'site', 'navigation.yaml')),
+		readYamlFile<any>(path.join(contentDir, 'site', 'navigation.yaml')),
 		readYamlFile<SiteData['seo']>(path.join(contentDir, 'site', 'seo.yaml')),
 	]);
 
@@ -60,6 +60,14 @@ export async function getSiteData(): Promise<SiteData> {
 		skills: profileRaw.skills,
 		status: profileRaw.status,
 		socials: profileRaw.socials,
+	};
+
+	const navigation: SiteData['navigation'] = {
+		items: (navigationRaw.items || []).map((item: any) => ({
+			href: item.href,
+			label: item.label,
+			labelZh: item.label_zh || item.labelZh,
+		})),
 	};
 
 	return { profile, navigation, seo };
