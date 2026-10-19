@@ -34,9 +34,10 @@ describe('content assembly', () => {
     const page = await getProjectsPageData();
 
     expect(page.projects.map((project) => project.slug)).toEqual([
-      'agent-orchestration',
       'chongqing-3d',
       'fan-demo',
+      'fan-promo',
+      'agent-orchestration',
       'harness-toolkit',
       'markdown-workflow',
       'poster-site',

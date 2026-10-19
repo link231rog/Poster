@@ -46,6 +46,7 @@ export type Project = {
 	tags: string[];
 	repo: string;
 	demo?: string;
+	cover?: string;
 	links?: Array<{ label: string; labelZh?: string; url: string }>;
 	featured: boolean;
 	status: string;

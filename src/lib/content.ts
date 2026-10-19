@@ -27,7 +27,18 @@ async function readMarkdownFile<T>(filePath: string): Promise<{ data: T; content
 }
 
 function sortProjects(projects: Project[]) {
-	return [...projects].sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+	const priorityOrder: Record<string, number> = {
+		'chongqing-3d': 1,
+		'fan-demo': 2,
+		'fan-promo': 3,
+	};
+
+	return [...projects].sort((a, b) => {
+		const orderA = priorityOrder[a.slug] ?? 99;
+		const orderB = priorityOrder[b.slug] ?? 99;
+		if (orderA !== orderB) return orderA - orderB;
+		return b.year - a.year || a.title.localeCompare(b.title);
+	});
 }
 
 function sortTimeline(items: TimelineItem[]) {
@@ -91,6 +102,7 @@ export async function getProjects(): Promise<Project[]> {
 				tags: data.tags,
 				repo: data.repo,
 				demo: data.demo,
+				cover: data.cover,
 				links: data.links?.map((link: any) => ({
 					label: link.label,
 					labelZh: link.label_zh,

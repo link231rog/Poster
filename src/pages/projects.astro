@@ -15,10 +15,12 @@ const interactiveProjects = page.projects.filter(
 	(p) =>
 		p.slug === 'chongqing-3d' ||
 		p.slug === 'fan-demo' ||
+		p.slug === 'fan-promo' ||
 		p.tags.includes('three.js') ||
 		p.tags.includes('webgl') ||
 		p.tags.includes('interactive') ||
-		p.tags.includes('concept-prototype'),
+		p.tags.includes('concept-prototype') ||
+		p.tags.includes('product-promo'),
 );
 const agentProjects = page.projects.filter(
 	(p) =>

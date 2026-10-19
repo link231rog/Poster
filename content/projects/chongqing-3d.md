@@ -11,6 +11,7 @@ tags:
   - cloudflare-pages
 repo: null
 demo: https://project-3d-chongqin.pages.dev/
+cover: /projects/chongqing-3d-cover.jpg
 featured: true
 status: demo
 year: 2026

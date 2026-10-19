@@ -11,6 +11,7 @@ tags:
   - cloudflare-pages
 repo: null
 demo: https://project-fan-demo.pages.dev/
+cover: /projects/fan-demo-cover.jpg
 links:
   - label: Light View
     label_zh: 浅色主题

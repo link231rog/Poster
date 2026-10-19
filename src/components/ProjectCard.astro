@@ -6,9 +6,41 @@ type Props = {
 };
 
 const { project } = Astro.props;
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
+const coverSrc = project.cover
+	? project.cover.startsWith('http')
+		? project.cover
+		: `${baseUrl}${project.cover}`
+	: null;
 ---
 
 <article class="project-card editorial-card">
+	{coverSrc && (
+		<a
+			href={project.demo || '#'}
+			target={project.demo ? '_blank' : undefined}
+			rel={project.demo ? 'noreferrer' : undefined}
+			class="project-cover-link"
+			tabindex="-1"
+			aria-hidden="true"
+		>
+			<div class="project-cover-wrapper">
+				<img
+					src={coverSrc}
+					alt={project.title}
+					loading="lazy"
+					decoding="async"
+					class="project-cover-img"
+				/>
+				<div class="project-cover-overlay">
+					<span class="project-cover-badge">
+						<span class="lang-en">Open Preview ↗</span>
+						<span class="lang-zh">立即体验 ↗</span>
+					</span>
+				</div>
+			</div>
+		</a>
+	)}
 	<div class="section">
 		<div class="section-head">
 			<h3>
@@ -49,3 +81,4 @@ const { project } = Astro.props;
 		)}
 	</div>
 </article>
+
