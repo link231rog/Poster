@@ -45,6 +45,8 @@
     ctx.clearRect(0, 0, w, h);
     time++;
 
+    const rgb = getComputedStyle(document.documentElement).getPropertyValue('--particle-rgb').trim() || '255, 255, 255';
+
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
@@ -60,8 +62,8 @@
 
       // Draw glow
       const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, radius * 4);
-      gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha * 0.3})`);
-      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      gradient.addColorStop(0, `rgba(${rgb}, ${alpha * 0.3})`);
+      gradient.addColorStop(1, `rgba(${rgb}, 0)`);
       ctx.beginPath();
       ctx.arc(p.x, p.y, radius * 4, 0, Math.PI * 2);
       ctx.fillStyle = gradient;
@@ -70,7 +72,7 @@
       // Draw core
       ctx.beginPath();
       ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+      ctx.fillStyle = `rgba(${rgb}, ${alpha})`;
       ctx.fill();
     }
 
@@ -85,7 +87,7 @@
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(255, 255, 255, ${0.06 * strength})`;
+          ctx.strokeStyle = `rgba(${rgb}, ${0.06 * strength})`;
           ctx.lineWidth = 0.6 * strength;
           ctx.stroke();
         }

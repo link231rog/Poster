@@ -5,6 +5,7 @@ import AnimateOnScroll from '../components/AnimateOnScroll.astro';
 import ParticleField from '../components/ParticleField.astro';
 import CardGlow from '../components/CardGlow.astro';
 import ScrollProgress from '../components/ScrollProgress.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
 import '../styles/global.css';
 
 type Props = {
@@ -26,6 +27,18 @@ const { title, description, navigation, pathname = '/' } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`} />
 		<link rel="icon" href={`${import.meta.env.BASE_URL}/favicon.ico`} />
 		<title>{title}</title>
+		<script is:inline>
+			(() => {
+				const saved = localStorage.getItem('theme');
+				if (saved) {
+					document.documentElement.setAttribute('data-theme', saved);
+				} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+					document.documentElement.setAttribute('data-theme', 'light');
+				} else {
+					document.documentElement.setAttribute('data-theme', 'dark');
+				}
+			})();
+		</script>
 		<ClientRouter />
 	</head>
 	<body>
@@ -35,7 +48,7 @@ const { title, description, navigation, pathname = '/' } = Astro.props;
 		<div class="shell page-enter">
 			<header class="site-header" data-animate="fade">
 				<a class="brand" href={`${import.meta.env.BASE_URL}`}>Link</a>
-				<nav>
+				<nav style="display: flex; align-items: center; gap: 8px;">
 					<ul class="nav-list">
 						{navigation.map((item) => (
 							<li>
@@ -45,6 +58,7 @@ const { title, description, navigation, pathname = '/' } = Astro.props;
 							</li>
 						))}
 					</ul>
+					<ThemeToggle />
 				</nav>
 			</header>
 			<main>
