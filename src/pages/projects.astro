@@ -12,7 +12,13 @@ const projectSections = [
 ];
 
 const interactiveProjects = page.projects.filter(
-	(p) => p.slug === 'chongqing-3d' || p.tags.includes('three.js') || p.tags.includes('webgl'),
+	(p) =>
+		p.slug === 'chongqing-3d' ||
+		p.slug === 'fan-demo' ||
+		p.tags.includes('three.js') ||
+		p.tags.includes('webgl') ||
+		p.tags.includes('interactive') ||
+		p.tags.includes('concept-prototype'),
 );
 const agentProjects = page.projects.filter(
 	(p) =>

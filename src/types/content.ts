@@ -39,6 +39,7 @@ export type Project = {
 	tags: string[];
 	repo: string;
 	demo?: string;
+	links?: Array<{ label: string; url: string }>;
 	featured: boolean;
 	status: string;
 	year: number;

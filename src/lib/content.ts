@@ -77,6 +77,7 @@ export async function getProjects(): Promise<Project[]> {
 				tags: data.tags,
 				repo: data.repo,
 				demo: data.demo,
+				links: data.links,
 				featured: Boolean(data.featured),
 				status: data.status,
 				year: Number(data.year),

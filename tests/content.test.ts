@@ -36,6 +36,7 @@ describe('content assembly', () => {
     expect(page.projects.map((project) => project.slug)).toEqual([
       'agent-orchestration',
       'chongqing-3d',
+      'fan-demo',
       'harness-toolkit',
       'markdown-workflow',
       'poster-site',

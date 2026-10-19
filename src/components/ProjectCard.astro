@@ -31,6 +31,9 @@ const { project } = Astro.props;
 		{project.demo && (
 			<a class="button" href={project.demo} target="_blank" rel="noreferrer">Live Demo ↗</a>
 		)}
+		{project.links && project.links.map((link) => (
+			<a class="button-secondary" href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a>
+		))}
 		{project.repo && (
 			<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
 		)}
