@@ -107,7 +107,7 @@ const { profile, activeSection = '', sections } = Astro.props;
 </aside>
 
 <script>
-(() => {
+document.addEventListener('astro:page-load', () => {
 	// Activation-line approach for active nav state.
 	const links = document.querySelectorAll('.sidebar-nav-link');
 	if (!links.length) return;
@@ -151,6 +151,7 @@ const { profile, activeSection = '', sections } = Astro.props;
 		setActive(activeId);
 	}
 
+	let ticking = false;
 	function onScroll() {
 		if (!ticking) {
 			requestAnimationFrame(() => {
@@ -161,7 +162,6 @@ const { profile, activeSection = '', sections } = Astro.props;
 		}
 	}
 
-	let ticking = false;
 	// On desktop: .split-content is the scroll container (overflow-y:auto).
 	// On mobile: window is the scroll container (split-content is overflow:visible).
 	// Listen on both; the non-scrolling one simply never fires.
@@ -175,5 +175,5 @@ const { profile, activeSection = '', sections } = Astro.props;
 	});
 
 	updateActiveSection();
-})();
+});
 </script>

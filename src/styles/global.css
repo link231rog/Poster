@@ -298,10 +298,11 @@ p { color: var(--text); margin: 0; }
 
 /* ─── Cards ───────────────────────────────────────────── */
 .project-card {
-  padding: 20px 24px;
+  padding: 22px 24px;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
 }
 .project-card::before {
@@ -316,7 +317,9 @@ p { color: var(--text); margin: 0; }
 }
 .project-card:hover {
   border-color: var(--border-hover);
-  background: var(--surface);
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 .project-card:hover::before { opacity: 1; }
 .project-card h3 {
@@ -333,6 +336,7 @@ p { color: var(--text); margin: 0; }
   margin: 8px 0 10px;
   font-family: var(--font-mono, monospace);
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 .project-url-link {
   color: var(--accent);
@@ -1440,6 +1444,8 @@ p { color: var(--text); margin: 0; }
   .button, .button-secondary { width: 100%; justify-content: center; }
   .travel-layout { grid-template-columns: 1fr; }
   .photo-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .project-card { padding: 18px 16px; }
+  .project-url { font-size: 12px; }
 }
 
 /* ─── Split Layout Responsive ─────────────────────────── */
