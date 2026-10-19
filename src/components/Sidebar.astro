@@ -83,6 +83,15 @@ const { profile, activeSection = '', sections } = Astro.props;
 						<span class="lang-zh">摄影 · 3D 打印 · 健身 · 桌游 · 独立游戏</span>
 					</p>
 				</div>
+				<div class="cv-cluster cv-contact">
+					<span class="cv-cluster-label">
+						<span class="lang-en">Contact</span>
+						<span class="lang-zh">联系方式</span>
+					</span>
+					<p class="cv-cluster-text">
+						<a href={`mailto:${profile.email}`}>{profile.email}</a>
+					</p>
+				</div>
 			</div>
 		</div>
 
