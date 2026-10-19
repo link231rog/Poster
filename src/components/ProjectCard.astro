@@ -16,13 +16,23 @@ const { project } = Astro.props;
 		</div>
 		<p>{project.summary}</p>
 	</div>
+	{project.demo && (
+		<div class="project-url">
+			<span class="eyebrow" style="margin-right: 6px; font-size: 11px;">URL:</span>
+			<a href={project.demo} target="_blank" rel="noreferrer" class="project-url-link">
+				{project.demo}
+			</a>
+		</div>
+	)}
 	<ul class="tag-list muted-tags">
 		{project.tags.map((tag) => <li class="tag">{tag}</li>)}
 	</ul>
 	<div class="cta-row">
-		<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
 		{project.demo && (
-			<a class="button-secondary" href={project.demo} target="_blank" rel="noreferrer">Demo</a>
+			<a class="button" href={project.demo} target="_blank" rel="noreferrer">Live Demo ↗</a>
+		)}
+		{project.repo && (
+			<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
 		)}
 	</div>
 </article>

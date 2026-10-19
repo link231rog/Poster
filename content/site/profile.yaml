@@ -1,18 +1,21 @@
 name: Zixuan Huang
-headline: B.Eng. in Automation, Southwest University (211). AI Agent researcher at EZE LAB.
-short_bio: Member of EZE LAB under Associate Professor Junjie Huang. Research focus on AI Agent and RAG safety. CCS 2026 under review (3rd author) · AAAI 2027 Processing.
-location: Chongqing, China
-email: huangzixuan@example.com
+headline: Research Assistant at DIGAI Lab, HKUST(GZ). B.Eng. in Automation, Southwest University (211).
+short_bio: Research Assistant at DIGAI Lab, HKUST(GZ), advised by Prof. Menglin Yang. Research focus on Agent Memory. First-author paper at ARR Oct 2026. Member of EZE LAB, Southwest University.
+location: Chongqing · Guangzhou · Hong Kong, China
+email: zixuan_huang_ee@outlook.com
 avatar: /avatar.png
-current_focus: AI Agent research, RAG safety, and building in public.
+current_focus: Agent Memory, multi-agent systems, and reinforcement learning.
 skills:
+  - Agent Memory
+  - Multi-Agent Systems
+  - Reinforcement Learning
   - AI Agent
   - RAG Safety
   - Python
   - Automation
   - Research Engineering
 status:
-  text: CCS 2026 under review · AAAI 2027 Processing
+  text: ARR Oct 2026 under review (1st author)
   type: active
 socials:
   - platform: GitHub
@@ -23,4 +26,4 @@ socials:
     url: https://x.com/link231rog
   - platform: Email
     label: Email
-    url: "mailto:huangzixuan@example.com"
+    url: "mailto:zixuan_huang_ee@outlook.com"

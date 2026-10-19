@@ -1,17 +1,25 @@
 items:
-  - id: ccs-paper
-    start: '2026.04'
+  - id: arr-paper
+    start: '2026.10'
     end: Present
-    role: Undergraduate Researcher
-    organization: EZE LAB, Southwest University
+    role: First Author
+    organization: HKUST(GZ) · Tencent · SWU
     type: research
-    summary: CCS 2026 under review (3rd author). RAG safety and adversarial robustness.
+    summary: ARR Oct 2026 under review. Multi-Agent, Memory & RL.
+    active: true
+  - id: digai-lab
+    start: '2026.08'
+    end: Present
+    role: Research Assistant
+    organization: DIGAI Lab, HKUST(GZ)
+    type: research
+    summary: Working with Prof. Menglin Yang on Agent Memory and multi-agent systems.
     active: true
   - id: eze-lab
     start: '2025'
     end: Present
     role: Undergraduate Researcher
-    organization: EZE LAB
+    organization: EZE LAB, Southwest University
     type: research
     summary: Joined EZE LAB under Associate Professor Junjie Huang. Focus on AI Agent and RAG safety.
     active: true

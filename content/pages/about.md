@@ -13,10 +13,11 @@ Not the typical CS path, and that's exactly the point. Automation gave me a syst
 
 ## Research
 
-Member of **EZE LAB**, supervised by **[Prof. Junjie Huang](https://huangjunjie-cs.github.io/)**. Research focus: **AI Agent safety** and **RAG robustness**.
+Research Assistant at **[DIGAI Lab](https://yangmenglinsite.github.io/)**, **HKUST(GZ)**, working with **[Prof. Menglin Yang](https://yangmenglinsite.github.io/)** since August 2026. Research focus: **Agent Memory** and **multi-agent systems**.
 
-- **CCS 2026** under review (3rd author) — RAG Safety & Adversarial Robustness
-- **AAAI 2027** · Processing — Hypergraph & LLM
+- **ARR Oct 2026** under review (1st author) — Multi-Agent, Memory & RL · HKUST(GZ), Tencent, SWU
+- **Decision Model Harness** — research project in progress
+- Member of **EZE LAB**, Southwest University, advised by **[Prof. Junjie Huang](https://huangjunjie-cs.github.io/)**
 
 The transition from Automation to AI research felt natural. Both are about building systems that behave predictably under uncertainty — you just swap differential equations for latent spaces.
 
@@ -35,4 +36,4 @@ Two years of Hong Kong stock market trading taught me as much about risk modelin
 
 ## Connect
 
-**GitHub:** [link231rog](https://github.com/link231rog) · **Email:** huangzixuan@example.com · Scholar: coming soon.
+**GitHub:** [link231rog](https://github.com/link231rog) · **Email:** zixuan_huang_ee@outlook.com

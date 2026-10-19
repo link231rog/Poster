@@ -12,21 +12,18 @@ describe('content assembly', () => {
   it('loads site profile and navigation', async () => {
     const site = await getSiteData();
 
-    expect(site.profile.name).toBe('Link');
+    expect(site.profile.name).toBe('Zixuan Huang');
     expect(site.navigation.items).toEqual([
-      { href: '/', label: 'Home' },
-      { href: '/about', label: 'About' },
+      { href: '/', label: 'Work' },
       { href: '/projects', label: 'Projects' },
-      { href: '/timeline', label: 'Timeline' },
-      { href: '/resources', label: 'Resources' },
     ]);
-    expect(site.seo.title).toContain('Link');
+    expect(site.seo.title).toContain('Zixuan');
   });
 
   it('assembles homepage featured projects and timeline preview', async () => {
     const page = await getHomePageData();
 
-    expect(page.profile.headline).toContain('Engineer');
+    expect(page.profile.headline).toContain('Research Assistant');
     expect(page.featuredProjects).toHaveLength(2);
     expect(page.featuredProjects.every((project) => project.featured)).toBe(true);
     expect(page.timelinePreview).toHaveLength(3);
@@ -37,18 +34,20 @@ describe('content assembly', () => {
     const page = await getProjectsPageData();
 
     expect(page.projects.map((project) => project.slug)).toEqual([
-      'opencode-workflows',
+      'agent-orchestration',
+      'chongqing-3d',
+      'harness-toolkit',
+      'markdown-workflow',
       'poster-site',
-      'agent-lab',
     ]);
   });
 
   it('sorts timeline latest first and keeps active entry first', async () => {
     const page = await getTimelinePageData();
 
-    expect(page.items[0].organization).toBe('Independent Research');
+    expect(page.items[0].organization).toBe('HKUST(GZ) · Tencent · SWU');
     expect(page.items[0].active).toBe(true);
-    expect(page.items).toHaveLength(4);
+    expect(page.items).toHaveLength(5);
   });
 
   it('groups resources by category', async () => {

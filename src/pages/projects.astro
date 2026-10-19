@@ -1,22 +1,68 @@
 ---
 import ProjectCard from '../components/ProjectCard.astro';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import SplitLayout from '../layouts/SplitLayout.astro';
 import { getProjectsPageData, getSiteData } from '../lib/content';
 
 const [site, page] = await Promise.all([getSiteData(), getProjectsPageData()]);
+
+const projectSections = [
+	{ id: 'interactive', label: 'Interactive & 3D' },
+	{ id: 'agents', label: 'Agent Systems' },
+	{ id: 'tools', label: 'Tools & Systems' },
+];
+
+const interactiveProjects = page.projects.filter(
+	(p) => p.slug === 'chongqing-3d' || p.tags.includes('three.js') || p.tags.includes('webgl'),
+);
+const agentProjects = page.projects.filter(
+	(p) =>
+		(p.tags.includes('agents') ||
+			p.tags.includes('tooling') ||
+			p.slug === 'agent-orchestration' ||
+			p.slug === 'harness-toolkit') &&
+		!interactiveProjects.includes(p),
+);
+const toolProjects = page.projects.filter(
+	(p) => !interactiveProjects.includes(p) && !agentProjects.includes(p),
+);
 ---
 
-<BaseLayout title={`Projects · ${site.seo.title}`} description="Selected engineering and research projects." navigation={site.navigation.items} pathname="/projects">
-	<section class="section page-flow">
-		<span class="eyebrow" data-animate="fade">Projects</span>
-		<h1 class="page-title" data-animate data-delay="100">Work worth opening in a new tab.</h1>
-		<p class="page-summary" data-animate data-delay="200">A focused list of shipped, explored, and ongoing work. Each item is concise, linked, and easy to scan.</p>
-		<div class="editorial-list projects-listing">
-			{page.projects.map((project, i) => (
-				<div data-animate data-delay={String(i * 120)}>
-					<ProjectCard project={project} />
-				</div>
+<SplitLayout
+	title={`Projects · ${site.seo.title}`}
+	description="Selected engineering, spatial 3D, and AI agent projects."
+	navigation={site.navigation.items}
+	profile={site.profile}
+	pathname="/projects"
+	activeSection="interactive"
+	sidebarSections={projectSections}
+>
+	<section id="interactive" class="split-section stagger-el">
+		<h2 class="section-title">Interactive &amp; 3D</h2>
+		<p class="section-desc">Spatial computing, WebGL 3D graphics, and real-time interactive experiences.</p>
+		<div class="projects-listing">
+			{interactiveProjects.map((project) => (
+				<ProjectCard project={project} />
 			))}
 		</div>
 	</section>
-</BaseLayout>
+
+	<section id="agents" class="split-section stagger-el">
+		<h2 class="section-title">Agent Systems</h2>
+		<p class="section-desc">Multi-agent collaboration, model routing, and agent harness workflows.</p>
+		<div class="projects-listing">
+			{agentProjects.map((project) => (
+				<ProjectCard project={project} />
+			))}
+		</div>
+	</section>
+
+	<section id="tools" class="split-section stagger-el">
+		<h2 class="section-title">Tools &amp; Systems</h2>
+		<p class="section-desc">Developer toolchains, documentation systems, and web architecture.</p>
+		<div class="projects-listing">
+			{toolProjects.map((project) => (
+				<ProjectCard project={project} />
+			))}
+		</div>
+	</section>
+</SplitLayout>

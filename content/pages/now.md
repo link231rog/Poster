@@ -1,12 +1,10 @@
 ---
 title: Now
-updated_at: "2026-06-28"
+updated_at: "2026-10-18"
 sections:
   - section: Building
     items:
-      - "OpenCode Workflows - a toolkit for reproducible agent orchestration"
-      - "Poster - this site, a static-first personal infrastructure experiment"
-      - "A research prototype for evaluating agent guardrails"
+      - "AI-native workflows across 3D, video, and agent workflow construction"
   - section: Reading
     items:
       - "Designing Data-Intensive Applications (re-reading chapter by chapter)"
@@ -14,9 +12,7 @@ sections:
       - "Various blog posts on static site architecture"
   - section: Thinking About
     items:
-      - "How to make agent systems more legible and debuggable"
-      - "The intersection of education and AI tooling"
-      - "What 'developer experience' really means beyond syntax sugar"
+      - "Decision Model"
   - section: Learning
     items:
       - "Rust - for building faster, more reliable CLI tools"
