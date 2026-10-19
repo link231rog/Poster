@@ -35,22 +35,32 @@ const { title, description, navigation, profile, pathname = '/', activeSection =
 		<title>{title}</title>
 		<script is:inline>
 			(() => {
-				const savedTheme = localStorage.getItem('theme');
-				if (savedTheme) {
-					document.documentElement.setAttribute('data-theme', savedTheme);
-				} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-					document.documentElement.setAttribute('data-theme', 'light');
-				} else {
-					document.documentElement.setAttribute('data-theme', 'dark');
+				function applyPreferences(doc = document) {
+					const root = doc.documentElement;
+					const savedTheme = localStorage.getItem('theme');
+					if (savedTheme) {
+						root.setAttribute('data-theme', savedTheme);
+					} else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+						root.setAttribute('data-theme', 'light');
+					} else {
+						root.setAttribute('data-theme', 'dark');
+					}
+
+					const savedLang = localStorage.getItem('lang');
+					if (savedLang) {
+						root.setAttribute('data-lang', savedLang);
+					} else {
+						const isZh = navigator.language && navigator.language.startsWith('zh');
+						root.setAttribute('data-lang', isZh ? 'zh' : 'en');
+					}
 				}
 
-				const savedLang = localStorage.getItem('lang');
-				if (savedLang) {
-					document.documentElement.setAttribute('data-lang', savedLang);
-				} else {
-					const isZh = navigator.language && navigator.language.startsWith('zh');
-					document.documentElement.setAttribute('data-lang', isZh ? 'zh' : 'en');
-				}
+				applyPreferences(document);
+
+				// Persist attributes across Astro ClientRouter SPA navigations
+				document.addEventListener('astro:before-swap', (ev) => {
+					applyPreferences(ev.newDocument);
+				});
 			})();
 		</script>
 		<ClientRouter />
