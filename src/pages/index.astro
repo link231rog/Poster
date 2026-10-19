@@ -1,13 +1,18 @@
 ---
+import ProjectCard from '../components/ProjectCard.astro';
 import SplitLayout from '../layouts/SplitLayout.astro';
-import { getSiteData } from '../lib/content';
+import { getProjects, getSiteData } from '../lib/content';
 
-const site = await getSiteData();
+const [site, allProjects] = await Promise.all([getSiteData(), getProjects()]);
+
+const featuredProjects = allProjects.filter(
+	(p) => p.slug === 'chongqing-3d' || p.slug === 'fan-demo' || p.slug === 'fan-promo',
+);
 
 const sidebarSections = [
 	{ id: 'research', label: 'Research', labelZh: '科研经历' },
 	{ id: 'background', label: 'Background & Awards', labelZh: '学业与荣誉' },
-	{ id: 'projects-gateway', label: 'Projects Showcase', labelZh: '精选项目' },
+	{ id: 'projects', label: 'Featured Projects', labelZh: '精选项目' },
 ];
 ---
 
@@ -113,37 +118,24 @@ const sidebarSections = [
 		</ul>
 	</section>
 
-	<section id="projects-gateway" class="split-section stagger-el">
+	<section id="projects" class="split-section stagger-el">
 		<h2 class="section-title">
-			<span class="lang-en">Projects Showcase</span>
+			<span class="lang-en">Featured Projects</span>
 			<span class="lang-zh">精选项目</span>
 		</h2>
 		<p class="section-desc">
-			<span class="lang-en">Engineering implementations, interactive 3D demos, and agent systems are organized in the dedicated Projects page with live URLs.</span>
-			<span class="lang-zh">涵盖 3D 空间交互原型、多智能体协同系统与工程工具链，支持在线直接体验与试玩。</span>
+			<span class="lang-en">Core 3D spatial computing, interactive product prototypes, and kinematics simulation demos with live deployments.</span>
+			<span class="lang-zh">涵盖 3D 空间交互原型、工业级交互演示与动力学仿真短片，均已支持在线直接体验与试玩。</span>
 		</p>
-		<ul class="subsection-list">
-			<li>
-				<span class="lang-en"><a href="https://project-3d-chongqin.pages.dev/" target="_blank" rel="noreferrer">Chongqing 3D Interactive Web</a> (Three.js spatial map)</span>
-				<span class="lang-zh"><a href="https://project-3d-chongqin.pages.dev/" target="_blank" rel="noreferrer">重庆 3D 空间交互地图</a>（基于 Three.js 的立体山城多层级空间导航）</span>
-			</li>
-			<li>
-				<span class="lang-en"><a href="https://project-fan-demo.pages.dev/" target="_blank" rel="noreferrer">Fan Blade Anatomy &amp; Prototype</a> (Isometric interactive demo)</span>
-				<span class="lang-zh"><a href="https://project-fan-demo.pages.dev/" target="_blank" rel="noreferrer">扇叶解剖与交互原型</a>（等轴测工业级双主题实时在线交互）</span>
-			</li>
-			<li>
-				<span class="lang-en"><a href="https://project-fan-video.pages.dev/" target="_blank" rel="noreferrer">Axial Fan 3D Concept Promo Video</a> (1080P kinematics simulation)</span>
-				<span class="lang-zh"><a href="https://project-fan-video.pages.dev/" target="_blank" rel="noreferrer">轴向风扇概念样机 3D 宣传片</a>（1080P 高清动力学仿真与快拆自锁短片）</span>
-			</li>
-			<li>
-				<span class="lang-en">Agent Orchestration &amp; Harness Engineering Toolkit</span>
-				<span class="lang-zh">智能体编排协作调度系统 &amp; Harness 工具套件</span>
-			</li>
-		</ul>
-		<div style="margin-top: 24px;">
+		<div class="projects-listing">
+			{featuredProjects.map((project) => (
+				<ProjectCard project={project} />
+			))}
+		</div>
+		<div class="projects-more-cta">
 			<a class="button" href={`${import.meta.env.BASE_URL}/projects`}>
-				<span class="lang-en">View all projects &amp; live demos &rarr;</span>
-				<span class="lang-zh">浏览全部项目与在线 Demo &rarr;</span>
+				<span class="lang-en">View all 6 engineering projects &amp; toolchains &rarr;</span>
+				<span class="lang-zh">浏览全部 6 个工程项目与工具链 &rarr;</span>
 			</a>
 		</div>
 	</section>
