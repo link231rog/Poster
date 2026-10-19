@@ -5,7 +5,8 @@ summary: Automation engineer turned AI Agent researcher.
 
 ## Background
 
-**B.Eng. in Automation** at **Southwest University (211)**, Chongqing — **GPA 3.84**, ranked in the **top 5%** of my class.
+- **HKUST(GZ)**
+- **B.Eng. in Automation** at **Southwest University (211)**, Chongqing — **GPA 3.84**, ranked in the **top 5%** of my class.
 
 Not the typical CS path, and that's exactly the point. Automation gave me a systematic way of thinking: control theory, signal processing, embedded systems. I learned to treat software as part of a larger engineered system, not an isolated artifact.
 
