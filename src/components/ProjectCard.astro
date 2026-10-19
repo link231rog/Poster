@@ -44,8 +44,17 @@ const coverSrc = project.cover
 	<div class="section">
 		<div class="section-head">
 			<h3>
-				<span class="lang-en">{project.title}</span>
-				<span class="lang-zh">{project.titleZh || project.title}</span>
+				{project.demo ? (
+					<a href={project.demo} target="_blank" rel="noreferrer" class="project-title-link">
+						<span class="lang-en">{project.title}</span>
+						<span class="lang-zh">{project.titleZh || project.title}</span>
+					</a>
+				) : (
+					<>
+						<span class="lang-en">{project.title}</span>
+						<span class="lang-zh">{project.titleZh || project.title}</span>
+					</>
+				)}
 			</h3>
 			<span class="meta">{project.year}</span>
 		</div>
@@ -63,22 +72,18 @@ const coverSrc = project.cover
 	<ul class="tag-list muted-tags">
 		{project.tags.map((tag) => <li class="tag">{tag}</li>)}
 	</ul>
-	<div class="cta-row">
-		{project.demo && (
-			<a class="button" href={project.demo} target="_blank" rel="noreferrer">
-				<span class="lang-en">Live Demo ↗</span>
-				<span class="lang-zh">在线体验 ↗</span>
-			</a>
-		)}
-		{project.links && project.links.map((link) => (
-			<a class="button-secondary" href={link.url} target="_blank" rel="noreferrer">
-				<span class="lang-en">{link.label} ↗</span>
-				<span class="lang-zh">{link.labelZh || link.label} ↗</span>
-			</a>
-		))}
-		{project.repo && (
-			<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
-		)}
-	</div>
+	{((project.links && project.links.length > 0) || project.repo) && (
+		<div class="cta-row">
+			{project.links && project.links.map((link) => (
+				<a class="button-secondary" href={link.url} target="_blank" rel="noreferrer">
+					<span class="lang-en">{link.label} ↗</span>
+					<span class="lang-zh">{link.labelZh || link.label} ↗</span>
+				</a>
+			))}
+			{project.repo && (
+				<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
+			)}
+		</div>
+	)}
 </article>
 
