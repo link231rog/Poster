@@ -61,19 +61,31 @@ const coverSrc = project.cover
 		<p class="lang-en">{project.summary}</p>
 		<p class="lang-zh">{project.summaryZh || project.summary}</p>
 	</div>
-	{project.demo && (
-		<div class="project-url">
-			<span class="eyebrow" style="margin-right: 6px; font-size: 11px;">URL:</span>
-			<a href={project.demo} target="_blank" rel="noreferrer" class="project-url-link">
-				{project.demo}
-			</a>
+	{(project.demo || project.repo) && (
+		<div class="project-urls-list">
+			{project.demo && (
+				<div class="project-url">
+					<span class="eyebrow" style="font-size: 11px; min-width: 44px;">{project.repo ? 'DEMO:' : 'URL:'}</span>
+					<a href={project.demo} target="_blank" rel="noreferrer" class="project-url-link">
+						{project.demo}
+					</a>
+				</div>
+			)}
+			{project.repo && (
+				<div class="project-url">
+					<span class="eyebrow" style="font-size: 11px; min-width: 44px;">REPO:</span>
+					<a href={project.repo} target="_blank" rel="noreferrer" class="project-url-link">
+						{project.repo}
+					</a>
+				</div>
+			)}
 		</div>
 	)}
 	<ul class="tag-list muted-tags">
 		{project.tags.map((tag) => <li class="tag">{tag}</li>)}
 	</ul>
 	{((project.links && project.links.length > 0) || project.repo) && (
-		<div class="cta-row">
+		<div class="cta-row" style="margin-top: 14px;">
 			{project.links && project.links.map((link) => (
 				<a class="button-secondary" href={link.url} target="_blank" rel="noreferrer">
 					<span class="lang-en">{link.label} ↗</span>
@@ -81,7 +93,10 @@ const coverSrc = project.cover
 				</a>
 			))}
 			{project.repo && (
-				<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">GitHub</a>
+				<a class="button-secondary" href={project.repo} target="_blank" rel="noreferrer">
+					<span class="lang-en">GitHub (Open Source) ↗</span>
+					<span class="lang-zh">开源仓库 ↗</span>
+				</a>
 			)}
 		</div>
 	)}

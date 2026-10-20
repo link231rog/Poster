@@ -395,6 +395,15 @@ p { color: var(--text); margin: 0; }
 .project-card h3 a:hover {
   color: var(--accent);
 }
+.project-urls-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+.project-urls-list .project-url {
+  margin: 0;
+}
 .project-url {
   display: flex;
   align-items: center;
