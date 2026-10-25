@@ -39,6 +39,7 @@ describe('content assembly', () => {
       'fan-promo',
       'agent-orchestration',
       'harness-toolkit',
+      'yuanbao-detective',
       'markdown-workflow',
       'poster-site',
     ]);
