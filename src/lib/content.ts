@@ -31,6 +31,7 @@ function sortProjects(projects: Project[]) {
 		'chongqing-3d': 1,
 		'fan-demo': 2,
 		'fan-promo': 3,
+		'reset-film': 4,
 	};
 
 	return [...projects].sort((a, b) => {
