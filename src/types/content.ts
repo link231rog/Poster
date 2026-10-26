@@ -88,6 +88,7 @@ export type BlogPost = {
 	featured: boolean;
 	body: string;
 	html?: string;
+	url?: string;
 };
 
 export type Photo = {

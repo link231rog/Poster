@@ -222,6 +222,7 @@ export async function getBlogPosts(opts?: { includeDraft?: boolean }): Promise<B
 				featured: parsed.data.featured ?? false,
 				body: parsed.content.trim(),
 				html,
+				url: parsed.data.url ?? undefined,
 			} satisfies BlogPost;
 		}),
 	);
@@ -248,6 +249,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
 			featured: parsed.data.featured ?? false,
 			body: parsed.content.trim(),
 			html,
+			url: parsed.data.url ?? undefined,
 		};
 	} catch {
 		return null;

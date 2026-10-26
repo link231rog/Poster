@@ -5,4 +5,6 @@ items:
   - href: /projects
     label: Projects
     label_zh: 工程与项目
-
+  - href: /blog
+    label: Blog
+    label_zh: 博客
