@@ -1,8 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "poster",
-  "compatibility_date": "2026-11-01",
-  "assets": {
-    "directory": "./dist"
-  }
+  "name": "link231rog",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-11-01"
 }
