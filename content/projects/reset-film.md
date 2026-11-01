@@ -24,6 +24,7 @@ links:
 featured: true
 status: completed
 year: 2026
+date: 2026-10-25
 ---
 
 A 1080P animated short film built entirely through code (Remotion, React, Three.js, and Blender).

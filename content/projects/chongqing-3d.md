@@ -16,6 +16,7 @@ cover: /projects/chongqing-3d-cover.jpg
 featured: true
 status: shipped
 year: 2026
+date: 2026-10-20
 ---
 
 A 3D interactive web showcase of Chongqing's Yuzhong Peninsula built with Three.js. Reconstructs mountain city topography and explores multi-level spatial navigation to address the limitations of traditional 2D navigation in extreme vertical terrain.

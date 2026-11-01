@@ -51,6 +51,7 @@ export type Project = {
 	featured: boolean;
 	status: string;
 	year: number;
+	date?: string;
 	body: string;
 };
 

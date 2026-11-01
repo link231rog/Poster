@@ -12,6 +12,7 @@ repo: null
 featured: false
 status: shipped
 year: 2025
+date: 2025-11-20
 ---
 
 The simplest tools for the hardest problems.

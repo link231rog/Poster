@@ -12,6 +12,7 @@ repo: null
 featured: true
 status: ongoing
 year: 2026
+date: 2026-01-15
 ---
 
 From multi-model routing to agent role division — building reusable agent collaboration frameworks.

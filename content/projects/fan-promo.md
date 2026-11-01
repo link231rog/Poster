@@ -15,6 +15,7 @@ cover: /projects/fan-promo-cover.jpg
 featured: true
 status: completed
 year: 2026
+date: 2026-10-19
 ---
 
 A 1080P 3D concept prototype promotional film with full deterministic kinematics simulation. Highlights dovetail quick-release locking, 180 RPM cruise aerodynamic rotation, and CFD streamline passage.

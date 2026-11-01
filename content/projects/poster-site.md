@@ -13,4 +13,5 @@ demo: https://link231rog.github.io/Poster/
 featured: false
 status: ongoing
 year: 2025
+date: 2025-08-10
 ---

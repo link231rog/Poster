@@ -12,6 +12,7 @@ repo: null
 featured: true
 status: ongoing
 year: 2026
+date: 2026-02-01
 ---
 
 Engineering practice for Agent toolchains: from prompt management to multi-agent collaboration.

@@ -14,6 +14,7 @@ cover: /projects/yuanbao-detective-cover.jpg
 featured: true
 status: shipped
 year: 2026
+date: 2026-10-24
 ---
 
 A fact-checking system for consumer claims and online rumors. It retrieves primary sources through Tencent Yuanbao search, merges syndicated reposts so one article counts as one source, checks every citation against the original text, and reports a verdict with false / true / uncertain probabilities plus clickable source links.

@@ -31,17 +31,18 @@ describe('content assembly', () => {
     expect(page.home.hero.primaryCta.href).toBe('/projects');
   });
 
-  it('sorts projects descending by year and featured first on homepage selection', async () => {
+  it('sorts projects chronologically descending from newest to oldest', async () => {
     const page = await getProjectsPageData();
 
     expect(page.projects.map((project) => project.slug)).toEqual([
-      'chongqing-3d',
-      'fan-demo',
-      'fan-promo',
+      'paper-daily',
       'reset-film',
-      'agent-orchestration',
-      'harness-toolkit',
       'yuanbao-detective',
+      'chongqing-3d',
+      'fan-promo',
+      'fan-demo',
+      'harness-toolkit',
+      'agent-orchestration',
       'markdown-workflow',
       'poster-site',
     ]);

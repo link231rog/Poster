@@ -22,6 +22,7 @@ links:
 featured: true
 status: demo
 year: 2026
+date: 2026-10-18
 ---
 
 Interactive concept prototype and anatomy inspection of aerodynamic fan blades. Features precision isometric drafting, layered component breakdown, and dual-theme views.

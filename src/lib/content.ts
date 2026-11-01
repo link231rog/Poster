@@ -26,19 +26,18 @@ async function readMarkdownFile<T>(filePath: string): Promise<{ data: T; content
 	};
 }
 
-function sortProjects(projects: Project[]) {
-	const priorityOrder: Record<string, number> = {
-		'chongqing-3d': 1,
-		'fan-demo': 2,
-		'fan-promo': 3,
-		'reset-film': 4,
-	};
+function toDateStr(val: any): string | undefined {
+	if (!val) return undefined;
+	if (val instanceof Date) return val.toISOString().slice(0, 10);
+	return String(val);
+}
 
+function sortProjects(projects: Project[]) {
 	return [...projects].sort((a, b) => {
-		const orderA = priorityOrder[a.slug] ?? 99;
-		const orderB = priorityOrder[b.slug] ?? 99;
-		if (orderA !== orderB) return orderA - orderB;
-		return b.year - a.year || a.title.localeCompare(b.title);
+		const dateA = a.date || `${a.year}`;
+		const dateB = b.date || `${b.year}`;
+		if (dateA !== dateB) return dateB.localeCompare(dateA);
+		return a.title.localeCompare(b.title);
 	});
 }
 
@@ -112,6 +111,7 @@ export async function getProjects(): Promise<Project[]> {
 				featured: Boolean(data.featured),
 				status: data.status,
 				year: Number(data.year),
+				date: toDateStr(data.date),
 				body: content,
 			} satisfies Project;
 		}),
