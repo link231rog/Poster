@@ -16,6 +16,7 @@ describe('content assembly', () => {
     expect(site.navigation.items).toEqual([
       { href: '/', label: 'Research', labelZh: '科研与背景' },
       { href: '/projects', label: 'Projects', labelZh: '工程与项目' },
+      { href: '/blog', label: 'Blog', labelZh: '博客' },
     ]);
     expect(site.seo.title).toContain('Zixuan');
   });
@@ -37,6 +38,7 @@ describe('content assembly', () => {
       'chongqing-3d',
       'fan-demo',
       'fan-promo',
+      'reset-film',
       'agent-orchestration',
       'harness-toolkit',
       'yuanbao-detective',
