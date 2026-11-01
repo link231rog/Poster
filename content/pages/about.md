@@ -1,14 +1,14 @@
 ---
 title: About Me
-summary: Automation engineer turned AI Agent researcher.
+summary: AI Agent researcher and engineer.
 ---
 
 ## Background
 
 - **HKUST(GZ)**
-- **B.Eng. in Automation** at **Southwest University (211)**, Chongqing — **GPA 3.84**, ranked in the **top 5%** of my class.
+- **Undergraduate** at **Southwest University (211)**, Chongqing — **GPA 3.84**, ranked in the **top 5%** of my class.
 
-Not the typical CS path, and that's exactly the point. Automation gave me a systematic way of thinking: control theory, signal processing, embedded systems. I learned to treat software as part of a larger engineered system, not an isolated artifact.
+Engineering gave me a systematic way of thinking: control systems, signal analysis, and embedded thinking. I learned to treat software as part of a larger engineered system, not an isolated artifact.
 
 **Other:** CET-6 540 · Preparing for IELTS
 
@@ -20,7 +20,7 @@ Research Assistant at **[DIGAI Lab](https://yangmenglinsite.github.io/)**, **HKU
 - **Decision Model Harness** — research project in progress
 - Member of **EZE LAB**, Southwest University, advised by **[Prof. Junjie Huang](https://huangjunjie-cs.github.io/)**
 
-The transition from Automation to AI research felt natural. Both are about building systems that behave predictably under uncertainty — you just swap differential equations for latent spaces.
+The transition to AI research felt natural. Both are about building systems that behave predictably under uncertainty — you just swap differential equations for latent spaces.
 
 ## Engineering
 
